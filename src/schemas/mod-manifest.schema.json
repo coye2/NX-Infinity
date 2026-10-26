@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nx-api:mod-manifest:v1",
+  "title": "NX Infinity runtime exact-build mod manifest",
+  "description": "Directory bundle manifest. Runtime validation additionally enforces exact inventories, hashes, safe paths, no host scripts/executables, and IPS structure.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "modId", "version", "titleId", "buildId", "format", "files"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "modId": { "$ref": "#/$defs/identifier" },
+    "version": { "$ref": "#/$defs/identifier" },
+    "titleId": { "type": "string", "pattern": "^[0-9a-fA-F]{16}$" },
+    "buildId": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
+      "description": "Exact full 32-byte build identity. Short build prefixes and wildcards are rejected."
+    },
+    "format": { "const": "nx-overlay-v1" },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/file" }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,95}$"
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "size"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 240,
+          "pattern": "^(?:romfs/.+|exefs/.+\\.[iI][pP][sS])$",
+          "description": "Relative path below payload/. Runtime also rejects traversal, links, case collisions, nonportable components, disallowed executable/script extensions, and file/directory collisions."
+        },
+        "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8589934592,
+          "description": "Exact byte length. Runtime also enforces its configured aggregate payload limit."
+        }
+      }
+    }
+  }
+}

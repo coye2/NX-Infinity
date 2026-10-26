@@ -1,0 +1,16 @@
+name: Checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        with:
+          dotnet-version: '10.0.402'
+      - run: dotnet build src/NxInfinity.slnx -c Release
+      - run: dotnet run --project src/tests/NxInfinity.Runtime.ContractTests -c Release --no-build
+      - run: dotnet run --project src/tests/NxInfinity.Runtime.Services.Tests -c Release --no-build

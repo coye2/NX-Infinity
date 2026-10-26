@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>0.3.2-dev</Version>
+    <Description>NX local game library, backend routing, checked mod and save storage, and exact-build enhancement profile contracts.</Description>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../NxInfinity.Runtime/NxInfinity.Runtime.csproj" />
+  </ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="NxInfinity.Runtime.Services.Tests" /></ItemGroup>
+</Project>

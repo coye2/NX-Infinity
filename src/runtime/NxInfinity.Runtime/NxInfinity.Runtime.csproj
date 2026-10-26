@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>NxInfinity.Runtime</AssemblyName>
+    <RootNamespace>NxInfinity.Runtime</RootNamespace>
+    <Version>0.3.2-dev</Version>
+    <Description>Typed local SDK for source-integrated Nintendo Switch emulation cores.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+</Project>

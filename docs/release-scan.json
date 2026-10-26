@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "result": "completed_no_detections",
+  "packages": [
+    {
+      "file": "NX-Infinity-v1.0.0-win-x64.zip",
+      "bytes": 181712007,
+      "sha256": "f127537ee55987a7d284ad34d9196e275e6c14bf8d51d5932d15a914af77a94e",
+      "unchangedAfterScan": true,
+      "startedUtc": "2026-10-26T22:46:06.2548929Z",
+      "finishedUtc": "2026-10-26T22:46:25.2395025Z",
+      "scanner": "Microsoft Defender Antivirus",
+      "engineVersion": "1.1.26090.9",
+      "signatureVersion": "1.461.211.0",
+      "signaturesUpdatedUtc": "2026-10-26T03:40:57.0000000Z",
+      "scannerExitCode": 0,
+      "result": "completed_no_detections",
+      "scanType": "custom_archive_no_remediation_exclusions_ignored"
+    },
+    {
+      "file": "NX-Infinity-v1.0.0-linux-proton-x64.zip",
+      "bytes": 181712413,
+      "sha256": "cfad31dad8a4c02ecf5636b39efb21ce3fb754e8308f2e7c74c115040316bef4",
+      "unchangedAfterScan": true,
+      "startedUtc": "2026-10-26T22:46:25.6573244Z",
+      "finishedUtc": "2026-10-26T22:46:44.6333875Z",
+      "scanner": "Microsoft Defender Antivirus",
+      "engineVersion": "1.1.26090.9",
+      "signatureVersion": "1.461.211.0",
+      "signaturesUpdatedUtc": "2026-10-26T03:40:57.0000000Z",
+      "scannerExitCode": 0,
+      "result": "completed_no_detections",
+      "scanType": "custom_archive_no_remediation_exclusions_ignored"
+    }
+  ]
+}

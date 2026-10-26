@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "1.0.0",
+  "coreRevision": "67591deee07ab2ce86fc9b72c42e8b64c95ba1b3",
+  "localAuditPassed": true,
+  "auditStages": [
+    {
+      "name": "NxInfinity.Diagnostics.Worker.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.TextureStreaming.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.TextureStreaming.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.TextureTracking.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.TextureTracking.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.ShaderPolling.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.ShaderPolling.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Core.Regression.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Core.Regression.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Core.Performance.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Core.Performance.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.ContractTests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.ContractTests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.HostProtocol.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.HostProtocol.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Services.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Services.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.ProtonPaths.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.ProtonPaths.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Network.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Network.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Metadata.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Metadata.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Recovery.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Runtime.Recovery.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Tests.build",
+      "exitCode": 0
+    },
+    {
+      "name": "NxInfinity.Tests.run",
+      "exitCode": 0
+    },
+    {
+      "name": "local-features",
+      "exitCode": 0
+    },
+    {
+      "name": "pc-bridge",
+      "exitCode": 0
+    },
+    {
+      "name": "totk-timing-callback",
+      "exitCode": 0
+    },
+    {
+      "name": "translation-contracts",
+      "exitCode": 0
+    }
+  ],
+  "desktopHomeUiChecks": 57,
+  "packagedWindowsProbe": {
+    "exitStatus": 0,
+    "endReason": "probe_completed",
+    "coreVerified": true,
+    "gracefulShutdown": true
+  },
+  "protonInstaller": {
+    "passed": true,
+    "scope": "Ubuntu WSL managed installation of final application, repeat install and preserved prefix",
+    "executableSha256": "a42a60813ea2ddfa90ce025e672fde5a15bbe1a0b809ad0c6afdb62dcbac2dc5",
+    "protonApplicationExecuted": false
+  },
+  "protonHelperTests": 6,
+  "protonGameplayQualified": false,
+  "threeDAllStarsTouchHardwareVerified": false,
+  "mp4": {
+    "gameplayObserved": true,
+    "shaderCacheEnabled": true,
+    "resolutionScale": 1.5,
+    "anisotropy": 16,
+    "startupSeconds": 16.9269841,
+    "oneSecondSamples": 154,
+    "longestObservedFrameIntervalMs": 1482.2283,
+    "userReportedStuttersRemain": true,
+    "fullPlaythroughQualified": false
+  },
+  "githubActions": "blocked_by_account_billing_or_spending_limit",
+  "realTranslationInferenceTested": false,
+  "archiveVirusScan": "separate_hash_bound_release_scan_report",
+  "publicV1Checks": {
+    "homeUiCases": 12,
+    "artworkUiCases": 9,
+    "fullUiCases": 48,
+    "coreSourceAbsentFromSymbols": true,
+    "metadataContractsPassed": 17,
+    "metadataContractsSkipped": 1,
+    "liveMetadataCases": 2,
+    "applicationSha256": "a42a60813ea2ddfa90ce025e672fde5a15bbe1a0b809ad0c6afdb62dcbac2dc5",
+    "compiledCoreUnchanged": true,
+    "debugSymbolsIncluded": false,
+    "packagedWindowsProbePassed": true,
+    "protonInstaller": {
+      "passed": true,
+      "scope": "Ubuntu WSL managed installation of final application, repeat install and preserved prefix",
+      "executableSha256": "a42a60813ea2ddfa90ce025e672fde5a15bbe1a0b809ad0c6afdb62dcbac2dc5",
+      "protonApplicationExecuted": false
+    },
+    "protonPayloadMatchesWindows": true,
+    "physicalControllerRetested": false
+  }
+}

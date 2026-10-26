@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="runtime/NxInfinity.Runtime/NxInfinity.Runtime.csproj" />
+  <Project Path="runtime/NxInfinity.Runtime.Services/NxInfinity.Runtime.Services.csproj" />
+  <Project Path="runtime/NxInfinity.Runtime.Enhancements/NxInfinity.Runtime.Enhancements.csproj" />
+  <Project Path="tests/NxInfinity.Runtime.ContractTests/NxInfinity.Runtime.ContractTests.csproj" />
+  <Project Path="tests/NxInfinity.Runtime.Services.Tests/NxInfinity.Runtime.Services.Tests.csproj" />
+</Solution>

@@ -1,0 +1,6 @@
+{
+  "matched": true,
+  "comparison": "Every shared file compared byte for byte; only the root Linux installer differs",
+  "windows": "f127537ee55987a7d284ad34d9196e275e6c14bf8d51d5932d15a914af77a94e",
+  "proton": "cfad31dad8a4c02ecf5636b39efb21ce3fb754e8308f2e7c74c115040316bef4"
+}

@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'NxInfinity.Runtime' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Services' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Enhancements'">
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Authors>NX Infinity runtime contributors</Authors>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'NxInfinity.Runtime' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Services' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Enhancements'">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

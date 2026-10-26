@@ -1,0 +1,402 @@
+[
+  {
+    "Id": "nxi-timing-totk-100",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.0.0"
+    ],
+    "BuildIdPrefix": "082CE09B06E33A123CB1E2770F5F9147709033DB",
+    "ExactBuildId": "082CE09B06E33A123CB1E2770F5F9147709033DB000000000000000000000000",
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-totk-110",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.1.0"
+    ],
+    "BuildIdPrefix": "D5AD6AC71EF53E3E52417C1B81DBC9B4142AA3B3",
+    "ExactBuildId": null,
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-totk-111",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.1.1"
+    ],
+    "BuildIdPrefix": "168DD518D925C7A327677286E72FEDA833314919",
+    "ExactBuildId": null,
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-totk-112",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.1.2"
+    ],
+    "BuildIdPrefix": "9A10ED9435C06733DA597D8094D9000AB5D3EE60",
+    "ExactBuildId": null,
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-totk-120",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.2.0"
+    ],
+    "BuildIdPrefix": "6F32C68DD3BC7D77AA714B80E92A096A737CDA77",
+    "ExactBuildId": null,
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-totk-121",
+    "TitleId": "0100F2C0115B6000",
+    "GameName": "The Legend of Zelda: Tears of the Kingdom",
+    "Versions": [
+      "1.2.1"
+    ],
+    "BuildIdPrefix": "9B4E43650501A4D4489B4BBFDB740F26AF3CF850",
+    "ExactBuildId": null,
+    "Mechanism": "GuestPlugin",
+    "Embedded": true,
+    "SourceUrl": "https://github.com/MaxLastBreath/TOTK-DFPS/tree/6597364efc5dc1efa01a43e702130d94140449f7",
+    "IdentitySourceUrl": "https://github.com/fayaz12g/totk-aar/blob/a04c5020fed6a4f80a93d45429d67a6dbe1c3fe2/patch.py",
+    "Author": "MaxLastBreath and DFPS++ contributors",
+    "Caution": "Experimental dynamic timing. Guest hooks, cutscenes, physics and sustained 60 FPS have not been qualified in NX."
+  },
+  {
+    "Id": "nxi-timing-01004d300c5ae000-100",
+    "TitleId": "01004D300C5AE000",
+    "GameName": "Kirby and the Forgotten Land",
+    "Versions": [
+      "1.0.0"
+    ],
+    "BuildIdPrefix": "D9BA7DB72FFAFECD07F5F5535DEC05734E59BCE1",
+    "ExactBuildId": null,
+    "Mechanism": "StaticExecutable",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "D8C99F6CEF50A1B317D97CE2FBC186953B6C399F3B3460626BB58C32769A2AD9",
+    "ArchiveBytes": 6169,
+    "Files": [
+      {
+        "ArchivePath": "[60 FPS Static v1.1.0]/exefs/1.0.0.pchtxt",
+        "OutputName": "1.0.0.pchtxt",
+        "Sha256": "ABBAA70EAFC209EE9B14016104670FF80844AE5C01AB6A4F8AE2945455258B9F",
+        "Bytes": 402,
+        "NsoBuildId": "D9BA7DB72FFAFECD07F5F5535DEC05734E59BCE1"
+      }
+    ],
+    "Caution": "Static 60 FPS: slowdowns can occur below 60; unlocking beyond 60 can speed up gameplay. Not a dynamic timing correction."
+  },
+  {
+    "Id": "nxi-timing-01004d300c5ae000-110",
+    "TitleId": "01004D300C5AE000",
+    "GameName": "Kirby and the Forgotten Land",
+    "Versions": [
+      "1.1.0"
+    ],
+    "BuildIdPrefix": "A6CE40DC3AEDB1BECACD2F1FF4515307C7F2E630000000000000000000000000",
+    "ExactBuildId": null,
+    "Mechanism": "StaticExecutable",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Kirby%20and%20the%20Forgotten%20Land%20%5B01004D300C5AE000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "D8C99F6CEF50A1B317D97CE2FBC186953B6C399F3B3460626BB58C32769A2AD9",
+    "ArchiveBytes": 6169,
+    "Files": [
+      {
+        "ArchivePath": "[60 FPS Static v1.1.0]/exefs/1.1.0.pchtxt",
+        "OutputName": "1.1.0.pchtxt",
+        "Sha256": "8BD22C35A8F634FAA577A165D5752B024F436E2B47D13A3FA1B09DCDDBD03A89",
+        "Bytes": 426,
+        "NsoBuildId": "A6CE40DC3AEDB1BECACD2F1FF4515307C7F2E630000000000000000000000000"
+      }
+    ],
+    "Caution": "Static 60 FPS: slowdowns can occur below 60; unlocking beyond 60 can speed up gameplay. Not a dynamic timing correction."
+  },
+  {
+    "Id": "nxi-timing-0100a3d008c5c000-301",
+    "TitleId": "0100A3D008C5C000",
+    "GameName": "Pokemon Scarlet",
+    "Versions": [
+      "3.0.1",
+      "4.0.0"
+    ],
+    "BuildIdPrefix": "421C5411B487EB4D049DD065FEC9547773E8E598",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Scarlet%20%5B0100A3D008C5C000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Scarlet%20%5B0100A3D008C5C000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Scarlet%20%5B0100A3D008C5C000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "8E684478EB9171CC8AFE04E0D1818D1A8FE53E63C6EDD2551DB8674286342EAE",
+    "ArchiveBytes": 73455,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic FPS Scarlet v4.0.0][ASM] Final Release/exefs/3.0.1-4.0.0.pchtxt",
+        "OutputName": "3.0.1-4.0.0.pchtxt",
+        "Sha256": "3C9038E42DDA33848D40FB1B4D850C16AE22FCC206901924E9497C31BC00A5BB",
+        "Bytes": 3269,
+        "NsoBuildId": "421C5411B487EB4D049DD065FEC9547773E8E598"
+      },
+      {
+        "ArchivePath": "[Dynamic FPS Scarlet v4.0.0][ASM] Final Release/exefs/3.0.1v2.pchtxt",
+        "OutputName": "3.0.1v2.pchtxt",
+        "Sha256": "F932FD10B8A7E5C9E7146B5928E90830D8D5CF2C4401C9286D2B92BCD9955A69",
+        "Bytes": 284,
+        "NsoBuildId": "BB560BDFA85B4A97786AE2C3B7995DF6D58F5567"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-01008f6008c5e000-301",
+    "TitleId": "01008F6008C5E000",
+    "GameName": "Pokemon Violet",
+    "Versions": [
+      "3.0.1",
+      "4.0.0"
+    ],
+    "BuildIdPrefix": "709BFD66115298640155FCC4979DBA151C7CC79A",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Violet%20%5B01008F6008C5E000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Violet%20%5B01008F6008C5E000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pokemon%20Violet%20%5B01008F6008C5E000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "852EB9DAA3797F9C92FD84C76CAA49C2A93B670F2E021202AA967DF7CDD5CEC9",
+    "ArchiveBytes": 73438,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic FPS Violet v4.0.0][ASM] Final Release/exefs/3.0.1-4.0.0.pchtxt",
+        "OutputName": "3.0.1-4.0.0.pchtxt",
+        "Sha256": "3E4831E76E09F23462A6FA1BE891ED4C24C241449AF4E089592B7D526B303C33",
+        "Bytes": 3268,
+        "NsoBuildId": "709BFD66115298640155FCC4979DBA151C7CC79A"
+      },
+      {
+        "ArchivePath": "[Dynamic FPS Violet v4.0.0][ASM] Final Release/exefs/3.0.1v2.pchtxt",
+        "OutputName": "3.0.1v2.pchtxt",
+        "Sha256": "F932FD10B8A7E5C9E7146B5928E90830D8D5CF2C4401C9286D2B92BCD9955A69",
+        "Bytes": 284,
+        "NsoBuildId": "BB560BDFA85B4A97786AE2C3B7995DF6D58F5567"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-0100f43008c44000-100",
+    "TitleId": "0100F43008C44000",
+    "GameName": "Pokémon Legends Z-A",
+    "Versions": [
+      "1.0.0",
+      "1.0.1"
+    ],
+    "BuildIdPrefix": "7222E13ECF6ADB3249B5DD5C57FA40B102245FCE",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "4E166D04C3F523E1D7EA3660E7C35AA1A22A90A269C1E69D3E976B0C10260043",
+    "ArchiveBytes": 30983,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/1.0.0-1.0.1.pchtxt",
+        "OutputName": "1.0.0-1.0.1.pchtxt",
+        "Sha256": "2EC5D904AB3FBEC19E7B4F1441698AD688CFBB34E6789CD630E0DBDC145CB55D",
+        "Bytes": 3428,
+        "NsoBuildId": "7222E13ECF6ADB3249B5DD5C57FA40B102245FCE"
+      },
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/v2.pchtxt",
+        "OutputName": "v2.pchtxt",
+        "Sha256": "7F2195BD132E31750D131B661E4E01273E9BA32AEDBE339B65B498446EA60D0D",
+        "Bytes": 300,
+        "NsoBuildId": "DF7A3960C74C3A4803F826C5871532523AA9CF2A"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-0100f43008c44000-102",
+    "TitleId": "0100F43008C44000",
+    "GameName": "Pokémon Legends Z-A",
+    "Versions": [
+      "1.0.2"
+    ],
+    "BuildIdPrefix": "7FC4289C788771488C172EF768721B2AAB3431EB",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "4E166D04C3F523E1D7EA3660E7C35AA1A22A90A269C1E69D3E976B0C10260043",
+    "ArchiveBytes": 30983,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/1.0.2.pchtxt",
+        "OutputName": "1.0.2.pchtxt",
+        "Sha256": "605FCD25804FCF7F107737987F11F7DB2F73BC28910B70BBFBC48F432CA32462",
+        "Bytes": 3439,
+        "NsoBuildId": "7FC4289C788771488C172EF768721B2AAB3431EB"
+      },
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/v2.pchtxt",
+        "OutputName": "v2.pchtxt",
+        "Sha256": "7F2195BD132E31750D131B661E4E01273E9BA32AEDBE339B65B498446EA60D0D",
+        "Bytes": 300,
+        "NsoBuildId": "DF7A3960C74C3A4803F826C5871532523AA9CF2A"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-0100f43008c44000-200",
+    "TitleId": "0100F43008C44000",
+    "GameName": "Pokémon Legends Z-A",
+    "Versions": [
+      "2.0.0"
+    ],
+    "BuildIdPrefix": "8A1C86C437394B698397A85F45CC776190DBA0F7",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "4E166D04C3F523E1D7EA3660E7C35AA1A22A90A269C1E69D3E976B0C10260043",
+    "ArchiveBytes": 30983,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/2.0.0.pchtxt",
+        "OutputName": "2.0.0.pchtxt",
+        "Sha256": "878A897673AEC1D11DF45D2FBBF38872CE0BA377A87E244CBDBBD23938C7EE63",
+        "Bytes": 4655,
+        "NsoBuildId": "8A1C86C437394B698397A85F45CC776190DBA0F7"
+      },
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/v2.pchtxt",
+        "OutputName": "v2.pchtxt",
+        "Sha256": "7F2195BD132E31750D131B661E4E01273E9BA32AEDBE339B65B498446EA60D0D",
+        "Bytes": 300,
+        "NsoBuildId": "DF7A3960C74C3A4803F826C5871532523AA9CF2A"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-0100f43008c44000-201",
+    "TitleId": "0100F43008C44000",
+    "GameName": "Pokémon Legends Z-A",
+    "Versions": [
+      "2.0.1"
+    ],
+    "BuildIdPrefix": "BCE5D5393B5AA3A84E27B16E7C7F0BE0B7FB9452",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "4E166D04C3F523E1D7EA3660E7C35AA1A22A90A269C1E69D3E976B0C10260043",
+    "ArchiveBytes": 30983,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/2.0.1.pchtxt",
+        "OutputName": "2.0.1.pchtxt",
+        "Sha256": "D186C0027BF0D85BD229858F6D7342CD716E1A7D7FC210F4428952BDE1149F73",
+        "Bytes": 8170,
+        "NsoBuildId": "BCE5D5393B5AA3A84E27B16E7C7F0BE0B7FB9452"
+      },
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/v2.pchtxt",
+        "OutputName": "v2.pchtxt",
+        "Sha256": "7F2195BD132E31750D131B661E4E01273E9BA32AEDBE339B65B498446EA60D0D",
+        "Bytes": 300,
+        "NsoBuildId": "DF7A3960C74C3A4803F826C5871532523AA9CF2A"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  },
+  {
+    "Id": "nxi-timing-0100f43008c44000-202",
+    "TitleId": "0100F43008C44000",
+    "GameName": "Pokémon Legends Z-A",
+    "Versions": [
+      "2.0.2"
+    ],
+    "BuildIdPrefix": "B1F12FD919EAE86AB8A978317677E64BCE443D1F",
+    "ExactBuildId": null,
+    "Mechanism": "Mixed",
+    "Embedded": false,
+    "SourceUrl": "https://github.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/blob/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "IdentitySourceUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "Author": "Fl4sh9174",
+    "ArchiveUrl": "https://raw.githubusercontent.com/Fl4sh9174/Switch-Emulator-Ultrawide-FPS-Mods/ff326515769320709edfd6dfd249b5266b943a1a/Pok%C3%A9mon%20Legends%20Z-A%20%5B0100F43008C44000%5D%5Bmods%5D.zip",
+    "ArchiveSha256": "4E166D04C3F523E1D7EA3660E7C35AA1A22A90A269C1E69D3E976B0C10260043",
+    "ArchiveBytes": 30983,
+    "Files": [
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/2.0.2.pchtxt",
+        "OutputName": "2.0.2.pchtxt",
+        "Sha256": "A9B9DF1266B8701A7C7F7E4E72EC10490E7846EB3913F62E0EFD52EF89A2DDF0",
+        "Bytes": 7987,
+        "NsoBuildId": "B1F12FD919EAE86AB8A978317677E64BCE443D1F"
+      },
+      {
+        "ArchivePath": "[Dynamic 60 FPS v2.0.2] RC3.0/exefs/v2.pchtxt",
+        "OutputName": "v2.pchtxt",
+        "Sha256": "7F2195BD132E31750D131B661E4E01273E9BA32AEDBE339B65B498446EA60D0D",
+        "Bytes": 300,
+        "NsoBuildId": "DF7A3960C74C3A4803F826C5871532523AA9CF2A"
+      }
+    ],
+    "Caution": "Experimental dynamic timing. Correct gameplay speed, physics, animation and cutscenes require retail qualification."
+  }
+]

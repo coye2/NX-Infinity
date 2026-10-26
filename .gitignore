@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+artifacts/
+*.zip
+*.pdb
+*.dmp
+*.keys
+*.xci
+*.nsp

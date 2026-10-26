@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.3.2-dev</Version>
+    <Description>Exact-match enhancement planning and transactional settings for NX Infinity runtime.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TimingEnhancements.json" />
+    <ProjectReference Include="../NxInfinity.Runtime/NxInfinity.Runtime.csproj" />
+    <ProjectReference Include="../NxInfinity.Runtime.Services/NxInfinity.Runtime.Services.csproj" />
+  </ItemGroup>
+</Project>
+
