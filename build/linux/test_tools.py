@@ -28,7 +28,7 @@ import unittest
 import unittest.mock
 import zipfile
 from types import ModuleType, SimpleNamespace
-from typing import Iterator
+from typing import Callable, Iterator
 
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -319,7 +319,10 @@ class PackageTests(ScratchTestCase):
                 packages[rid] = write_runtime_pack(
                     scratch / "nuget",
                     rid,
-                    {"LICENSE.TXT": f"license {rid}\n".encode(), "THIRD-PARTY-NOTICES.TXT": f"notices {rid}\n".encode()},
+                    {
+                        "LICENSE.TXT": f"license {rid}\n".encode(),
+                        "THIRD-PARTY-NOTICES.TXT": f"notices {rid}\n".encode(),
+                    },
                 )
                 extracted = runtime_pack_path(scratch / "nuget", rid).parent
                 write(extracted / "THIRD-PARTY-NOTICES.TXT", b"tampered extracted notice\n")
@@ -394,27 +397,7 @@ class PackageTests(ScratchTestCase):
             replacement = scratch / "replacement.nupkg"
             write_package(replacement, {"NOTICE.txt": b"replaced\n"})
             replaced = replacement.read_bytes()
-            real_fdopen = os.fdopen
-
-            class ReplacedAfterRead:
-                def __init__(self, stream: io.BufferedReader) -> None:
-                    self.stream = stream
-
-                def __enter__(self) -> ReplacedAfterRead:
-                    return self
-
-                def __exit__(self, *details: object) -> None:
-                    self.stream.close()
-
-                def read(self, size: int = -1) -> bytes:
-                    data = self.stream.read(size)
-                    os.replace(replacement, package_path)
-                    return data
-
-            def open_then_replace(descriptor: int, mode: str) -> ReplacedAfterRead:
-                return ReplacedAfterRead(real_fdopen(descriptor, mode))
-
-            with unittest.mock.patch.object(distribution.os, "fdopen", side_effect=open_then_replace):
+            with observed_package_reads(after_read=lambda: os.replace(replacement, package_path)):
                 data = distribution.verified_package(scratch / "nuget", "fixture", "1", expected)
             self.assertEqual(replaced, package_path.read_bytes())
             self.assertEqual(original, data)
@@ -460,15 +443,8 @@ class PackageTests(ScratchTestCase):
                 ("fifo", expected, "not a regular file"),
                 ("fixture", "0" * 64, "identity mismatch"),
             )
-            real_fdopen = os.fdopen
-            streams: list[io.BufferedReader] = []
-
-            def recorded_fdopen(descriptor: int, mode: str) -> io.BufferedReader:
-                streams.append(real_fdopen(descriptor, mode))
-                return streams[-1]
-
             before = open_descriptor_count()
-            with unittest.mock.patch.object(distribution.os, "fdopen", side_effect=recorded_fdopen):
+            with observed_package_reads() as streams:
                 for package_id, identity, message in cases:
                     with (
                         self.subTest(package=package_id),
@@ -493,7 +469,7 @@ class PackageTests(ScratchTestCase):
             for failure in (OSError(errno.EMFILE, os.strerror(errno.EMFILE)), KeyboardInterrupt()):
                 with (
                     self.subTest(failure=type(failure).__name__),
-                    unittest.mock.patch.object(distribution.os, "fdopen", side_effect=failure),
+                    unittest.mock.patch.object(os, "fdopen", side_effect=failure),
                     self.assertRaises(type(failure)),
                 ):
                     distribution.verified_package(scratch / "nuget", "fixture", "1", expected)
@@ -521,6 +497,29 @@ class PackageTests(ScratchTestCase):
             signal.setitimer(signal.ITIMER_REAL, 0)
             signal.signal(signal.SIGALRM, previous)
 
+    def test_blocking_guard_restores_the_outer_timer_less_the_time_spent(self) -> None:
+        fired: list[int] = []
+
+        def outer_handler(signum: int, frame: object) -> None:
+            fired.append(signum)
+
+        previous = signal.signal(signal.SIGALRM, outer_handler)
+        try:
+            signal.setitimer(signal.ITIMER_REAL, 30, 7)
+            with fails_instead_of_blocking():
+                time.sleep(1)
+            remaining, interval = signal.getitimer(signal.ITIMER_REAL)
+            self.assertTrue(25 < remaining <= 29.5)
+            self.assertEqual(7, interval)
+            signal.setitimer(signal.ITIMER_REAL, 0.2)
+            with fails_instead_of_blocking():
+                time.sleep(0.5)
+            time.sleep(0.2)
+            self.assertEqual([signal.SIGALRM], fired)
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            signal.signal(signal.SIGALRM, previous)
+
     def test_distribution_files_never_replace_one_another(self) -> None:
         with self.temporary_directory() as directory:
             scratch = pathlib.Path(directory)
@@ -536,10 +535,62 @@ class PackageTests(ScratchTestCase):
                 package.add_distribution_files(root, external_notices=external)
             self.assertEqual(notice.read_bytes(), clashing_notice.read_bytes())
             launcher = root / "nx-infinity"
-            launcher_bytes = launcher.read_bytes()
+            launcher.write_bytes(b"sentinel launcher\n")
             with self.assertRaisesRegex(ValueError, replaced_file_message(launcher)):
                 package.add_distribution_files(root)
-            self.assertEqual(launcher_bytes, launcher.read_bytes())
+            self.assertEqual(b"sentinel launcher\n", launcher.read_bytes())
+
+    def test_native_notices_never_replace_the_notice_source_record(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            native_hash = write_package(scratch / "nuget/fixture/1/fixture.1.nupkg", {"NOTICE.txt": b"native\n"})
+            root = scratch / "package"
+            record = root / "licenses/native/NOTICE-SOURCES.json"
+            with (
+                unittest.mock.patch.object(distribution, "PACKAGE_HASHES", {("fixture", "1"): native_hash}),
+                unittest.mock.patch.object(
+                    distribution, "NOTICE_SOURCES", (("fixture", "1", "NOTICE.txt", "NOTICE-SOURCES.json"),)
+                ),
+                self.assertRaisesRegex(ValueError, replaced_file_message(record)),
+            ):
+                distribution.add_distribution_files(root, rid="linux-x64", nuget_root=scratch / "nuget")
+            self.assertEqual((distribution.HERE / "NOTICE-SOURCES.json").read_bytes(), record.read_bytes())
+
+    def test_repository_notices_never_replace_a_package_notice(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            notice = next(
+                path for path in common.regular_files(distribution.HERE / "notices")
+                if path.name not in distribution.PACKAGE_ONLY_NOTICES
+            )
+            native_hash = write_package(scratch / "nuget/fixture/1/fixture.1.nupkg", {"NOTICE.txt": b"native\n"})
+            runtime_hash = write_runtime_pack(
+                scratch / "nuget", "linux-x64", {"LICENSE.TXT": b"license\n", "THIRD-PARTY-NOTICES.TXT": b"notices\n"}
+            )
+            root = scratch / "package"
+            clashing = root / "licenses/native" / notice.name
+            with (
+                unittest.mock.patch.object(distribution, "PACKAGE_HASHES", {("fixture", "1"): native_hash}),
+                unittest.mock.patch.object(
+                    distribution, "NOTICE_SOURCES", (("fixture", "1", "NOTICE.txt", notice.name),)
+                ),
+                unittest.mock.patch.object(distribution, "RUNTIME_PACK_HASHES", {"linux-x64": runtime_hash}),
+                self.assertRaisesRegex(ValueError, replaced_file_message(clashing)),
+            ):
+                distribution.add_distribution_files(root, rid="linux-x64", nuget_root=scratch / "nuget")
+            self.assertEqual(b"native\n", clashing.read_bytes())
+
+    def test_tracked_copies_never_replace_an_existing_file(self) -> None:
+        with self.temporary_directory() as directory:
+            destination = pathlib.Path(directory) / "repository"
+            tracked = subprocess.check_output(
+                ["git", "-C", str(distribution.REPOSITORY), "ls-files", "-z", "--", "licenses"]
+            ).split(b"\0")[0].decode("utf-8")
+            existing = destination.joinpath(*pathlib.PurePosixPath(tracked).relative_to("licenses").parts)
+            write(existing, b"sentinel\n")
+            with self.assertRaisesRegex(ValueError, replaced_file_message(existing)):
+                distribution.copy_tracked("licenses", destination)
+            self.assertEqual(b"sentinel\n", existing.read_bytes())
 
     def test_package_notices_never_replace_one_another(self) -> None:
         with self.temporary_directory() as directory:
@@ -582,32 +633,12 @@ class PackageTests(ScratchTestCase):
             package_path = scratch / "nuget/fixture/1/fixture.1.nupkg"
             expected = write_package(package_path, {"NOTICE.txt": b"notice\n"})
             size = package_path.stat().st_size
-            real_fdopen = os.fdopen
-            requested: list[int] = []
-
-            class RecordedRead:
-                def __init__(self, stream: io.BufferedReader) -> None:
-                    self.stream = stream
-
-                def __enter__(self) -> RecordedRead:
-                    return self
-
-                def __exit__(self, *details: object) -> None:
-                    self.stream.close()
-
-                def read(self, size: int = -1) -> bytes:
-                    requested.append(size)
-                    return self.stream.read(size)
-
-            def recorded_fdopen(descriptor: int, mode: str) -> RecordedRead:
-                return RecordedRead(real_fdopen(descriptor, mode))
-
             with (
                 unittest.mock.patch.object(distribution, "MAX_PACKAGE_BYTES", size),
-                unittest.mock.patch.object(distribution.os, "fdopen", side_effect=recorded_fdopen),
+                observed_package_reads() as streams,
             ):
                 self.assertEqual(size, len(distribution.verified_package(scratch / "nuget", "fixture", "1", expected)))
-            self.assertEqual([size + 1], requested)
+            self.assertEqual([[size + 1]], [stream.requested for stream in streams])
             with (
                 unittest.mock.patch.object(distribution, "MAX_PACKAGE_BYTES", size - 1),
                 self.assertRaisesRegex(ValueError, "package exceeds the size bound"),
@@ -759,9 +790,19 @@ class PackageTests(ScratchTestCase):
             scratch = pathlib.Path(directory)
             dotnet = scratch / "dotnet"
             write(dotnet, b"#!/bin/sh\nexit 0\n")
-            write(scratch / "project/global.json", b'{"sdk": {"version": "9.0.100"}}')
-            with self.assertRaisesRegex(
-                ValueError, rf"cannot be run to check the SDK pinned by .*global\.json: {os.strerror(errno.EACCES)}$"
+            pin = scratch / "project/global.json"
+            write(pin, b'{"sdk": {"version": "9.0.100"}}')
+            refusal = f"cannot be run to check the SDK pinned by {re.escape(str(pin))}: "
+            with self.assertRaisesRegex(ValueError, refusal + re.escape(os.strerror(errno.EACCES)) + "$"):
+                package.require_pinned_sdk(dotnet, scratch / "project")
+            with (
+                unittest.mock.patch.object(package.subprocess, "run", side_effect=OSError("fixture failure")),
+                self.assertRaisesRegex(ValueError, refusal + "fixture failure$"),
+            ):
+                package.require_pinned_sdk(dotnet, scratch / "project")
+            with (
+                unittest.mock.patch.object(package.subprocess, "run", side_effect=RuntimeError("not an OSError")),
+                self.assertRaisesRegex(RuntimeError, "not an OSError"),
             ):
                 package.require_pinned_sdk(dotnet, scratch / "project")
 
@@ -2110,6 +2151,43 @@ def open_descriptor_count() -> int:
     return len(os.listdir("/proc/self/fd"))
 
 
+class ObservedPackageStream:
+    def __init__(self, stream: io.BufferedReader, after_read: Callable[[], None]) -> None:
+        self.stream = stream
+        self.after_read = after_read
+        self.requested: list[int] = []
+
+    def __enter__(self) -> ObservedPackageStream:
+        return self
+
+    def __exit__(self, *details: object) -> None:
+        self.stream.close()
+
+    @property
+    def closed(self) -> bool:
+        return self.stream.closed
+
+    def read(self, size: int = -1) -> bytes:
+        self.requested.append(size)
+        data = self.stream.read(size)
+        self.after_read()
+        return data
+
+
+@contextlib.contextmanager
+def observed_package_reads(after_read: Callable[[], None] = lambda: None) -> Iterator[list[ObservedPackageStream]]:
+    # verified_package wraps its descriptor with os.fdopen; the patch is process-wide while it lasts.
+    real_fdopen = os.fdopen
+    streams: list[ObservedPackageStream] = []
+
+    def observe(descriptor: int, mode: str) -> ObservedPackageStream:
+        streams.append(ObservedPackageStream(real_fdopen(descriptor, mode), after_read))
+        return streams[-1]
+
+    with unittest.mock.patch.object(os, "fdopen", side_effect=observe):
+        yield streams
+
+
 def raise_timeout(signum: int, frame: object) -> None:
     # Not an OSError, so the reader under test cannot turn it into an expected refusal.
     raise AssertionError("The operation blocked instead of failing.")
@@ -2119,14 +2197,15 @@ def raise_timeout(signum: int, frame: object) -> None:
 def fails_instead_of_blocking(seconds: float = 5) -> Iterator[None]:
     previous = signal.signal(signal.SIGALRM, raise_timeout)
     started = time.monotonic()
-    outer, _ = signal.setitimer(signal.ITIMER_REAL, seconds)
+    outer, interval = signal.setitimer(signal.ITIMER_REAL, seconds)
     try:
         yield
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
         signal.signal(signal.SIGALRM, previous)
         if outer > 0:
-            signal.setitimer(signal.ITIMER_REAL, max(outer - (time.monotonic() - started), 0.001))
+            # setitimer refuses a negative delay, so an outer timer that expired meanwhile fires at once.
+            signal.setitimer(signal.ITIMER_REAL, max(outer - (time.monotonic() - started), 0.001), interval)
 
 
 REPOSITORY_ARCHIVE_SETTINGS = (

@@ -930,12 +930,13 @@ Earlier evidence, superseded for the archive identities by round 7:
   error; glibc-specific error text in the tests; a duplicate check narrower
   than the AUDIT claimed (runtime, repository and external notices could
   still overwrite one another); one 122-character README line; a duplicated
-  runtime-pack path in a test. Reviewer A further noted that the `[-4000:]`
-  tail truncation of the dotnet explanation was untested, that a timed-out
-  SDK query escaped as a raw `TimeoutExpired` rather than a refusal naming
-  the pin, and that a non-string `global.json` version was refused only by
-  accident (with a different message). (This sentence was added in round 23,
-  after the round-22 reviewers found it missing.)
+  runtime-pack path in a test. Both reviewers also noted that the
+  `[-4000:]` tail truncation of the dotnet explanation was untested;
+  Reviewer A that a timed-out SDK query escaped as a raw `TimeoutExpired`
+  rather than a refusal naming the pin; Reviewer B that a non-string
+  `global.json` version was refused only by accident (with a different
+  message). (Added in round 23 after the round-22 reviewers found it
+  missing; the attribution was corrected in round 24.)
 - Commit `b8191eafeb1191f80924dabcb92a938587e1a965` (index matched all 41
   reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
   to `fork/feat/native-linux-builds`. Fork CI run `40578928738` passed both
@@ -943,8 +944,8 @@ Earlier evidence, superseded for the archive identities by round 7:
   the local verifier passes both archives (813/40 and 811/39), and against
   round 18 the same four commit-dependent members differ per RID and no
   others.
-- Round 22 answers the round-21 should-fix
-  and considers; no packaged file changes:
+- Round 22 answers the round-21 should-fix and considers; no packaged file
+  changes:
   - Tests: the file is replaced (`os.replace`) between the bounded read and
     the hash, so hashing a re-read, hashing the path with `sha256_file`, or
     returning a re-read all fail; descriptor counts in `/proc/self/fd` must
@@ -996,9 +997,8 @@ Earlier evidence, superseded for the archive identities by round 7:
   108,916,902 bytes), its sidecars check, the local verifier passes both
   archives (813/40 and 811/39), and against round 18 only the same four
   commit-dependent members differ per RID.
-- Round 23 (uncommitted, not yet reviewed) answers the round-22 should-fix
-  and every consider; no packaged file changes (`distribution.py` is
-  untouched):
+- Round 23 answers the round-22 should-fix and every consider; no packaged
+  file changes (`distribution.py` is untouched):
   - `require_pinned_sdk` turns an `OSError` from running `dotnet` (for
     example a file without execute permission) into a `ValueError` naming
     the pin, like its other refusals.
@@ -1030,6 +1030,57 @@ Earlier evidence, superseded for the archive identities by round 7:
     diff check; all 255 regenerated distribution files per archive match the
     round-18 x64, classic-zlib x64 and ARM64 archives byte for byte, and all
     three pass the verifier.
-- Next action: freeze round 23 for dual independent review; after a dual
-  `PASS`, commit on top of `80bcb34`, push and require fork CI to pass with
+- Review round 23: snapshot
+  `5adab98b977ee288d9c43e8a454c8a6e1fb325eba20c6001a0568c2328ef70a2`
+  (packet `pr2-round23-review-20261027-171004`). Reviewer A
+  (`ses_e80ccda42ffeDPLJmloBvCxRw5`) and Reviewer B
+  (`ses_e80ccc074ffegRJB0ciLaVrxel`) both `PASS` 100, considers only: the
+  round-21 bullet credited Reviewer A with all three omitted considers; the
+  AUDIT said the collision refusals start with the launcher (the external
+  notice comes first); an overwriting write at one call site
+  (`copy_native_notices`, `copy_notice_directory`, `copy_tracked`) survived;
+  the alarm helper's elapsed-time subtraction and `0.001` floor were
+  untested, and it dropped the outer timer's interval; the launcher's
+  "bytes unchanged" check could not catch an identical overwrite; the
+  `cannot be run` test's pattern accepted any path ending in `global.json`,
+  and widening `except OSError` to `except Exception` survived; the
+  package-read stream proxy was written out twice and the `fdopen` wrapper
+  three times; `error.strerror` can be `None`.
+- Commit `a5ecd04bfe815eb091de7b73fc817470456a228d` (index matched all 41
+  reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
+  to `fork/feat/native-linux-builds`. Fork CI run `40585703116` passed both
+  jobs; artifact `nx-infinity-native-linux` downloads (x64 114,384,306
+  bytes, ARM64 108,916,869 bytes), its sidecars check, the local verifier
+  passes both archives (813/40 and 811/39), and against round 18 only the
+  same four commit-dependent members differ per RID. The user chose to run
+  round 24 on the considers.
+- Round 24 (uncommitted, not yet reviewed) answers every round-23 consider;
+  no packaged file changes (`distribution.py` is untouched):
+  - `require_pinned_sdk` reports `error.strerror or error`, so an `OSError`
+    without a system reason still explains itself.
+  - Tests: one `observed_package_reads` helper (patching `os.fdopen`
+    process-wide, which it says) replaces the three hand-written stream
+    proxies and wrappers. The launcher is seeded with sentinel bytes before
+    the second collision call and must keep them. New tests: a native notice
+    named `NOTICE-SOURCES.json` must be refused without replacing that
+    record; a repository notice must not replace a package notice of the
+    same name; `copy_tracked` must not replace an existing file. The alarm
+    helper restores the outer timer's interval, and a new test requires the
+    restored delay to be less the time spent, the interval kept, and an
+    outer timer that expired during the guard to fire at once (the floor).
+    The `cannot be run` test pins the full pin path, an `OSError` without
+    `strerror`, and that a non-`OSError` propagates unchanged. One old
+    121-character test line is rewrapped.
+  - Mutation sweep (`round24-mutation/mutate.py`): all 46 mutations are
+    caught, the 37 of round 23 plus an overwriting write in each of
+    `copy_native_notices`, `copy_notice_directory` and `copy_tracked`, the
+    alarm helper without the subtraction, without the floor and without the
+    interval, `except Exception`, `strerror` without the fallback, and the
+    pin's file name instead of its path.
+  - Checks: 79 Linux and 15 source-baseline tests, AST parse, actionlint,
+    diff check; all 255 regenerated distribution files per archive match the
+    round-18 x64, classic-zlib x64 and ARM64 archives byte for byte, and all
+    three pass the verifier.
+- Next action: freeze round 24 for dual independent review; after a dual
+  `PASS`, commit on top of `a5ecd04`, push and require fork CI to pass with
   x64/ARM64 artifacts.

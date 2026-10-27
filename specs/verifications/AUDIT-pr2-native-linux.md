@@ -5,7 +5,7 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the round-23 changes. Commit and push stay
+Verdict: self-audit PASS for the round-24 changes. Commit and push stay
 blocked until both independent reviewers pass the new frozen snapshot.
 
 ## Supply chain and security
@@ -641,9 +641,10 @@ icon first, so `write_text` could have gone back to overwriting unnoticed.
 
 Round 23 answers it and every consider without changing a packaged file:
 
-- Each collision refusal must name the exact file, starting with the
-  launcher written by `write_text`; a second test makes a package notice
-  clash with a runtime notice.
+- Each collision refusal must name the exact file: the clashing external
+  notice, then the launcher written by `write_text`; a second test makes a
+  package notice clash with a runtime notice. (Word order corrected in
+  round 24.)
 - The reader must request exactly `MAX_PACKAGE_BYTES + 1` bytes, must close
   every stream it opens, and must close its descriptor even when wrapping it
   raises a non-`ValueError` or a `BaseException`.
@@ -653,5 +654,34 @@ Round 23 answers it and every consider without changing a packaged file:
   handler.
 
 A 37-mutation sweep catches every mutation. 75 Linux and 15 source-baseline
+tests pass, and the 255 regenerated distribution files still match the
+round-18 archives.
+
+## Round-23 review, fork CI and round 24
+
+Snapshot
+`5adab98b977ee288d9c43e8a454c8a6e1fb325eba20c6001a0568c2328ef70a2`
+received `PASS` 100 from both reviewers and was committed as `a5ecd04`. Its
+fork CI run passed both jobs; against round 18, only the four
+commit-dependent members differ. Both reviewers raised considers only, and
+the user chose to address them in round 24, again without changing a
+packaged file:
+
+- Each notice writer is pinned on its own: a native notice cannot replace
+  `NOTICE-SOURCES.json`, a repository notice cannot replace a package
+  notice, and `copy_tracked` cannot replace an existing file. The launcher
+  is seeded with sentinel bytes, so an identical overwrite can no longer
+  pass the collision test.
+- The test alarm guard keeps the outer timer's interval, and a test pins
+  the elapsed-time subtraction and the floor for an outer timer that
+  expired during the guard.
+- The SDK refusal pins the full pin path, falls back to the exception text
+  when there is no system reason, and converts only `OSError`.
+- One shared helper observes package reads in place of three hand-written
+  stream proxies.
+- The round-21 review record now credits each omitted consider to the
+  reviewer who raised it.
+
+A 46-mutation sweep catches every mutation. 79 Linux and 15 source-baseline
 tests pass, and the 255 regenerated distribution files still match the
 round-18 archives.
