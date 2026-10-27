@@ -12,7 +12,7 @@ from typing import Any
 import common
 
 
-NATIVE_DEPENDENCIES_SHA256 = "6a1b469b397265b859701f686af66e70c0a33f1e3fcb3bc82d109602e882128c"
+NATIVE_DEPENDENCIES_SHA256 = "9ec24efe911bb5641650f21eacb005a4a54ed1e3eb2931a624e33bcf6f9819ac"
 VULNERABLE_LIBRARY_IDENTITIES = {
     "system.private.uri/4.3.0",
     "system.text.json/8.0.0",

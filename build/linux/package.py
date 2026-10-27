@@ -270,10 +270,9 @@ def assemble_archive(
         raise ValueError("NUGET_PACKAGES must name the explicit package cache used for this build.")
     add_distribution_files(
         root,
-        inputs.dotnet.parent / "LICENSE.txt",
-        inputs.dotnet.parent / "ThirdPartyNotices.txt",
-        pathlib.Path(nuget_value).resolve(),
-        inputs.notice_sources,
+        rid=inputs.rid,
+        nuget_root=pathlib.Path(nuget_value).resolve(),
+        external_notices=inputs.notice_sources,
     )
     package_notices.generate(root, pathlib.Path(nuget_value).resolve())
     source_bundle.add_ffmpeg_source(root, inputs.ffmpeg_source, inputs.rid)

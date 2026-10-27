@@ -5,8 +5,9 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the post-round-16 remediation. Commit and push stay
-blocked until both independent reviewers pass the new frozen snapshot.
+Verdict: self-audit PASS for the post-commit runtime-notice fix. Commit and
+push stay blocked until both independent reviewers pass the new frozen
+snapshot.
 
 ## Supply chain and security
 
@@ -455,3 +456,36 @@ The round-17 tree rewords the docstring to tie the 2.45 minimum to
 `--no-lazy-fetch` alone, rewords the README to "releases before those,
 including 2.44.0", gives the CI gate an explicit error message, and marks
 the round-13 quote as corrected. The only code change is the docstring.
+
+## Round-17 review and fork CI
+
+Snapshot
+`e0398d581fdb63b21378ab120097142642f13d662d184c3cba812fdbd876fb6a`
+received `PASS` from both reviewers at 100/100, with cosmetic considerations
+only. (The sentence above understates the round-17 change set: the CI gate's
+error message also changed.) It was committed as `7229e5e` and opened as
+coye2/NX-Infinity#2.
+
+The first fork CI run built and verified everything up to the native archives.
+The FFmpeg source tars reproduced their pins on the runner's git. The
+verifier then rejected `dotnet-THIRD-PARTY-NOTICES.txt`: the packager copied
+the .NET license and notices from the root of the dotnet install, and on the
+runner that root is shared by several SDKs, so its bytes depend on install
+history. The pin had been taken from a standalone 10.0.402 SDK.
+
+The fix reads both files from the RID's pinned 10.0.13 runtime-pack `.nupkg`,
+the runtime that the self-contained publish actually bundles, through the
+same hash-checked reader as the other package notices. The license bytes are
+unchanged; the notice is now the runtime pack's (`66f1d4e4…`), and the policy
+pin moves to `9ec24efe…`. A new test requires the notices to come from each
+RID's pinned pack rather than a tampered extracted copy, and refuses a wrong
+pack hash or an unsupported RID. Because two packaged files change, the
+round-10 archives are superseded.
+
+The round-18 window reassembled them with the unchanged round-10 driver from
+the same publish trees. The two x64 builds are byte-identical
+(`b376cb28…`), the classic-zlib x64 build carries the same tar stream, and
+the ARM64 archive is `2588a630…`. All four pass the verifier and carry the
+runtime pack's notice and their RID's pinned FFmpeg source. The Xvfb probe
+and both default-data starts around an install replacement pass, with the
+user-data marker unchanged.

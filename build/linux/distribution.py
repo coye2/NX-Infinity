@@ -93,6 +93,15 @@ PACKAGE_HASHES = {
         "6.1.2-build4",
     ): "0351007f097b75328a5c64b467682b50c9337848d13712ed7462861b0333453c",
 }
+RUNTIME_PACK_VERSION = "10.0.13"
+RUNTIME_PACK_HASHES = {
+    "linux-x64": "28c62a37549d17009f457ac53cd4acdd60f1598ba3f00e22587bbac318c679c6",
+    "linux-arm64": "7edf8c541cc01ab2a131aac82d18f0abd6aec785a17f1a7b735bf2e3c1665c1e",
+}
+RUNTIME_NOTICES = (
+    ("LICENSE.TXT", "dotnet-LICENSE.txt"),
+    ("THIRD-PARTY-NOTICES.TXT", "dotnet-THIRD-PARTY-NOTICES.txt"),
+)
 
 
 def copy_tree(source: pathlib.Path, destination: pathlib.Path) -> None:
@@ -105,8 +114,7 @@ def copy_tree(source: pathlib.Path, destination: pathlib.Path) -> None:
 
 def add_distribution_files(
     root: pathlib.Path,
-    dotnet_license: pathlib.Path | None = None,
-    dotnet_notices: pathlib.Path | None = None,
+    rid: str | None = None,
     nuget_root: pathlib.Path | None = None,
     external_notices: pathlib.Path | None = None,
 ) -> None:
@@ -132,12 +140,10 @@ def add_distribution_files(
         write_text(root / destination, packaged_markdown(source, destination))
     copy_file(HERE / "NATIVE-DEPENDENCIES.json", root / "licenses/NATIVE-DEPENDENCIES.json")
     copy_file(HERE / "NOTICE-SOURCES.json", root / "licenses/native/NOTICE-SOURCES.json")
-    if dotnet_license is not None:
-        copy_file(dotnet_license, root / "licenses/native/dotnet-LICENSE.txt")
-    if dotnet_notices is not None:
-        copy_file(dotnet_notices, root / "licenses/native/dotnet-THIRD-PARTY-NOTICES.txt")
     if nuget_root is not None:
         copy_native_notices(root, nuget_root)
+    if nuget_root is not None and rid is not None:
+        copy_runtime_notices(root, nuget_root, rid)
     copy_notice_directory(root)
     if external_notices is not None:
         copy_external_notices(root, external_notices)
@@ -209,15 +215,30 @@ def packaged_location(repository_path: str) -> str | None:
 
 
 def copy_native_notices(root: pathlib.Path, nuget_root: pathlib.Path) -> None:
-    packages: dict[tuple[str, str], pathlib.Path] = {}
-    for (package_id, version), expected in PACKAGE_HASHES.items():
-        package = nuget_root / package_id / version / f"{package_id}.{version}.nupkg"
-        if package.is_symlink() or not package.is_file() or common.sha256_file(package) != expected:
-            raise ValueError(f"NuGet package identity mismatch: {package_id}/{version}")
-        packages[(package_id, version)] = package
+    packages = {
+        key: verified_package(nuget_root, *key, expected) for key, expected in PACKAGE_HASHES.items()
+    }
     for package_id, version, source, destination in NOTICE_SOURCES:
         data = read_package_member(packages[(package_id, version)], source)
         write_bytes(root / "licenses/native" / destination, data)
+
+
+def copy_runtime_notices(root: pathlib.Path, nuget_root: pathlib.Path, rid: str) -> None:
+    """Copy the .NET notices from the runtime pack that the self-contained publish bundles."""
+    if rid not in RUNTIME_PACK_HASHES:
+        raise ValueError(f"Unsupported .NET runtime pack RID: {rid}")
+    package = verified_package(
+        nuget_root, f"microsoft.netcore.app.runtime.{rid}", RUNTIME_PACK_VERSION, RUNTIME_PACK_HASHES[rid]
+    )
+    for source, destination in RUNTIME_NOTICES:
+        write_bytes(root / "licenses/native" / destination, read_package_member(package, source))
+
+
+def verified_package(nuget_root: pathlib.Path, package_id: str, version: str, expected: str) -> pathlib.Path:
+    package = nuget_root / package_id / version / f"{package_id}.{version}.nupkg"
+    if package.is_symlink() or not package.is_file() or common.sha256_file(package) != expected:
+        raise ValueError(f"NuGet package identity mismatch: {package_id}/{version}")
+    return package
 
 
 def read_package_member(package: pathlib.Path, name: str) -> bytes:

@@ -684,5 +684,63 @@ Earlier evidence, superseded for the archive identities by round 7:
     reflowed.
   - CI gate prints `::error::git 2.45 or later is required` on failure.
   - Audit marks the round-13 quote "(corrected in the round-15 section)".
-- Next action: freeze this snapshot for round-17 dual independent review.
-  Commit and push only after both reviewers pass the exact frozen tree.
+- Round-17 snapshot
+  `e0398d581fdb63b21378ab120097142642f13d662d184c3cba812fdbd876fb6a`
+  (41 paths): Reviewer A (`ses_e812c9f6dffeTm98n0vL5d99oS`) `PASS` 100/100;
+  Reviewer B (`ses_e812c89d9ffewpO0Q4ejOa8qQx`) `PASS` 100/100; cosmetic
+  considerations only. The user chose to commit round 17 as is, listing the
+  considerations as follow-ups in the PR description.
+- Commit `7229e5e0e9d7ad3308d5f9dc071694a22d6b7710` (staged set and blob
+  hashes matched the round-17 manifest), pushed to
+  `fork/feat/native-linux-builds`; upstream PR
+  https://github.com/coye2/NX-Infinity/pull/2 (base `main`, depends on #1,
+  because upstream has no PR 1 branch).
+- Fork CI run `40569461006` at `7229e5e`: `checks` passed;
+  `source-baseline` failed in "Build native Linux archives". The FFmpeg source
+  bundle reproduced its pin on the runner's git (packaging got past it and
+  wrote the x64 archive), but `verify.py` rejected
+  `dotnet-THIRD-PARTY-NOTICES.txt`. Cause: the packager copied `LICENSE.txt`
+  and `ThirdPartyNotices.txt` from the root of the dotnet install, which on
+  the runner is shared by .NET 9.0.100, 10.0.402 and the image's own SDKs, so
+  its bytes depend on install history. Locally the root was the standalone
+  10.0.402 SDK (`2dc8f8c5…`); the 9.0.100 root's file is `e7035d73…`.
+- Post-commit fix (uncommitted, not yet reviewed):
+  - `distribution.copy_runtime_notices` reads both .NET notices from the
+    RID's `microsoft.netcore.app.runtime.<rid>` 10.0.13 `.nupkg` (x64
+    `28c62a37…`, ARM64 `7edf8c54…`), the runtime the self-contained publish
+    actually bundles; `verified_package` is shared with the other notices.
+    `add_distribution_files` takes `rid` instead of the two install paths.
+  - `NATIVE-DEPENDENCIES.json` pins the runtime pack's notice
+    (`66f1d4e4…`; the license `cfc21f5e…` is unchanged); policy pin
+    `9ec24efe911bb5641650f21eacb005a4a54ed1e3eb2931a624e33bcf6f9819ac`.
+  - New test: notices come from each RID's pinned pack, not a tampered
+    extracted copy; a wrong pack hash or unsupported RID is refused. 52 Linux
+    and 15 source-baseline tests pass; the real packs give the pinned bytes.
+  - Two packaged files change, so the round-10 archives are superseded; a
+    round-18 Python-only reassembly window has been requested from the
+    coordinator.
+- Round-18 window (coordinator GO; 15:40:11–15:41:04 EDT; Python only, no
+  .NET, GPU, device, adb or network). The unchanged round-10 driver
+  (`33e33929…`, helper `round7_window.py` `2ff012b2…`) ran with
+  `NXI_WINDOW_ROOT=pr2-round18`; log `round18-driver.log`. Every gate passed
+  (highest load1 2.58, lowest MemAvailable 50.4%). These outputs supersede
+  the round-10 set:
+  - x64-a = x64-b
+    `b376cb28920a2cbf9c5519a2e760be00e5b2da32b76070e6a6961bab8c34be10`;
+    x64 under classic zlib 1.3.1
+    `02891233975c0ffe68515808dfce05a7b9ce8b4a78d1ebf40bb21aeaf40c61fd`; all
+    three carry tar stream `a2f4ec20…` (813 files, 40 ELF).
+  - ARM64
+    `2588a630df7adbb82d294fc96f448e6df2aa5eff5d3299984641b47747ee8671`, tar
+    stream `2d2c8602…` (811 files, 39 ELF).
+  - Every archive carries `dotnet-THIRD-PARTY-NOTICES.txt` `66f1d4e4…` and
+    its RID's pinned FFmpeg source tar (x64 `7cdc5c54…`, ARM64 `42cad98c…`).
+  - Smoke reports: explicit `e19abe99…`, default-before `056d44c6…`,
+    default-after `741eb557…`; marker `0762b626…` unchanged across the
+    install replacement.
+  - Three priority exposures, each one launcher thread found at nice 19
+    (self-set) about 3.2 s into a launch and re-pinned to 10 by the watcher:
+    explicit probe, default-before, default-after.
+- Next action: freeze round 18 for dual independent review, then commit the
+  reviewed fix on top of `7229e5e`, push and require fork CI to pass with
+  x64/ARM64 artifacts.

@@ -306,6 +306,39 @@ class PackageTests(ScratchTestCase):
                 distribution.PACKAGE_HASHES = previous_hashes
                 distribution.NOTICE_SOURCES = previous_sources
 
+    def test_runtime_notices_come_from_the_pinned_runtime_pack(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            version = distribution.RUNTIME_PACK_VERSION
+            packages = {}
+            for rid in ("linux-x64", "linux-arm64"):
+                package_id = f"microsoft.netcore.app.runtime.{rid}"
+                package_path = scratch / f"nuget/{package_id}/{version}/{package_id}.{version}.nupkg"
+                package_path.parent.mkdir(parents=True)
+                with zipfile.ZipFile(package_path, "w") as archive:
+                    archive.writestr("LICENSE.TXT", f"license {rid}\n")
+                    archive.writestr("THIRD-PARTY-NOTICES.TXT", f"notices {rid}\n")
+                write(package_path.parent / "THIRD-PARTY-NOTICES.TXT", b"tampered extracted notice\n")
+                packages[rid] = common.sha256_file(package_path)
+            with unittest.mock.patch.object(distribution, "RUNTIME_PACK_HASHES", packages):
+                for rid in packages:
+                    root = scratch / f"package-{rid}"
+                    with self.subTest(rid=rid):
+                        distribution.copy_runtime_notices(root, scratch / "nuget", rid)
+                        native = root / "licenses/native"
+                        self.assertEqual(f"license {rid}\n".encode(), (native / "dotnet-LICENSE.txt").read_bytes())
+                        self.assertEqual(
+                            f"notices {rid}\n".encode(), (native / "dotnet-THIRD-PARTY-NOTICES.txt").read_bytes()
+                        )
+                with self.assertRaisesRegex(ValueError, "Unsupported"):
+                    distribution.copy_runtime_notices(scratch / "unsupported", scratch / "nuget", "win-x64")
+            with (
+                unittest.mock.patch.object(distribution, "RUNTIME_PACK_HASHES", {"linux-x64": "0" * 64}),
+                self.assertRaisesRegex(ValueError, "identity mismatch"),
+            ):
+                distribution.copy_runtime_notices(scratch / "wrong", scratch / "nuget", "linux-x64")
+            self.assertFalse((scratch / "wrong").exists())
+
     def test_managed_package_notice_uses_graph_and_archive_hashes(self) -> None:
         with self.temporary_directory() as directory:
             scratch = pathlib.Path(directory)
