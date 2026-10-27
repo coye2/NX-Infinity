@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ public sealed record BackendChoice(string Id, string Name, string Revision, stri
 
     public static IReadOnlyList<BackendChoice> Discover(InfinityPaths paths)
     {
-        string text = (OperatingSystem.IsWindows() ? "win-x64" : "linux-x64");
+        string text = ArtifactRuntimeIdentifier();
         List<BackendChoice> list = new List<BackendChoice>();
         string[] array = new string[1] { "nxi" };
         foreach (string text2 in array)
@@ -54,6 +55,20 @@ public sealed record BackendChoice(string Id, string Name, string Revision, stri
             }
         }
         return list;
+    }
+
+    internal static string ArtifactRuntimeIdentifier()
+    {
+        string platform = OperatingSystem.IsWindows() ? "win" :
+            OperatingSystem.IsLinux() ? "linux" :
+            throw new PlatformNotSupportedException("NX Infinity desktop builds support Windows and Linux.");
+        string architecture = RuntimeInformation.ProcessArchitecture switch
+        {
+            Architecture.X64 => "x64",
+            Architecture.Arm64 => "arm64",
+            _ => throw new PlatformNotSupportedException("NX Infinity desktop builds support x64 and ARM64.")
+        };
+        return platform + "-" + architecture;
     }
 
     public async Task<BackendLaunch> VerifyAsync(InfinityPaths paths, CancellationToken ct = default(CancellationToken))

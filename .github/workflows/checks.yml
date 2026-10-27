@@ -19,7 +19,7 @@ jobs:
 
   source-baseline:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -29,8 +29,16 @@ jobs:
           dotnet-version: |
             9.0.100
             10.0.402
-      - name: Test source-baseline tools
-        run: NXI_TEST_SCRATCH="$RUNNER_TEMP" python3 -B build/source-baseline/test_tools.py
+      - name: Test build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          git --version
+          version=$(git --version | sed -n 's/^git version \([0-9][0-9.]*\).*/\1/p')
+          printf '%s\n%s\n' 2.45 "$version" | sort --version-sort --check=quiet ||
+            { echo "::error::git 2.45 or later is required"; exit 1; }
+          NXI_TEST_SCRATCH="$RUNNER_TEMP" python3 -B build/source-baseline/test_tools.py
+          NXI_TEST_SCRATCH="$RUNNER_TEMP" python3 -B build/linux/test_tools.py
       - name: Restore pinned core source
         shell: bash
         run: |
@@ -69,3 +77,120 @@ jobs:
           python3 build/source-baseline/smoke_worker.py \
             --dotnet "$(command -v dotnet)" \
             --worker "$RUNNER_TEMP/nx-core-host/NxInfinity.Core.dll"
+      - name: Build native Linux archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          epoch=$(git show -s --format=%ct HEAD)
+          dotnet9="$DOTNET_ROOT/dotnet"
+          export NUGET_PACKAGES="$RUNNER_TEMP/nuget-packages"
+          git init --quiet "$RUNNER_TEMP/ffmpeg-source"
+          git -C "$RUNNER_TEMP/ffmpeg-source" remote add origin https://github.com/FFmpeg/FFmpeg.git
+          git -C "$RUNNER_TEMP/ffmpeg-source" fetch --no-tags --depth=1 origin \
+            39cac587c4f78f7c26e0f0e5da664943d4e9fade \
+            e16ff06adb9acd647c0c33aa3c27438e1009b822
+          git -C "$RUNNER_TEMP/ffmpeg-source" cat-file -e \
+            '39cac587c4f78f7c26e0f0e5da664943d4e9fade^{commit}'
+          git -C "$RUNNER_TEMP/ffmpeg-source" cat-file -e \
+            'e16ff06adb9acd647c0c33aa3c27438e1009b822^{commit}'
+          python3 -B build/linux/fetch_notice_sources.py \
+            --output "$RUNNER_TEMP/linux-notices"
+          for rid in linux-x64 linux-arm64; do
+            python3 -B build/linux/package.py \
+              --rid "$rid" \
+              --core-source "$RUNNER_TEMP/nx-v1-source" \
+              --core-dotnet "$dotnet9" \
+              --dotnet "$dotnet9" \
+              --work "$RUNNER_TEMP/$rid-work" \
+              --output "$RUNNER_TEMP/linux-archives" \
+              --notice-sources "$RUNNER_TEMP/linux-notices" \
+              --ffmpeg-source "$RUNNER_TEMP/ffmpeg-source" \
+              --epoch "$epoch"
+            python3 -B build/linux/verify.py \
+              --archive "$RUNNER_TEMP/linux-archives/NX-Infinity-1.0.0-$rid.tar.gz" \
+              --rid "$rid"
+            (
+              cd "$RUNNER_TEMP/linux-archives"
+              sha256sum -c "NX-Infinity-1.0.0-$rid.tar.gz.sha256"
+            )
+          done
+      - name: Audit native Linux dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          for rid in linux-x64 linux-arm64; do
+            root="$RUNNER_TEMP/$rid-work/NX-Infinity-1.0.0-$rid"
+            trace_providers=0
+            while IFS= read -r -d '' file; do
+              if readelf -h "$file" >/dev/null 2>&1; then
+                dynamic=$(readelf -d "$file")
+                if [[ "$rid" == linux-x64 && "$dynamic" == *"(NEEDED)"* ]]; then
+                  dependencies=$(LD_LIBRARY_PATH="$root/cores/nxi:$root" ldd "$file")
+                  missing=$(awk '/=> not found/{print $1}' <<<"$dependencies" | sort -u)
+                  if [[ "$(basename "$file")" == "libcoreclrtraceptprovider.so" ]]; then
+                    ((trace_providers += 1))
+                    [[ "$dynamic" == *"Shared library: [liblttng-ust.so.0]"* ]]
+                    [[ -z "$missing" || "$missing" == "liblttng-ust.so.0" ]]
+                  else
+                    [[ -z "$missing" ]]
+                  fi
+                fi
+              fi
+            done < <(find "$root" -type f -print0)
+            if [[ "$rid" == linux-x64 ]]; then
+              [[ "$trace_providers" -eq 2 ]]
+            fi
+          done
+      - name: Smoke native Linux launcher and worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v xvfb-run
+          install_parent="$RUNNER_TEMP/linux-install"
+          archive="$RUNNER_TEMP/linux-archives/NX-Infinity-1.0.0-linux-x64.tar.gz"
+          mkdir -p "$install_parent" "$RUNNER_TEMP/home"
+          tar -xzf "$archive" -C "$install_parent"
+          root="$install_parent/NX-Infinity-1.0.0-linux-x64"
+          export HOME="$RUNNER_TEMP/home"
+          export XDG_DATA_HOME="$RUNNER_TEMP/nx-user-data"
+          marker="$XDG_DATA_HOME/NX Infinity/update-preservation.marker"
+          mkdir -p "$(dirname "$marker")"
+          printf '%s\n' 'preserve-across-install-replacement' >"$marker"
+          before=$(sha256sum "$marker" | cut -d' ' -f1)
+          python3 -B build/linux/smoke_frontend.py \
+            --launcher "$root/nx-infinity" \
+            --xvfb-run "$(command -v xvfb-run)" \
+            --data-root "$RUNNER_TEMP/linux-probe-data-before" \
+            --report "$RUNNER_TEMP/linux-smoke-report-before.json"
+          python3 -B build/linux/smoke_default_data.py \
+            --launcher "$root/nx-infinity" \
+            --xvfb-run "$(command -v xvfb-run)" \
+            --expected-data-root "$XDG_DATA_HOME/NX Infinity" \
+            --marker "$marker" \
+            --phase before-replacement \
+            --report "$RUNNER_TEMP/linux-default-data-before.json"
+          mv "$root" "$install_parent/previous-install"
+          tar -xzf "$archive" -C "$install_parent"
+          python3 -B build/linux/smoke_default_data.py \
+            --launcher "$root/nx-infinity" \
+            --xvfb-run "$(command -v xvfb-run)" \
+            --expected-data-root "$XDG_DATA_HOME/NX Infinity" \
+            --marker "$marker" \
+            --phase after-replacement \
+            --report "$RUNNER_TEMP/linux-default-data-after.json"
+          after=$(sha256sum "$marker" | cut -d' ' -f1)
+          test "$before" = "$after"
+          python3 -B build/linux/smoke_frontend.py \
+            --launcher "$root/nx-infinity" \
+            --xvfb-run "$(command -v xvfb-run)" \
+            --data-root "$RUNNER_TEMP/linux-probe-data-after" \
+            --report "$RUNNER_TEMP/linux-smoke-report-after.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: nx-infinity-native-linux
+          path: |
+            ${{ runner.temp }}/linux-archives/*.tar.gz
+            ${{ runner.temp }}/linux-archives/*.sha256
+            ${{ runner.temp }}/linux-smoke-report-*.json
+            ${{ runner.temp }}/linux-default-data-*.json
+          if-no-files-found: error

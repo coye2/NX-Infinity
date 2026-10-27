@@ -11,6 +11,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>NX Infinity runtime contributors</Authors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'NxInfinity.Core' And '$(NxiHostArtifactsRoot)' != ''">
+    <BaseOutputPath>$(NxiHostArtifactsRoot)/bin/</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(NxiHostArtifactsRoot)/obj/</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(NxiHostArtifactsRoot)/obj/</MSBuildProjectExtensionsPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/bin/**;$(MSBuildProjectDirectory)/obj/**</DefaultItemExcludes>
+  </PropertyGroup>
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'NxInfinity.Runtime' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Services' Or '$(MSBuildProjectName)' == 'NxInfinity.Runtime.Enhancements'">
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="/" />
   </ItemGroup>

@@ -7889,10 +7889,12 @@ public sealed class MainWindow : Window
             {
                 results.Children.Add(BuildDiscordCard());
             }
+#if !NXI_NATIVE_LINUX
             if (Include("System", "translation languages OCR game dialogue"))
             {
                 results.Children.Add(BuildTranslationCard());
             }
+#endif
             if (Include("System", "startup launch default desktop HOME"))
             {
                 results.Children.Add(BuildStartupModeCard());
@@ -9103,6 +9105,7 @@ public sealed class MainWindow : Window
 
     private void InitializeTranslation()
     {
+#if !NXI_NATIVE_LINUX
         _translator = new LocalTranslator(Session.Paths);
         UiText.ConfigureLocal(_translator);
         _translationTimer.Tick += async (object? _, EventArgs _) =>
@@ -9110,6 +9113,7 @@ public sealed class MainWindow : Window
             await TranslateGameFrameAsync();
         };
         _translationTimer.Start();
+#endif
     }
 
     private void StopTranslation()
@@ -9125,6 +9129,7 @@ public sealed class MainWindow : Window
         }
     }
 
+#if !NXI_NATIVE_LINUX
     private Control BuildTranslationCard()
     {
         return Card(VisualTheme.Column(VisualTheme.LocalizedText("Universal text translation", 18.0, null, FontWeight.DemiBold), VisualTheme.LocalizedText("Translate launcher text or read game dialogue with optional local OCR. Language packs download once; text stays on this device.", 14.0, VisualTheme.Muted), VisualTheme.LocalizedButton("Translation settings", (Func<Task>)ShowTranslationSettingsAsync, (string?)null)));
@@ -9305,6 +9310,7 @@ public sealed class MainWindow : Window
         }
         AvatarStore.WriteAtomic(path, data.ToArray());
     }
+#endif
 
     private async Task TranslateGameFrameAsync()
     {

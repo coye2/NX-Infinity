@@ -157,11 +157,14 @@ internal static class AvatarDialog
                 });
                 favorite.Name = "AvatarFavorite";
                 favorite.IsEnabled = false;
+#if !NXI_NATIVE_LINUX
                 Button button = VisualTheme.LocalizedButton("Reload catalog", (Func<Task>)BrowseAsync, (string?)null);
                 button.Name = "AvatarBrowse";
+#endif
                 Button button2 = previous;
                 bool isEnabled = (next.IsEnabled = false);
                 button2.IsEnabled = isEnabled;
+#if !NXI_NATIVE_LINUX
                 dialog.Opened += async (object? _, EventArgs _) =>
                 {
                     category.SelectedIndex = 0;
@@ -181,6 +184,7 @@ internal static class AvatarDialog
                     }
                 });
                 button3.Name = "HelloKittyAvatars";
+#endif
                 Button favorites = null;
                 favorites = VisualTheme.LocalizedButton("Favorites", async () =>
                 {
@@ -322,6 +326,7 @@ internal static class AvatarDialog
                 WrapPanel wrapPanel = Wrap(new Control[4] { button5, button6, button7, button4 });
                 Grid.SetRow(wrapPanel, 1);
                 grid.Children.Add(wrapPanel);
+#if !NXI_NATIVE_LINUX
                 StackPanel stackPanel = VisualTheme.Column(Wrap(new Control[5] { button3, category, favorites, search, button }), attribution);
                 Grid.SetRow(stackPanel, 2);
                 grid.Children.Add(stackPanel);
@@ -336,6 +341,9 @@ internal static class AvatarDialog
                 Grid.SetRow(stackPanel2, 4);
                 grid.Children.Add(stackPanel2);
                 StackPanel stackPanel3 = VisualTheme.Column(status, VisualTheme.LocalizedText("Catalog: henry-debruin/nso-icons · downloaded on request", 11.0, VisualTheme.Muted), VisualTheme.Row(use, VisualTheme.LocalizedButton("Close", () =>
+#else
+                StackPanel stackPanel3 = VisualTheme.Column(status, VisualTheme.Row(use, VisualTheme.LocalizedButton("Close", () =>
+#endif
                 {
                     dialog.Close();
                 })));
@@ -379,6 +387,7 @@ internal static class AvatarDialog
                 ((IDisposable)lifetime).Dispose();
             }
         }
+#if !NXI_NATIVE_LINUX
         async Task BrowseAsync()
         {
             try
@@ -399,6 +408,7 @@ internal static class AvatarDialog
                 }
             }
         }
+#endif
         async Task LoadAsync()
         {
             int listing = ++listingGeneration;
@@ -422,7 +432,9 @@ internal static class AvatarDialog
                 {
                     items = array3;
                     offset = 0;
+#if !NXI_NATIVE_LINUX
                     attribution.Text = ((category.SelectedItem is AvatarCategory avatarCategory2 && avatarCategory2.Id == AvatarCatalog.IslandCategory.Id) ? "Hello Kitty Island Adventure · © 2026 SANRIO CO., LTD. · Sunblink" : "Nintendo Switch Online icon collections · henry-debruin/nso-icons");
+#endif
                     status.Text = (catalog.Offline ? "Offline · showing cached avatars" : "Select an avatar to preview it.");
                     await RenderAsync();
                 }

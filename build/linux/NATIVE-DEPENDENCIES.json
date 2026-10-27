@@ -1,0 +1,616 @@
+{
+  "correspondingSource": {
+    "files": 211,
+    "path": "licenses/totk-dfps-source",
+    "sha256": "9dcbbf8a8b3c4b5e1b771048e8efb38512c3bbc1e8afb9a857dffd168b5cbd5a"
+  },
+  "dependencyGraphs": {
+    "linux-arm64": {
+      "core": {
+        "runtimeTarget": ".NETCoreApp,Version=v10.0/linux-arm64",
+        "sha256": "f9c45796c3490153e2320103a2181a0a8ac90292503dbf32deffdc06e1af2c5d"
+      },
+      "launcher": {
+        "runtimeTarget": ".NETCoreApp,Version=v10.0/linux-arm64",
+        "sha256": "110f3477250b27af84577aad3466dbb484fb0d39ce76ad02492190a27415a46a"
+      }
+    },
+    "linux-x64": {
+      "core": {
+        "runtimeTarget": ".NETCoreApp,Version=v10.0/linux-x64",
+        "sha256": "14c39a52a127d12872c692665dfb89127d2fa8b1d53816427a659d9f1b6eae14"
+      },
+      "launcher": {
+        "runtimeTarget": ".NETCoreApp,Version=v10.0/linux-x64",
+        "sha256": "8aa3053c68b63c8bf379c3a0d3b1c414b2d76544da1591be40dae0766eb18126"
+      }
+    }
+  },
+  "embeddedPortablePdbAssemblies": [
+    {
+      "assembly": "cores/nxi/Humanizer.dll",
+      "assemblySha256": "d6853075547d7e303efd60354d911a2ff18edba582cda2fa59d91a2e5dcf9e98"
+    },
+    {
+      "assembly": "cores/nxi/Microsoft.IO.RecyclableMemoryStream.dll",
+      "assemblySha256": "631a5fc41df9498d032c0655ebd0e1209430ccffbec55667d89c2566b338ccc0"
+    }
+  ],
+  "managedPackageNotices": {
+    "linux-arm64": {
+      "files": 32,
+      "sha256": "127b8bf99cb94a92869fb0881f1ef3e6c6ee3a608d7b123725eb9d266193f3b7"
+    },
+    "linux-x64": {
+      "files": 33,
+      "sha256": "f34130f4fd5d40374ef5f91d0b758e6e8c6ba3724d2d4b8e9e3a0a0f2cfaa36a"
+    }
+  },
+  "nativePayloads": {
+    "linux-arm64": {
+      "NxInfinity": "9a1655548e1c8439365b3daad98100a572a45399c17215aaf305c60f13ee53c6",
+      "cores/nxi/NxInfinity.Core": "2800531b429190ccb9fb7260c775aa6616b5def3644f090df0ae00c50e4303e1",
+      "cores/nxi/createdump": "5ffa7d14c8bd821b1fbaaf91e32a42a2b32a204bdc9ec502eeddeee3c30bbcd1",
+      "cores/nxi/libSDL3.so": "2f9c09d198883c171825fe9c595df841ce7bc2e28b818478694f802b1942ae0b",
+      "cores/nxi/libSkiaSharp.so": "c87c290b8179f095ea7495630cafc2829ec15f64e51a2dd2c03ef98099ea58b2",
+      "cores/nxi/libSystem.Globalization.Native.so": "2c7e1cc757b0c0637f2d616a26d0f4bb990a6d4c6949e0ce5eb845bab1a29244",
+      "cores/nxi/libSystem.IO.Compression.Native.so": "400c83fde7ca93d158dc0f9b734d9272d2549cabf0b8d95309a1cd781aa8c708",
+      "cores/nxi/libSystem.Native.so": "fe921bea98ed4b6f948a038e6696f88a194e1c55132f26d6ea81fb517d58168f",
+      "cores/nxi/libSystem.Net.Security.Native.so": "8c759c728e3b2d3aeab7b5b43b6a3635915caaeb9cbb5f7dc87fbb8aa327add7",
+      "cores/nxi/libSystem.Security.Cryptography.Native.OpenSsl.so": "3919bdd9e7928c200b0864ac64796e64ddc067923fc29836cd0b070474fd3a53",
+      "cores/nxi/libavcodec.so.60": "7a73584c7e557fd311199d56842194e88434b123256f98ca39539c1e3ed4fa72",
+      "cores/nxi/libavutil.so.58": "ebdffb123202f126b63b841f5bbd2bbb02c42c9dcd0a5b734a7400466476340b",
+      "cores/nxi/libclrgc.so": "b99cf60276214ebad24882b7e3ae8020949e00a73a405d38c4cd1135996ecdc4",
+      "cores/nxi/libclrgcexp.so": "b2413fa018c4764a6678bb21aab977dd55f4686eb8033b9a24cd96ff70aea8f1",
+      "cores/nxi/libclrjit.so": "09ada565212fdc742124fd119249038139a96e20e6dd738b976c43dcb458e110",
+      "cores/nxi/libcoreclr.so": "adb1b0f846b793dfeaed55a51fa73cf5cd1fa229d9a4fad9917217feb8facd0b",
+      "cores/nxi/libcoreclrtraceptprovider.so": "bc99429ef80eb996779c03a66dd1ff6d153c296736036234ace9398bedb28a1d",
+      "cores/nxi/libhostfxr.so": "f118eae71563c5eea3153498196a51390d597f905f7c327cb85123b986547056",
+      "cores/nxi/libhostpolicy.so": "ca07e3114bcbe95c58968318ff683c84fce52cd2d65ab98e4e19307bef8de54d",
+      "cores/nxi/libmscordaccore.so": "07db8ff1fbd881fef0228a634d458687eeaa9bacd6c66172ec9831eede6eed8a",
+      "cores/nxi/libmscordbi.so": "2107c18fb7c8402790675657d20ad5d4acd865ae15004d66fa09c5b2b8dec935",
+      "cores/nxi/libshaderc_shared.so": "098442f2b2e6d9b5eb82fef44228c7a01d00364e2caee529334226cda8ec515f",
+      "createdump": "5ffa7d14c8bd821b1fbaaf91e32a42a2b32a204bdc9ec502eeddeee3c30bbcd1",
+      "libHarfBuzzSharp.so": "68fc5ef842ac0dbd57e8063a11de5bb2f3c2b5af530a2d4fa07a7cf5d6ea4259",
+      "libSkiaSharp.so": "87d2d56c49a9b1d1da618dfa20994ee213f752f9ada04e085703115162997aef",
+      "libSystem.Globalization.Native.so": "2c7e1cc757b0c0637f2d616a26d0f4bb990a6d4c6949e0ce5eb845bab1a29244",
+      "libSystem.IO.Compression.Native.so": "400c83fde7ca93d158dc0f9b734d9272d2549cabf0b8d95309a1cd781aa8c708",
+      "libSystem.Native.so": "fe921bea98ed4b6f948a038e6696f88a194e1c55132f26d6ea81fb517d58168f",
+      "libSystem.Net.Security.Native.so": "8c759c728e3b2d3aeab7b5b43b6a3635915caaeb9cbb5f7dc87fbb8aa327add7",
+      "libSystem.Security.Cryptography.Native.OpenSsl.so": "3919bdd9e7928c200b0864ac64796e64ddc067923fc29836cd0b070474fd3a53",
+      "libclrgc.so": "b99cf60276214ebad24882b7e3ae8020949e00a73a405d38c4cd1135996ecdc4",
+      "libclrgcexp.so": "b2413fa018c4764a6678bb21aab977dd55f4686eb8033b9a24cd96ff70aea8f1",
+      "libclrjit.so": "09ada565212fdc742124fd119249038139a96e20e6dd738b976c43dcb458e110",
+      "libcoreclr.so": "adb1b0f846b793dfeaed55a51fa73cf5cd1fa229d9a4fad9917217feb8facd0b",
+      "libcoreclrtraceptprovider.so": "bc99429ef80eb996779c03a66dd1ff6d153c296736036234ace9398bedb28a1d",
+      "libhostfxr.so": "f118eae71563c5eea3153498196a51390d597f905f7c327cb85123b986547056",
+      "libhostpolicy.so": "ca07e3114bcbe95c58968318ff683c84fce52cd2d65ab98e4e19307bef8de54d",
+      "libmscordaccore.so": "07db8ff1fbd881fef0228a634d458687eeaa9bacd6c66172ec9831eede6eed8a",
+      "libmscordbi.so": "2107c18fb7c8402790675657d20ad5d4acd865ae15004d66fa09c5b2b8dec935"
+    },
+    "linux-x64": {
+      "NxInfinity": "e935d2a1c2c24dc394132b06bed57bebdbcf39962ff4389d817126fcf5ee52f8",
+      "cores/nxi/NxInfinity.Core": "2720dd007bf51b0cbf48747075da94e5138d4edac3e7878769e41307c23f21b8",
+      "cores/nxi/createdump": "af012f1adb29bfe3fc866887071ae4d58fb1ba97fd3be400edb007e482f3260f",
+      "cores/nxi/libSDL3.so": "7f49defe547e28ac4d11e5a690116953760795c5aa902575f9d2d5fb70e69c60",
+      "cores/nxi/libSkiaSharp.so": "a02cd03f1ebcbb972b811bd836caa02245de764a439794c5d5eebaf063baaa65",
+      "cores/nxi/libSystem.Globalization.Native.so": "0f2e238ffcb1cec0e330413bbf6d8219b8ceb0e506f28d1a26a7df407be74d4f",
+      "cores/nxi/libSystem.IO.Compression.Native.so": "c565a755c20dbd3e1d6d33ed0b5e978b5974a90fe3ef86cba4bf4c4814543f12",
+      "cores/nxi/libSystem.Native.so": "153a2e5fc2c71d4909fbb7a478ad5a3cf7e599f9235196c8fca5022250d14047",
+      "cores/nxi/libSystem.Net.Security.Native.so": "bbae394b30519c2b85a6fdedc8b2839d37cd487680d66327ff7f8550d5785923",
+      "cores/nxi/libSystem.Security.Cryptography.Native.OpenSsl.so": "3fa65a43cdee5edfd2cc450978355bf72c8af800346a15d4565c79f36ff5ce70",
+      "cores/nxi/libavcodec.so.60": "9b7009ee27f8df970d196e20c5a59e8d5f6f0e80413632f4eff121c5f991f0db",
+      "cores/nxi/libavutil.so.58": "47252c198aea2017d0c654fc454c69c582e5281a9c4b41908f1e46953b8c10d9",
+      "cores/nxi/libclrgc.so": "27dfa87201fb98eb990b88f3a4f90c425c51bbc961278334668eb10a8970b456",
+      "cores/nxi/libclrgcexp.so": "a6d4b98c2e62dd9f320f5f18d6e9be111ce0695930a08caf3fdc839cb85dd07a",
+      "cores/nxi/libclrjit.so": "39b743f983aee4e89d29a7a06728806045a0629391b63cbb199fa198b5710652",
+      "cores/nxi/libcoreclr.so": "2d4d3f0b2698a74f186329510d93785e55d10934cb9ebe6e3edca6b24c624402",
+      "cores/nxi/libcoreclrtraceptprovider.so": "9a052ff18675a7d2b41b192d866654b6fa303c8c038b2bb83d751ad68786036b",
+      "cores/nxi/libglfw.so.3": "d22d2cc22cae6e65e155a8f06b2d293cf6b3e9b9ee505c4df1d928625c29698d",
+      "cores/nxi/libhostfxr.so": "03147defc576e5a50a0f52b628d8b98a75fea83e1572956fcd48b5353c4657e5",
+      "cores/nxi/libhostpolicy.so": "95061f94c2d2a95e668e02b97d53c4edb86665fa6e47e4877ceb28c63c9e35da",
+      "cores/nxi/libmscordaccore.so": "82d8da07c78e268ccb822cfb2c0959048ac74574ee72e8e6caf26103d9cedf2c",
+      "cores/nxi/libmscordbi.so": "8e9445855c3e8553c0ee540b7de72e241d85fc53bff6c48ccbff7ec70482aebf",
+      "cores/nxi/libshaderc_shared.so": "9f2d5c6f53c191e59376251c614043019c6a7e325809703cad186da9b9dce6d3",
+      "createdump": "af012f1adb29bfe3fc866887071ae4d58fb1ba97fd3be400edb007e482f3260f",
+      "libHarfBuzzSharp.so": "1d5c3afef13545bf34bf8f068b14e25ee619c3b6dee235c44e260fe61cb24018",
+      "libSkiaSharp.so": "66c856eaf1a47a00b23204c30c6ee407987bf5086ecc0a1a6b4fd67526b0cd02",
+      "libSystem.Globalization.Native.so": "0f2e238ffcb1cec0e330413bbf6d8219b8ceb0e506f28d1a26a7df407be74d4f",
+      "libSystem.IO.Compression.Native.so": "c565a755c20dbd3e1d6d33ed0b5e978b5974a90fe3ef86cba4bf4c4814543f12",
+      "libSystem.Native.so": "153a2e5fc2c71d4909fbb7a478ad5a3cf7e599f9235196c8fca5022250d14047",
+      "libSystem.Net.Security.Native.so": "bbae394b30519c2b85a6fdedc8b2839d37cd487680d66327ff7f8550d5785923",
+      "libSystem.Security.Cryptography.Native.OpenSsl.so": "3fa65a43cdee5edfd2cc450978355bf72c8af800346a15d4565c79f36ff5ce70",
+      "libclrgc.so": "27dfa87201fb98eb990b88f3a4f90c425c51bbc961278334668eb10a8970b456",
+      "libclrgcexp.so": "a6d4b98c2e62dd9f320f5f18d6e9be111ce0695930a08caf3fdc839cb85dd07a",
+      "libclrjit.so": "39b743f983aee4e89d29a7a06728806045a0629391b63cbb199fa198b5710652",
+      "libcoreclr.so": "2d4d3f0b2698a74f186329510d93785e55d10934cb9ebe6e3edca6b24c624402",
+      "libcoreclrtraceptprovider.so": "9a052ff18675a7d2b41b192d866654b6fa303c8c038b2bb83d751ad68786036b",
+      "libhostfxr.so": "03147defc576e5a50a0f52b628d8b98a75fea83e1572956fcd48b5353c4657e5",
+      "libhostpolicy.so": "95061f94c2d2a95e668e02b97d53c4edb86665fa6e47e4877ceb28c63c9e35da",
+      "libmscordaccore.so": "82d8da07c78e268ccb822cfb2c0959048ac74574ee72e8e6caf26103d9cedf2c",
+      "libmscordbi.so": "8e9445855c3e8553c0ee540b7de72e241d85fc53bff6c48ccbff7ec70482aebf"
+    }
+  },
+  "packageInventory": {
+    "linux-arm64": {
+      "files": 808,
+      "sha256": "1b43ca3ccde3ca45f5154955e0b02b5cd5b3c1a5b96108e0e1111f56cb438611"
+    },
+    "linux-x64": {
+      "files": 810,
+      "sha256": "645c8f683883b07a24046c765fea7ea0795a812ed124462c3113cea5c6cb63c5"
+    }
+  },
+  "producerCodeViewPaths": [
+    {
+      "assembly": "Avalonia.Dialogs.dll",
+      "assemblySha256": "8814546c28ec69c5a9a8874cfbacdfa7fa64ec622a8854231eac51ccf5bbadbb",
+      "path": "D:\\a\\Avalonia\\Avalonia\\src\\Avalonia.Dialogs\\obj\\Release\\net10.0\\Avalonia.Dialogs.pdb"
+    },
+    {
+      "assembly": "Avalonia.Themes.Fluent.dll",
+      "assemblySha256": "66883c8eed675cdefa9f36b103b209b5351e815f579e1abb0e5a0f1299417e56",
+      "path": "D:\\a\\Avalonia\\Avalonia\\src\\Avalonia.Themes.Fluent\\obj\\Release\\net10.0\\Avalonia.Themes.Fluent.pdb"
+    },
+    {
+      "assembly": "MicroCom.Runtime.dll",
+      "assemblySha256": "2538ec6f3c24e901a90e33c37788b9a4e4b6ae8158cab7328a00a00bb28eab9e",
+      "path": "/home/kekekeks/Projects/MicroCom/src/MicroCom.Runtime/obj/Release/net8.0/MicroCom.Runtime.pdb"
+    },
+    {
+      "assembly": "cores/nxi/Concentus.dll",
+      "assemblySha256": "3a1dcfcfaf86b90fc2fb6fd0baacdf0be70efef1c9fbb59683d3bf48949de1c9",
+      "path": "C:\\Code\\concentus\\CSharp\\Concentus\\obj\\Release\\net8.0\\Concentus.pdb"
+    },
+    {
+      "assembly": "cores/nxi/Gommon.dll",
+      "assemblySha256": "98cfa638cfd8ed4a11d9a5dfee4e64ba3c04c72a502168f311b3ebfd3363eb7f",
+      "path": "C:\\Users\\gr33m\\devprojects\\C#\\Gommon\\src\\obj\\Release\\netstandard2.1\\Gommon.pdb"
+    },
+    {
+      "assembly": "cores/nxi/LibHac.dll",
+      "assemblySha256": "b68c441a59974b58f0941d068813fc94df0c3a47dcc38552ea1036838c7cb628",
+      "path": "C:\\Users\\gr33m\\devprojects\\C#\\LibHac\\src\\LibHac\\obj\\Debug\\net8.0\\LibHac.pdb"
+    },
+    {
+      "assembly": "cores/nxi/MsgPack.dll",
+      "assemblySha256": "c7fe37ad67035bffbb634a497847a94496b96de755d42bbce1a3518cac0dd889",
+      "path": "C:\\projects\\msgpack-cli-x2p85\\src\\MsgPack\\obj\\Release\\netstandard2.0\\MsgPack.pdb"
+    },
+    {
+      "assembly": "cores/nxi/NetCoreServer.dll",
+      "assemblySha256": "9d877430357274fe81b4d1cf0529b39edb731a15476f3cbe97990da60a5b2111",
+      "path": "Z:\\projects\\chronoxor\\NetCoreServer\\source\\NetCoreServer\\obj\\Release\\net8.0\\NetCoreServer.pdb"
+    },
+    {
+      "assembly": "cores/nxi/Open.Nat.dll",
+      "assemblySha256": "45e0d343e6857e879022aac6c451c194063342bea7484fc45f93adf964392ae7",
+      "path": "C:\\projects\\open-nat-core\\Open.Nat\\obj\\Release\\netstandard2.0\\Open.Nat.pdb"
+    },
+    {
+      "assembly": "cores/nxi/SDL3-CS.dll",
+      "assemblySha256": "c9580b8dbd95a475259d158175ce5c7efa58edb9ead292ef477eed769f1bdb8b",
+      "path": "/home/runner/work/SDL3-CS/SDL3-CS/SDL3-CS/obj/Release/net8.0/SDL3-CS.pdb"
+    },
+    {
+      "assembly": "cores/nxi/SkiaSharp.dll",
+      "assemblySha256": "17ee1284313749f73a5cf5f309318d831741a8d6d397c998c5fc6485843c28bb",
+      "path": "D:\\a\\_work\\1\\s\\binding\\SkiaSharp\\obj\\Release\\net6.0\\SkiaSharp.pdb"
+    },
+    {
+      "assembly": "cores/nxi/shaderc.net.dll",
+      "assemblySha256": "d0e3ade70e932aac2b4e37fdbfd71a8fe678a7b765e8e9ea6d930d875c087876",
+      "path": "/mnt/devel/shaderc/build/obj/Debug/netstandard2.0/shaderc.net.pdb"
+    }
+  ],
+  "redistributionSources": {
+    "linux-arm64": [
+      {
+        "path": "licenses/sources/FFmpeg-BUILD-CONFIGURATION.txt",
+        "sha256": "6aeae7e5468efec76be381d8007d4f9e61778973dd7eb302682bb2b2a6cff0be"
+      },
+      {
+        "path": "licenses/sources/ffmpeg-e16ff06adb-source.tar",
+        "sha256": "42cad98c27584ad67d4517d996f4b561e1ed2a0ff9f44e70d2e5be855add9e66"
+      }
+    ],
+    "linux-x64": [
+      {
+        "path": "licenses/sources/FFmpeg-BUILD-CONFIGURATION.txt",
+        "sha256": "3fa99c8eebc95c729c30f4dbf9d406500b8d7dbdb206ae924246da28bd59ba99"
+      },
+      {
+        "path": "licenses/sources/ffmpeg-39cac587c4-source.tar",
+        "sha256": "7cdc5c54068202f40f4bdcc344f4912db3e4defc95238d7dd9c30926c17dd9d4"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "assets": {},
+      "distribution": "bundled-runtime-pack",
+      "id": ".NET Runtime",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "dotnet-LICENSE.txt",
+          "sha256": "cfc21f5e8bd655ae997eec916138b707b1d290b83272c02a95c9f821b8c87310"
+        },
+        {
+          "path": "dotnet-THIRD-PARTY-NOTICES.txt",
+          "sha256": "2dc8f8c5a39401e928b5784ab564eb8b3ceb99ead3df8f260e0cab7e0bbecc7a"
+        }
+      ],
+      "packageSha256": null,
+      "source": "https://github.com/dotnet/dotnet",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "4099f83977f4d29604a9aeb971fb0a7bc1d5f699",
+      "version": "10.0.13"
+    },
+    {
+      "assets": {},
+      "distribution": "bundled-managed",
+      "id": "Avalonia.Desktop",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "Avalonia-MIT.txt",
+          "sha256": "3768a0324776654eb74ab7e39056a448caec92a26daed83744c97c685359d71c"
+        },
+        {
+          "path": "Avalonia.Desktop-12.1.4.nuspec",
+          "sha256": "f0196a02d393b9c2874625d2baac39592ccc2ce1ffbc6cf39248434df77b1bc5"
+        }
+      ],
+      "packageSha256": "5da57df4f56d32f3894475da869d3555a968085f5d93b73b3f5ae89f70a5cd58",
+      "source": "https://github.com/AvaloniaUI/Avalonia",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "2d79ba55fae1b1e71c69f93a668080c9029e6a31",
+      "version": "12.1.4"
+    },
+    {
+      "assets": {},
+      "distribution": "bundled-managed-resource",
+      "id": "Avalonia.Fonts.Inter",
+      "license": "MIT package; SIL-OFL-1.1 font",
+      "notices": [
+        {
+          "path": "Avalonia.Fonts.Inter-12.1.4.nuspec",
+          "sha256": "33c30173dd853458df5a5b0619b63548fc02e9e87bc46a5e293f0bb719b61e1c"
+        },
+        {
+          "path": "Inter-OFL-1.1.txt",
+          "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+        }
+      ],
+      "packageSha256": "b6d9b4c4a6097099629553b400851e12127677c14118e82c042ff7aed37a548b",
+      "source": "https://github.com/AvaloniaUI/Avalonia",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "2d79ba55fae1b1e71c69f93a668080c9029e6a31",
+      "version": "12.1.4"
+    },
+    {
+      "assets": {},
+      "distribution": "bundled-managed",
+      "id": "Concentus",
+      "license": "BSD-3-Clause",
+      "notices": [
+        {
+          "path": "Concentus-2.2.2-LICENSE.txt",
+          "sha256": "c17f3900e66526e46b23839b62e4b507b03a51cc262d925fb8ad5c753afc0026"
+        }
+      ],
+      "packageSha256": "f487f890bef65757af1cecf420e357f00488cbfac0b409ba461ccbceef81481f",
+      "source": "https://github.com/lostromb/concentus",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "6c2328dc19044601e33a9c11628b8d60e1f3011c",
+      "version": "2.2.2"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "libSkiaSharp.so",
+            "sha256": "87d2d56c49a9b1d1da618dfa20994ee213f752f9ada04e085703115162997aef"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "libSkiaSharp.so",
+            "sha256": "66c856eaf1a47a00b23204c30c6ee407987bf5086ecc0a1a6b4fd67526b0cd02"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library",
+      "id": "SkiaSharp.NativeAssets.Linux",
+      "license": "MIT plus retained Skia third-party notices",
+      "notices": [
+        {
+          "path": "SkiaSharp-3.119.4-LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "path": "SkiaSharp-3.119.4-THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ],
+      "packageSha256": "fae0554059b1107ef7888e46c20bdfb548401ef7a7a6f7391ad4fadc7432d50a",
+      "source": "https://github.com/mono/SkiaSharp",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5",
+      "version": "3.119.4"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "libHarfBuzzSharp.so",
+            "sha256": "68fc5ef842ac0dbd57e8063a11de5bb2f3c2b5af530a2d4fa07a7cf5d6ea4259"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "libHarfBuzzSharp.so",
+            "sha256": "1d5c3afef13545bf34bf8f068b14e25ee619c3b6dee235c44e260fe61cb24018"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library",
+      "id": "HarfBuzzSharp.NativeAssets.Linux",
+      "license": "MIT plus retained HarfBuzz third-party notices",
+      "notices": [
+        {
+          "path": "HarfBuzzSharp-8.3.1.3-LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "path": "HarfBuzzSharp-8.3.1.3-THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ],
+      "packageSha256": "7de58e9daffc9dcbe6aeaec2c670dccefd5f69c576a68655e51f8ec82b687295",
+      "source": "https://github.com/mono/SkiaSharp",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "2888c737ad016d584c74525e2d35db5097ea8576",
+      "version": "8.3.1.3"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "cores/nxi/libSkiaSharp.so",
+            "sha256": "c87c290b8179f095ea7495630cafc2829ec15f64e51a2dd2c03ef98099ea58b2"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "cores/nxi/libSkiaSharp.so",
+            "sha256": "a02cd03f1ebcbb972b811bd836caa02245de764a439794c5d5eebaf063baaa65"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library",
+      "id": "SkiaSharp.NativeAssets.Linux (core)",
+      "license": "MIT plus retained Skia third-party notices",
+      "notices": [
+        {
+          "path": "SkiaSharp-2.88.9-LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "path": "SkiaSharp-2.88.9-THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ],
+      "packageSha256": "990fe805aa9147bd567d2eba9890af71cdee296ec23441e83cdd898a50dbc3f0",
+      "source": "https://github.com/mono/SkiaSharp",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "9699cdf046a989423a5e5eca68e7fd813486d81c",
+      "version": "2.88.9"
+    },
+    {
+      "assets": {
+        "linux-arm64": [],
+        "linux-x64": [
+          {
+            "path": "cores/nxi/libglfw.so.3",
+            "sha256": "d22d2cc22cae6e65e155a8f06b2d293cf6b3e9b9ee505c4df1d928625c29698d"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library-x64",
+      "id": "OpenTK.redist.glfw",
+      "license": "Zlib",
+      "notices": [
+        {
+          "path": "GLFW-3.4.0.44-COPYING.md",
+          "sha256": "149704059b5d0bf551637e50042dd4de9c2cae921021f6636298911e3a5f9462"
+        }
+      ],
+      "packageSha256": "c505bfd32f258371ced5f08e5531c124449f60e5625fa6332ba17f2df5861ad5",
+      "source": "https://www.glfw.org/",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": null,
+      "version": "3.4.0.44 (NuGet metadata has an unscoped repository commit 9d40a19a64652353c8f67b1c10d3622b07987da9)"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "cores/nxi/libSDL3.so",
+            "sha256": "2f9c09d198883c171825fe9c595df841ce7bc2e28b818478694f802b1942ae0b"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "cores/nxi/libSDL3.so",
+            "sha256": "7f49defe547e28ac4d11e5a690116953760795c5aa902575f9d2d5fb70e69c60"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library",
+      "id": "Ryujinx.SDL3-CS",
+      "license": "MIT bindings; Zlib native SDL3",
+      "notices": [
+        {
+          "path": "SDL3-CS-2026.918.0.nuspec",
+          "sha256": "521285b26d8d25cf5f6e444b231c0847814910711fa63cfd5f8a8aaf3a14db4d"
+        },
+        {
+          "path": "SDL3-CS-2026.918.0-README.md",
+          "sha256": "a7f72db71602708168e90d75adfd38bb7bc9bd1ee4498e4577907505c8ae0df2"
+        },
+        {
+          "path": "SDL3-Zlib.txt",
+          "sha256": "1420715e8bcef6399dc4833656863f1342a8f818d7872024864b741ead366c4b"
+        }
+      ],
+      "packageSha256": "fa14f44eb270364a5a2b8c1e23e93d81d6621218a8684de85587df7e1464c79b",
+      "source": "https://github.com/libsdl-org/SDL",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": null,
+      "sourceRevisions": {
+        "linux-arm64": null,
+        "linux-x64": "0ccb76ae876e3e893d179828f16f0933326bf084"
+      },
+      "version": "2026.918.0 (x64 native SDL 3.5.0 at 0ccb76ae876e3e893d179828f16f0933326bf084; ARM64 binary reports SDL-3.5.0--128-NOTFOUND, so its SDL source revision is unknown)"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "cores/nxi/libshaderc_shared.so",
+            "sha256": "098442f2b2e6d9b5eb82fef44228c7a01d00364e2caee529334226cda8ec515f"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "cores/nxi/libshaderc_shared.so",
+            "sha256": "9f2d5c6f53c191e59376251c614043019c6a7e325809703cad186da9b9dce6d3"
+          }
+        ]
+      },
+      "distribution": "bundled-shared-library",
+      "id": "Silk.NET.Shaderc.Native",
+      "license": "Apache-2.0 plus Shaderc dependency licenses",
+      "notices": [
+        {
+          "path": "Shaderc-2.22.0.nuspec",
+          "sha256": "f4a5fddb1565b1942e156eba63fb94e459da7247523f8dfa566553c00cf082cd"
+        },
+        {
+          "path": "Shaderc-2.22.0-README.md",
+          "sha256": "ee7a57365f17c4df915e527dd7c14dca239dc6312cd7fd1a4a9ba22de1038467"
+        },
+        {
+          "path": "Shaderc-Apache-2.0.txt",
+          "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+        },
+        {
+          "path": "Shaderc-DEPS-2024.3.txt",
+          "sha256": "1511d1021361df055af04b3703e770095f4806fa61f8590d0c31aafd4d4a94c4"
+        },
+        {
+          "path": "NOTICE-SOURCES.json",
+          "sha256": "a088d3604b8a770721cab0b5af6bb85a100f4b3f0def62bb059f617049fbab12"
+        },
+        {
+          "path": "Shaderc-glslang-LICENSE.txt",
+          "sha256": "adb783e734e906d1f46db5df29991dbde84bdb0ceab502ac2febb44fe3c2b5f4"
+        },
+        {
+          "path": "Shaderc-SPIRV-Headers-LICENSE.txt",
+          "sha256": "ff04ae7e6a468587fe59434fee2e67c0e2a749b592c794b764ff80f30b94a084"
+        },
+        {
+          "path": "Shaderc-SPIRV-Tools-LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "Shaderc-LLVM-LICENSE.txt",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "Shaderc-libcxx-LICENSE.txt",
+          "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+        },
+        {
+          "path": "Shaderc-libcxxabi-LICENSE.txt",
+          "sha256": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c"
+        }
+      ],
+      "packageSha256": "7b80ff4f11497b81e73b27017352994817f44dcf79ecaab8c6506c3645ec59b8",
+      "source": "https://github.com/google/shaderc",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": "v2024.3",
+      "version": "2.22.0 (native Shaderc 2024.3)"
+    },
+    {
+      "assets": {
+        "linux-arm64": [
+          {
+            "path": "cores/nxi/libavcodec.so.60",
+            "sha256": "7a73584c7e557fd311199d56842194e88434b123256f98ca39539c1e3ed4fa72"
+          },
+          {
+            "path": "cores/nxi/libavutil.so.58",
+            "sha256": "ebdffb123202f126b63b841f5bbd2bbb02c42c9dcd0a5b734a7400466476340b"
+          }
+        ],
+        "linux-x64": [
+          {
+            "path": "cores/nxi/libavcodec.so.60",
+            "sha256": "9b7009ee27f8df970d196e20c5a59e8d5f6f0e80413632f4eff121c5f991f0db"
+          },
+          {
+            "path": "cores/nxi/libavutil.so.58",
+            "sha256": "47252c198aea2017d0c654fc454c69c582e5281a9c4b41908f1e46953b8c10d9"
+          }
+        ]
+      },
+      "buildConfigurations": {
+        "linux-arm64": "--target-os=linux --arch=arm64 --disable-debug --disable-all --disable-autodetect --enable-shared --enable-avcodec --enable-avutil --enable-decoder='h264,vp8,vp9' --prefix=bin/build",
+        "linux-x64": "--target-os=linux --disable-debug --disable-all --disable-autodetect --enable-shared --enable-avcodec --enable-avutil --enable-decoder='h264,vp8,vp9' --prefix=bin/build"
+      },
+      "distribution": "bundled-shared-library",
+      "id": "Ryujinx.Graphics.Nvdec.Dependencies.Linux",
+      "license": "LGPL-2.1-or-later in the binary; NuGet metadata declares LGPL-2.1-only",
+      "notices": [
+        {
+          "path": "FFmpeg-6.1.2-build4.nuspec",
+          "sha256": "75a231dadba8b709c4866e86703b5294ecc45f2b000ae89105d00052922bbee9"
+        },
+        {
+          "path": "FFmpeg-6.1.2-build4-README.md",
+          "sha256": "50ead6fa77a698756e89be68079d23aac6f5062732f0c67144bd82ab082fddfb"
+        },
+        {
+          "path": "FFmpeg-LGPL-2.1-or-later.txt",
+          "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2"
+        }
+      ],
+      "packageSha256": "0351007f097b75328a5c64b467682b50c9337848d13712ed7462861b0333453c",
+      "source": "https://github.com/FFmpeg/FFmpeg",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": null,
+      "sourceRevisions": {
+        "linux-arm64": "e16ff06adb9acd647c0c33aa3c27438e1009b822",
+        "linux-x64": "39cac587c4f78f7c26e0f0e5da664943d4e9fade"
+      },
+      "version": "6.1.2-build4 (x64 binary n6.1.2-25-g39cac587c4; ARM64 binary n6.1.2-27-ge16ff06adb)"
+    },
+    {
+      "assets": {},
+      "distribution": "system-shared-library",
+      "id": "OpenAL Soft",
+      "license": "LGPL-2.0-or-later",
+      "notices": [],
+      "packageSha256": null,
+      "source": "https://github.com/kcat/openal-soft",
+      "sourceBinaryReproducibilityVerified": false,
+      "sourceRevision": null,
+      "version": "distribution-provided libopenal.so.1"
+    }
+  ],
+  "schemaVersion": 6
+}

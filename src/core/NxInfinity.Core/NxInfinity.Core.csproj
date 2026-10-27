@@ -12,6 +12,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Nullable>annotations</Nullable>
     <CoreSourceRoot Condition="'$(CoreSourceRoot)' == ''">$(MSBuildThisFileDirectory)../../../artifacts/source-baseline/core</CoreSourceRoot>
+    <CoreOutputSuffix Condition="'$(RuntimeIdentifier)' != ''">/$(RuntimeIdentifier)</CoreOutputSuffix>
     <BuildProjectReferences>false</BuildProjectReferences>
   </PropertyGroup>
 
@@ -23,7 +24,6 @@
     <PackageReference Include="Ryujinx.SDL3-CS" Version="2026.918.0" />
     <PackageReference Include="Silk.NET.Shaderc.Native" Version="2.22.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="$(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/Ryujinx.Audio.Backends.OpenAL.csproj" />
     <ProjectReference Include="$(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/Ryujinx.Graphics.Vulkan.csproj" />
@@ -31,11 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0/Ryujinx*.dll;
-                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0/ARMeilleure.dll;
-                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0/Spv.Generator.dll;
-                      $(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/bin/$(Configuration)/net9.0/Ryujinx.Graphics.Vulkan.dll;
-                      $(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/bin/$(Configuration)/net9.0/Ryujinx.Audio.Backends.OpenAL.dll">
+    <Content Include="$(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx*.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/ARMeilleure.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Spv.Generator.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Graphics.Vulkan.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Audio.Backends.OpenAL.dll"
+             Exclude="$(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.HLE.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Graphics.Vulkan.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Audio.Backends.OpenAL.dll">
       <TargetPath>%(Filename)%(Extension)</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

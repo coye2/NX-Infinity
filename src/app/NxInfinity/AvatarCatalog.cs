@@ -17,11 +17,15 @@ public sealed class AvatarCatalog : IDisposable
 {
     public const string Repository = "henry-debruin/nso-icons";
 
+#if !NXI_NATIVE_LINUX
     private readonly HttpClient _http;
+#endif
 
     private readonly string _cache;
 
+#if !NXI_NATIVE_LINUX
     private readonly SemaphoreSlim _downloads = new SemaphoreSlim(4);
+#endif
 
     public const string IslandSource = "https://www.hellokittyislandadventure.com/";
 
@@ -29,6 +33,7 @@ public sealed class AvatarCatalog : IDisposable
 
     public static readonly AvatarCategory IslandCategory = new AvatarCategory("hello-kitty-island-adventure", "Hello Kitty Island Adventure");
 
+#if !NXI_NATIVE_LINUX
     private static readonly IReadOnlyDictionary<string, (string Name, string Url)> IslandCharacters = new Dictionary<string, (string, string)>(StringComparer.Ordinal)
     {
         ["hello-kitty-island-adventure/characters/kitty.png"] = ("Hello Kitty", "https://static.wixstatic.com/media/b0050c_e051d3610ded476eb57590df19945607~mv2.png"),
@@ -45,12 +50,14 @@ public sealed class AvatarCatalog : IDisposable
         ["hello-kitty-island-adventure/characters/peck.png"] = ("Pekkle", "https://static.wixstatic.com/media/b0050c_693784adf8ae44ec9a2c6ef545606701~mv2.png"),
         ["hello-kitty-island-adventure/characters/tux.png"] = ("Tuxedosam", "https://static.wixstatic.com/media/b0050c_8110fba71b1c4015b7fdaeace3b012b6~mv2.png")
     };
+#endif
 
     public bool Offline { get; private set; }
 
     public AvatarCatalog(string root, HttpMessageHandler? handler = null)
     {
         _cache = Path.Combine(root, "catalog");
+#if !NXI_NATIVE_LINUX
         _http = new HttpClient(handler ?? new HttpClientHandler
         {
             AllowAutoRedirect = false
@@ -59,6 +66,7 @@ public sealed class AvatarCatalog : IDisposable
             Timeout = TimeSpan.FromSeconds(15L)
         };
         _http.DefaultRequestHeaders.UserAgent.ParseAdd("NX-Infinity-Avatars/1.0");
+#endif
     }
 
     public static bool ValidImagePath(string? path)
@@ -75,6 +83,7 @@ public sealed class AvatarCatalog : IDisposable
         return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
     }
 
+#if !NXI_NATIVE_LINUX
     private async Task<byte[]> DownloadAsync(Uri uri, int maximum, CancellationToken ct)
     {
         await _downloads.WaitAsync(ct);
@@ -148,9 +157,15 @@ public sealed class AvatarCatalog : IDisposable
             return JsonDocument.Parse(await File.ReadAllBytesAsync(file, ct));
         }
     }
+#endif
 
     public async Task<AvatarCategory[]> CategoriesAsync(CancellationToken ct = default(CancellationToken))
     {
+#if NXI_NATIVE_LINUX
+        await Task.CompletedTask;
+        Offline = true;
+        return Array.Empty<AvatarCategory>();
+#else
         JsonDocument jsonDocument;
         try
         {
@@ -171,6 +186,7 @@ public sealed class AvatarCatalog : IDisposable
                     orderby x.Label
                     select x).ToArray();
         }
+#endif
     }
 
     public async Task<AvatarItem[]> ItemsAsync(string category, string part = "characters", CancellationToken ct = default(CancellationToken))
@@ -197,6 +213,11 @@ public sealed class AvatarCatalog : IDisposable
         {
             throw new ArgumentException("Invalid avatar category.");
         }
+#if NXI_NATIVE_LINUX
+        await Task.CompletedTask;
+        Offline = true;
+        return Array.Empty<AvatarItem>();
+#else
         if (category == IslandCategory.Id)
         {
             return (part == "characters") ? IslandCharacters.Select((KeyValuePair<string, (string Name, string Url)> x) => new AvatarItem(x.Key, x.Value.Name)).ToArray() : Array.Empty<AvatarItem>();
@@ -206,6 +227,7 @@ public sealed class AvatarCatalog : IDisposable
                            where x.GetProperty("type").GetString() == "file"
                            select x.GetProperty("path").GetString()).Where(ValidImagePath)
                 select new AvatarItem(x, Path.GetFileNameWithoutExtension(x))).ToArray();
+#endif
     }
 
     public async Task<byte[]> ImageAsync(string path, CancellationToken ct = default(CancellationToken))
@@ -215,6 +237,10 @@ public sealed class AvatarCatalog : IDisposable
         {
             throw new ArgumentException("Invalid avatar image path.");
         }
+#if NXI_NATIVE_LINUX
+        await Task.CompletedTask;
+        throw new IOException("The online avatar catalog is disabled in native Linux packages. Import a local PNG or JPEG instead.");
+#else
         string file = Path.Combine(_cache, Hash(path) + ".png");
         if (File.Exists(file) && new FileInfo(file).Length <= 2097152)
         {
@@ -239,6 +265,7 @@ public sealed class AvatarCatalog : IDisposable
         AvatarStore.WriteAtomic(file, array4);
         Trim();
         return array4;
+#endif
     }
 
     private void Trim()
@@ -266,6 +293,8 @@ public sealed class AvatarCatalog : IDisposable
 
     public void Dispose()
     {
+#if !NXI_NATIVE_LINUX
         _http.Dispose();
+#endif
     }
 }

@@ -1,0 +1,35 @@
+{
+  "notices": [
+    {
+      "path": "Shaderc-glslang-LICENSE.txt",
+      "sha256": "adb783e734e906d1f46db5df29991dbde84bdb0ceab502ac2febb44fe3c2b5f4",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glslang/467ce01c71e38cf01814c48987a5c0dadd914df4/LICENSE.txt"
+    },
+    {
+      "path": "Shaderc-SPIRV-Headers-LICENSE.txt",
+      "sha256": "ff04ae7e6a468587fe59434fee2e67c0e2a749b592c794b764ff80f30b94a084",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/SPIRV-Headers/2a9b6f951c7d6b04b6c21fe1bf3f475b68b84801/LICENSE"
+    },
+    {
+      "path": "Shaderc-SPIRV-Tools-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/SPIRV-Tools/01c8438ee4ac52c248119b7e03e0b021f853b51a/LICENSE"
+    },
+    {
+      "path": "Shaderc-LLVM-LICENSE.txt",
+      "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee",
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/a4bf6cd7cfb1a1421ba92bca9d017b49936c55e4/llvm/LICENSE.TXT"
+    },
+    {
+      "path": "Shaderc-libcxx-LICENSE.txt",
+      "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/a4bf6cd7cfb1a1421ba92bca9d017b49936c55e4/libcxx/LICENSE.TXT"
+    },
+    {
+      "path": "Shaderc-libcxxabi-LICENSE.txt",
+      "sha256": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c",
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/a4bf6cd7cfb1a1421ba92bca9d017b49936c55e4/libcxxabi/LICENSE.TXT"
+    }
+  ],
+  "schemaVersion": 1
+}
