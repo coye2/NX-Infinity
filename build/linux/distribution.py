@@ -228,13 +228,16 @@ def copy_native_notices(root: pathlib.Path, nuget_root: pathlib.Path) -> None:
     unpinned = members.keys() - PACKAGE_HASHES.keys()
     if unpinned:
         raise ValueError(f"Notice source package is not pinned: {sorted(unpinned)}")
+    destinations = [destination for _, _, _, destination in NOTICE_SOURCES]
+    duplicates = sorted({name for name in destinations if destinations.count(name) > 1})
+    if duplicates:
+        raise ValueError(f"Notice destinations are not unique: {duplicates}")
     notices: dict[str, bytes] = {}
     for (package_id, version), expected in PACKAGE_HASHES.items():
         package = verified_package(nuget_root, package_id, version, expected)
         for source, destination in members.get((package_id, version), ()):
             notices[destination] = read_package_member(package, source)
-    for destination, data in notices.items():
-        write_bytes(root / "licenses/native" / destination, data)
+    write_native_notices(root, notices)
 
 
 def copy_runtime_notices(root: pathlib.Path, nuget_root: pathlib.Path, rid: str) -> None:
@@ -244,8 +247,13 @@ def copy_runtime_notices(root: pathlib.Path, nuget_root: pathlib.Path, rid: str)
     package = verified_package(
         nuget_root, f"microsoft.netcore.app.runtime.{rid}", RUNTIME_PACK_VERSION, RUNTIME_PACK_HASHES[rid]
     )
-    notices = [(destination, read_package_member(package, source)) for source, destination in RUNTIME_NOTICES]
-    for destination, data in notices:
+    write_native_notices(
+        root, {destination: read_package_member(package, source) for source, destination in RUNTIME_NOTICES}
+    )
+
+
+def write_native_notices(root: pathlib.Path, notices: dict[str, bytes]) -> None:
+    for destination, data in notices.items():
         write_bytes(root / "licenses/native" / destination, data)
 
 
@@ -257,11 +265,17 @@ def verified_package(nuget_root: pathlib.Path, package_id: str, version: str, ex
         # O_NONBLOCK keeps a FIFO at the package path from blocking the open.
         descriptor = os.open(package, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
     except OSError as error:
-        raise ValueError(f"NuGet package is missing or a symbolic link: {label}") from error
-    if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+        raise ValueError(
+            f"NuGet package cannot be opened without following a symbolic link: {label}: {error.strerror}"
+        ) from error
+    try:
+        if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+            raise ValueError(f"NuGet package is not a regular file: {label}")
+        stream = os.fdopen(descriptor, "rb")
+    except BaseException:
         os.close(descriptor)
-        raise ValueError(f"NuGet package is not a regular file: {label}")
-    with os.fdopen(descriptor, "rb") as stream:
+        raise
+    with stream:
         data = stream.read(MAX_PACKAGE_BYTES + 1)
     if len(data) > MAX_PACKAGE_BYTES:
         raise ValueError(f"NuGet package exceeds the size bound: {label}")

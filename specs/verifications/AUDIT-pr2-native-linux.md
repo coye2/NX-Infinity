@@ -5,7 +5,7 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the round-20 changes. Commit and push stay
+Verdict: self-audit PASS for the round-21 changes. Commit and push stay
 blocked until both independent reviewers pass the new frozen snapshot.
 
 ## Supply chain and security
@@ -567,3 +567,34 @@ file:
 62 Linux and 15 source-baseline tests pass. Regenerated with the real package
 caches and external notices, all 255 distribution files per archive match the
 round-18 archives byte for byte.
+
+## Round-20 review, fork CI and round 21
+
+Snapshot
+`374351a006cc136bc8890b914c2ee3850bc317ac21d797ecf8bffc1be8065995`
+received `PASS` 100 from both reviewers and was committed as `1dfd372`. Its
+fork CI run passed both jobs with only 9.0.100 and 10.0.402 in the private
+SDK folder. The ten restored-core assemblies and `backend.json` now match the
+round-18 archives byte for byte, which confirms that the earlier CI core
+build had rolled forward to a newer 9.0 SDK. Four members still differ per
+RID, all because of the built commit: the three runtime DLLs embed it (as
+ASCII and UTF-16), which also moves their content-derived timestamp and
+16-byte identifier, and the build manifest records CI's commit time and those
+three hashes.
+
+Round 21 answers the round-20 considerations without changing a packaged
+file:
+
+- A failed package open reports the system's error text, and the descriptor
+  is closed on every failure path.
+- Duplicate notice destinations are refused; both notice copies share one
+  writer.
+- The SDK query times out after 120 seconds and, on refusal, keeps dotnet's
+  list of installed SDKs.
+- Tests close the reviewers' mutation gaps: the FIFO timeout cannot be
+  mistaken for a refusal, a package replaced after hashing is never re-read,
+  both size bounds are tested at the limit, and each `global.json` refusal
+  asserts its own message. A 23-mutation sweep catches every mutation.
+
+68 Linux and 15 source-baseline tests pass, and the 255 regenerated
+distribution files still match the round-18 archives.

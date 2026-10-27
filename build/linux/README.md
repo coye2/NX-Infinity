@@ -10,9 +10,9 @@ is a portable, deterministic `.tar.gz`; it is not an AppImage or Flatpak.
   [`../source-baseline`](../source-baseline/README.md).
 - .NET SDK 10.0.402.
 - The core projects built with .NET SDK 9.0.100.
-  `package.py` refuses a `--dotnet` or `--core-dotnet` that resolves any other
-  SDK than the one named by `src/global.json` or the restored core's
-  `global.json`. The core's pin (`rollForward: latestFeature`) lets dotnet
+  `package.py` refuses a `--dotnet` that resolves any SDK other than the one
+  named by `src/global.json`, and a `--core-dotnet` that resolves any SDK
+  other than the one named by the restored core's `global.json`. The core's pin (`rollForward: latestFeature`) lets dotnet
   pick any newer 9.0 SDK, a later patch or a later feature band, so use a
   dotnet root that holds no 9.0 SDK newer than 9.0.100.
 - Git 2.45 or later, for both packaging and `test_tools.py`.

@@ -24,6 +24,7 @@ SOURCE_BASELINE = "b26ba273dc83fb757b2548519f1ee44e3d4d6df2"
 CORE_REVISION = "67591deee07ab2ce86fc9b72c42e8b64c95ba1b3"
 BUILD_MANIFEST = "NX-LINUX-BUILD.json"
 BACKEND_MANIFEST = "backend.json"
+SDK_QUERY_TIMEOUT_SECONDS = 120
 SYSTEM_DEPENDENCIES = (
     "glibc (x64 2.38 or newer, ARM64 2.34 or newer)",
     "the GCC runtime libraries libstdc++.so.6 and libgcc_s.so.1",
@@ -317,10 +318,15 @@ def require_pinned_sdk(dotnet: pathlib.Path, project_root: pathlib.Path) -> str:
     if not isinstance(expected, str) or not expected:
         raise ValueError(f"SDK pin does not name a version: {pin}")
     result = subprocess.run(
-        [str(dotnet), "--version"], cwd=project_root, check=False, capture_output=True, text=True
+        [str(dotnet), "--version"],
+        cwd=project_root,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=SDK_QUERY_TIMEOUT_SECONDS,
     )
     if result.returncode != 0:
-        detail = (result.stderr.strip() or result.stdout.strip())[-2000:]
+        detail = "\n".join(part for part in (result.stderr.strip(), result.stdout.strip()) if part)[-4000:]
         raise ValueError(
             f"{dotnet} cannot resolve the SDK pinned by {pin} (exit {result.returncode}): {detail}"
         )

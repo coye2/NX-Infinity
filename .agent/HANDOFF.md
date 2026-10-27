@@ -817,7 +817,7 @@ Earlier evidence, superseded for the archive identities by round 7:
   package path hung `verified_package` (round 18 refused it), and the
   CI-versus-round-18 record misattributed the manifests and three core DLLs.
   Reviewer B (`ses_e8110a9a4ffeXIXAOVQvifvWkt`) `PASS` 100, considers only.
-- Round 20 (uncommitted, not yet reviewed) fixes both should-fix findings
+- Round 20 fixes both should-fix findings
   and every consider; no packaged file changes, so the round-18 archives
   remain the product:
   - `verified_package` opens with `O_NONBLOCK`, so a FIFO is refused instead
@@ -858,6 +858,68 @@ Earlier evidence, superseded for the archive identities by round 7:
     classic-zlib x64 and ARM64 archives byte for byte (the earlier 231
     excluded the package-cache and external notices), and all three pass the
     verifier.
-- Next action: freeze round 20 for dual independent review; after a dual
-  `PASS`, commit on top of `ae1f590`, push and require fork CI to pass with
-  x64/ARM64 artifacts, then compare the CI core DLLs with round 18.
+- Review round 20: snapshot
+  `374351a006cc136bc8890b914c2ee3850bc317ac21d797ecf8bffc1be8065995`
+  (packet `pr2-round20-review-20261027-160724`). Reviewer A
+  (`ses_e81063601ffeb8YmJc14A1V2ha`) and Reviewer B
+  (`ses_e8106187dffeRXgf2JJHve8uNi`) both `PASS` 100/100, considers only.
+- Commit `1dfd3725e65da98626127f26a529496f8c3e864d` (index matched all 41
+  reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
+  to `fork/feat/native-linux-builds`. Fork CI run `40576404272` passed both
+  jobs. "Show installed .NET SDKs" lists exactly 9.0.100 and 10.0.402 under
+  `/home/runner/work/_temp/dotnet/sdk`, with `DOTNET_ROOT` set to that
+  folder. Artifact `nx-infinity-native-linux` downloads with both archives
+  (x64 114,383,514 bytes, ARM64 108,916,594 bytes); the sidecars check and
+  the local verifier passes both (813/40 and 811/39).
+- CI versus round-18 archives, now: 4 members differ per RID, none present
+  in only one archive. All ten restored-core assemblies and `backend.json`
+  match round 18 byte for byte, which confirms the roll-forward hypothesis
+  above: with only 9.0.100 available, CI's core build matches the local one.
+  The remaining differences come from the built commit alone:
+  - The three `NxInfinity.Runtime*` DLLs embed the commit once as ASCII and
+    once as UTF-16. With both forms swapped for `b26ba273…`, each differs
+    from the local build only in the 4-byte PE timestamp at offset 136 and
+    one 16-byte run (19–20 bytes in all), which a deterministic build
+    derives from the content.
+  - `NX-LINUX-BUILD.json` differs in `sourceDateEpoch` (CI commit time
+    1793132123 against 1793068160) and in the hashes of those three DLLs.
+- Round 21 (uncommitted, not yet reviewed) answers the round-20 considers;
+  no packaged file changes:
+  - `verified_package` adds the system's error text when the open fails
+    (tested for a missing file, a symbolic link and a path through a file),
+    and closes
+    the descriptor on every failure path before wrapping it.
+  - `copy_native_notices` refuses duplicate notice destinations instead of
+    letting one silently replace another; both notice copies share one
+    `write_native_notices`.
+  - `require_pinned_sdk` gives `dotnet --version` a 120-second timeout and,
+    on refusal, keeps dotnet's standard output (its list of installed SDKs)
+    as well as its error text.
+  - README pairs `--dotnet` with `src/global.json` and `--core-dotnet` with
+    the restored core's `global.json`.
+  - Tests: the FIFO timeout raises `AssertionError`, which the reader cannot
+    turn into an expected refusal; a file replaced after hashing is never
+    re-read; package and notice bounds are exercised at the exact limit and
+    one byte over; each `global.json` refusal asserts its own message
+    (missing, empty and absent version, duplicate key); duplicate notice
+    destinations; an SDK query that hangs times out; the refusal keeps
+    dotnet's SDK list. The two two-behaviour tests are split; a
+    `write_runtime_pack` helper replaces three copies of the runtime-pack
+    path; the `BuildInputs` fixture uses keyword arguments.
+  - Kept as is, with a reason: the `and rid is not None` after the RID
+    guard in `add_distribution_files`. It never changes behaviour, but it is
+    what narrows `rid` to `str` for `copy_runtime_notices`; the parameter
+    object Reviewer A suggested would be a larger change for the same
+    guarantee.
+  - Mutation sweep (`round21-mutation/mutate.py`): all 23 mutations are
+    caught, including the round-20 reviewers' survivors (re-reading the
+    package after hashing, inclusive size bounds, plain `json.loads` for
+    `global.json`, no version guard) and the new checks (error text,
+    duplicate destinations, SDK timeout, SDK list).
+  - Checks: 68 Linux and 15 source-baseline tests, AST parse, actionlint,
+    diff check; all 255 regenerated distribution files per archive still
+    match the round-18 x64, classic-zlib x64 and ARM64 archives byte for
+    byte, and all three pass the verifier.
+- Next action: freeze round 21 for dual independent review; after a dual
+  `PASS`, commit on top of `1dfd372`, push and require fork CI to pass with
+  x64/ARM64 artifacts.
