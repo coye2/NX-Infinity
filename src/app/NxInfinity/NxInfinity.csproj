@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>NxInfinity</AssemblyName>
+    <RootNamespace>NxInfinity</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0+22708dce6dd0fc02fc9294273785ad139efc3226</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>annotations</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' != 'linux-x64' And '$(RuntimeIdentifier)' != 'linux-arm64'">
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/nx-infinity.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64'">
+    <DefineConstants>$(DefineConstants);NXI_NATIVE_LINUX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64'">
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../runtime/NxInfinity.Runtime/NxInfinity.Runtime.csproj" />
+    <ProjectReference Include="../../runtime/NxInfinity.Runtime.Enhancements/NxInfinity.Runtime.Enhancements.csproj" />
+    <ProjectReference Include="../../runtime/NxInfinity.Runtime.Services/NxInfinity.Runtime.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets/**" />
+    <EmbeddedResource Include="TimingModules/totk-100/main.npdm.b64"
+                      LogicalName="NxInfinity.TimingModules.totk-100.main.npdm.b64" />
+    <EmbeddedResource Include="TimingModules/totk-100/subsdk9.b64"
+                      LogicalName="NxInfinity.TimingModules.totk-100.subsdk9.b64" />
+    <EmbeddedResource Include="TimingModules/totk-100/manifest.json"
+                      LogicalName="NxInfinity.TimingModules.totk-100.manifest.json" />
+  </ItemGroup>
+</Project>

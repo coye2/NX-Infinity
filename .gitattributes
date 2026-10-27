@@ -1,2 +1,11 @@
 * text=auto
 *.sh text eol=lf
+
+# These working-tree files are hashed by the source restorer.
+src/core/overlays/** text eol=lf
+src/runtime/NxInfinity.Runtime/** text eol=lf
+build/source-baseline/*.py text eol=lf
+build/source-baseline/*.json text eol=lf
+
+# Preserve the byte-identical release source manifest used as provenance evidence.
+build/source-baseline/NX-BUILD-SOURCES.json -text

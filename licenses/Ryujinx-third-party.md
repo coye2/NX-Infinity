@@ -1,4 +1,10 @@
-# ffmpeg (LGPLv3)
+# Historical Ryujinx FFmpeg notice (LGPLv3)
+
+This retained upstream notice is not the license record for the native Linux
+FFmpeg 6.1.2-build4 assets. Their package metadata, binary-reported license,
+exact source commit, hashes and LGPL-2.1 text are recorded separately in the
+native Linux archive.
+
 <details>
   <summary>See License</summary>
   

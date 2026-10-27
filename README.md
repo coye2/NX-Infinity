@@ -8,13 +8,13 @@ my take on a Switch emulator. an entirely remade Switch themed UI, with Desktop 
 
 NX Infinity is a fork of the Ryujinx core through Kenji-NX, with extensive repairs and performance improvements. huge credit to the Ryujinx and Kenji-NX teams for the foundation this is built on.
 
-**[Windows download](https://github.com/coye2/NX-Infinity/releases/latest)** · **[Linux / Proton](docs/linux.md)** · **[What's changed](CHANGELOG.md)**
+**[Windows download](https://github.com/coye2/NX-Infinity/releases/latest)** · **[Native Linux](docs/linux.md)** · **[What's changed](CHANGELOG.md)**
 
 ## get started
 
 Download the Windows ZIP, extract it into a new folder and open **NX Infinity.exe**. keep the folders together. add your games, keys and firmware through setup, then you're ready to go.
 
-Linux users: download the Proton ZIP, extract it and run **Install-NX-Infinity.sh**. setup adds NX Infinity to your app menu and keeps your saves when you update.
+Linux users: native self-contained x64 and ARM64 archives are produced by CI. See the [Linux guide](docs/linux.md) for artifact availability, system libraries, checksums and the Proton fallback.
 
 ## what's here
 
@@ -26,7 +26,11 @@ Linux users: download the Proton ZIP, extract it and run **Install-NX-Infinity.s
 - Controller reconnect, smoother HOME navigation and a controller touchscreen pointer.
 - Themes, avatars, save tools, updates, mods and local translation options.
 
-MP4 still has some stutter. Linux gameplay and 3D All-Stars touch controls need more testing. [Test notes](docs/testing.md) have the details.
+MP4 still has some stutter. Native Linux gameplay, audio/controllers, physical ARM64 hardware and 3D All-Stars touch controls need more testing. [Test notes](docs/testing.md) have the details.
+
+## build from source
+
+The launcher and core host source are included. The emulator core is restored from pinned public Ryujinx and Kenji-NX inputs, with every exact file checked against the v1 release source manifest. [Source baseline instructions](build/source-baseline/README.md) document the reconstruction; [native Linux instructions](build/linux/README.md) build and verify x64/ARM64 archives.
 
 ## the people behind it
 

@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="app/NxInfinity/NxInfinity.csproj" />
   <Project Path="runtime/NxInfinity.Runtime/NxInfinity.Runtime.csproj" />
   <Project Path="runtime/NxInfinity.Runtime.Services/NxInfinity.Runtime.Services.csproj" />
   <Project Path="runtime/NxInfinity.Runtime.Enhancements/NxInfinity.Runtime.Enhancements.csproj" />

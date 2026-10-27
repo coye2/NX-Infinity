@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>NxInfinity.Core</AssemblyName>
+    <RootNamespace>NxInfinity.Core</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0-nxi+04dbc5cfe517990f3c3897712f40a8499287312a</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>annotations</Nullable>
+    <CoreSourceRoot Condition="'$(CoreSourceRoot)' == ''">$(MSBuildThisFileDirectory)../../../artifacts/source-baseline/core</CoreSourceRoot>
+    <CoreOutputSuffix Condition="'$(RuntimeIdentifier)' != ''">/$(RuntimeIdentifier)</CoreOutputSuffix>
+    <BuildProjectReferences>false</BuildProjectReferences>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ryujinx.Graphics.Nvdec.Dependencies.Linux" Version="6.1.2-build4"
+                      Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64'" />
+    <PackageReference Include="Ryujinx.Graphics.Nvdec.Dependencies.Windows" Version="6.1.2-build4"
+                      Condition="'$(RuntimeIdentifier)' == 'win-x64' Or '$(RuntimeIdentifier)' == 'win-arm64'" />
+    <PackageReference Include="Ryujinx.SDL3-CS" Version="2026.918.0" />
+    <PackageReference Include="Silk.NET.Shaderc.Native" Version="2.22.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/Ryujinx.Audio.Backends.OpenAL.csproj" />
+    <ProjectReference Include="$(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/Ryujinx.Graphics.Vulkan.csproj" />
+    <ProjectReference Include="$(CoreSourceRoot)/src/Ryujinx.HLE/Ryujinx.HLE.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx*.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/ARMeilleure.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Spv.Generator.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Graphics.Vulkan.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Audio.Backends.OpenAL.dll"
+             Exclude="$(CoreSourceRoot)/src/Ryujinx.HLE/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.HLE.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Graphics.Vulkan/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Graphics.Vulkan.dll;
+                      $(CoreSourceRoot)/src/Ryujinx.Audio.Backends.OpenAL/bin/$(Configuration)/net9.0$(CoreOutputSuffix)/Ryujinx.Audio.Backends.OpenAL.dll">
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

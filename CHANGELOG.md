@@ -1,5 +1,13 @@
 # changelog
 
+## Unreleased
+
+- Restored the public launcher and core-host source and added a hash-checked process for reconstructing the v1 core from pinned Ryujinx and Kenji-NX inputs.
+- Added CI coverage for core reconstruction, core builds, host publishing and the protocol hello handshake.
+- Added deterministic self-contained `linux-x64` and `linux-arm64` archives with native launcher/core apphosts, complete integrity manifests, license/source notices, checksum files and desktop integration.
+- Added Linux archive, ELF/dependency and CPU-only Xvfb launcher/worker gates. Packages remain unqualified for gameplay, audio, controllers, saves and physical ARM64 hardware.
+- Native Linux packages omit the translation and OCR features, which need the bundled translation runtime, and the online avatar catalog; local avatar import remains.
+
 ## Stable Release v1 — 1.0.0 — 26 October 2026
 
 - Backgrounds now use separate HD landscape metadata from Nintendo. Covers stay on game tiles. Missing artwork uses the theme, and downloaded backgrounds work offline.

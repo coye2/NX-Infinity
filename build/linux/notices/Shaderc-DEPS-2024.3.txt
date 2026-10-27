@@ -1,0 +1,15 @@
+Shaderc v2024.3 dependency revisions
+
+abseil-cpp: 1315c900e1ddbb08a23e06eeb9a06450052ccb5e
+effcee: d74d33d93043952a99ae7cd7458baf6bc8df1da0
+glslang: 467ce01c71e38cf01814c48987a5c0dadd914df4
+googletest: 1d17ea141d2c11b8917d2c7d029f1c4e2b9769b2
+re2: 4a8cee3dd3c3d81b6fe8b867811e193d5819df07
+SPIRV-Headers: 2a9b6f951c7d6b04b6c21fe1bf3f475b68b84801
+SPIRV-Tools: 01c8438ee4ac52c248119b7e03e0b021f853b51a
+
+Source: https://github.com/google/shaderc/blob/v2024.3/DEPS
+The packaged native binary comes from Silk.NET.Shaderc.Native 2.22.0. Its
+NuGet content hash and per-RID binary hashes are recorded in
+NATIVE-DEPENDENCIES.json. Binary reproduction from these source revisions was
+not independently verified.

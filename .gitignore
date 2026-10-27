@@ -7,3 +7,5 @@ artifacts/
 *.keys
 *.xci
 *.nsp
+__pycache__/
+*.py[cod]

@@ -1,0 +1,1248 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v1.0.0",
+    "sourceRevision": "67591deee07ab2ce86fc9b72c42e8b64c95ba1b3",
+    "upstreamRevision": "7d1fd99d3dc1c230ef7f823e96f187b3de619e4a",
+    "sourceManifestSha256": "27dc579656ce0ae36fa1dce95b0406e04a93ff0f81d8f815818a60b27dabeee3",
+    "coreHostAssemblySha256": "37e8a896830297fc28251e2ba339508e0b36b69a7cf1d7873763bdb66519e71e",
+    "coreHostInformationalVersion": "1.0.0-nxi+04dbc5cfe517990f3c3897712f40a8499287312a",
+    "launcherAssemblySha256": "070755c496df26680e4b0b19e03bbb5ad93f548a926edf3d15682884de57f445",
+    "launcherInformationalVersion": "1.0.0+22708dce6dd0fc02fc9294273785ad139efc3226"
+  },
+  "repositories": {
+    "kenji": {
+      "url": "https://starforgejo.dev/projects/Kenji-NX.git",
+      "revision": "7d1fd99d3dc1c230ef7f823e96f187b3de619e4a"
+    },
+    "laterRyujinx": {
+      "url": "https://github.com/ChanseyIsTheBest/ryujinx.git",
+      "revision": "20888e6d1f96bcf1a59f415c745c684e38529503"
+    }
+  },
+  "coverage": {
+    "coreManifestFiles": 4081,
+    "exactAtKenjiRevision": 3930,
+    "exactKenjiHistory": 75,
+    "exactLaterRyujinx": 13,
+    "reconstructedFromManagedIL": 62,
+    "unavailable": 1,
+    "auxiliaryDecompilerSplits": 5
+  },
+  "exactKenjiHistory": [
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Common/BehaviourParameter.cs",
+      "gitBlob": "5b4f39e23e4825a61de5e1006c23c39bf64b18d9",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "27f5ecc46185cdd902bc42977657131b76aa20ad77fcc8e9f44e6e392dc8b4a5",
+      "bytes": 1818
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Common/UpdateDataHeader.cs",
+      "gitBlob": "63693505583cce9292ed834888b356d542b62d72",
+      "gitCommit": "e3e46315f091185df0e2af3c71df7afe82504aa2",
+      "sha256": "320b7edf71fbc40d8f6cc3bf61ea8bfafeaa76200146cfc5b89f9db28be46b9f",
+      "bytes": 1102
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Common/VoiceState.cs",
+      "gitBlob": "508daa6e26bdf28cc1082022ef6f5484486d93ac",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "bbc96a195bf1fa8a2009e48b7d0acb4588e5773c80be5801cf821eecbfeca18a",
+      "bytes": 3837
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/AdpcmHelper.cs",
+      "gitBlob": "8b497fe2afe6bb5d5dc4eda9011520cb65f4d4bf",
+      "gitCommit": "23efb24eec7197a9afdb261687e5076914d23eef",
+      "sha256": "7649dfaed4253551b911b76c86e06cb8387999ce3aa93d8473120a0714e08505",
+      "bytes": 7782
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/BiquadFilterHelper.cs",
+      "gitBlob": "4f98a8fb5ec5a8d55cbf8d9701075f83a3b09911",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "9126db22042602c59ff05e845dc8798f573a8db75f023ec5a5e277f38e9a6948",
+      "bytes": 19718
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/AdpcmDataSourceCommandVersion1.cs",
+      "gitBlob": "6993ce0b2653324df43ce69414b0cb3eda0fd30d",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "227869ed7d0e53be8e1d40b71276df13bd73c0c5b034b42fc650a7049215b6cd",
+      "bytes": 2947
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/AuxiliaryBufferCommand.cs",
+      "gitBlob": "adc20cb4fae73c168f2d6e0baca8b46c4b906a05",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "38ad7f752281b15fd22c90edea01d5b479f94e4f632ae48ab6c77dfbd62918af",
+      "bytes": 7089
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/BiquadFilterAndMixCommand.cs",
+      "gitBlob": "6fb6ebdc9d529e4ae15ea8c3e6ad7769812f0ef7",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "d44208da39954393f6925018437e820a030ff8365db4c009a6b52f108d8a7a4e",
+      "bytes": 4240
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/BiquadFilterCommand.cs",
+      "gitBlob": "496c83a5854fa8a6a78c77f6f08e1c51e97e3c2f",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "c9ec419607f103cf83b9bf8c6b74eb70af9679686efb512fb488f400821087fa",
+      "bytes": 2042
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CaptureBufferCommand.cs",
+      "gitBlob": "a3b8b37da9b2528581d7aefedc229492e3ccfbf2",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "4a046b25e0c4c804ca8a77d0a6746ce3b0faf923461a2385d45285b9fbc45f51",
+      "bytes": 5648
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/ClearMixBufferCommand.cs",
+      "gitBlob": "b8a7efd1f9d35b43596b5a5ca1c7d2d47cd0eb34",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "8cb7ae07fc5a985d2fa5d5715bc4b47b54678e6cfac86afb2db2f2ef3c51d859",
+      "bytes": 675
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CommandType.cs",
+      "gitBlob": "377eb6e57988958b3a55e4d2d735347576bfc9bc",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "84360557ecc6695cdc5b8499c92ee7044b9a57ef3774d89511e928f082372ff8",
+      "bytes": 1276
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CompressorCommand.cs",
+      "gitBlob": "0267ab239e9c0972c92f456f5734085a3f37bf05",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "753573d6b9f6f26702044c0ec67e4dfc966dd492a123935ea7e729dc194efc20",
+      "bytes": 8438
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CopyMixBufferCommand.cs",
+      "gitBlob": "5fc8e72587f17e76926faf756c7ef51fb6571e26",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "b8fb027f6394f9ffb79dc22dba57fa7f784130c0e8637c043f3c9c539e4873da",
+      "bytes": 992
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DataSourceVersion2Command.cs",
+      "gitBlob": "10723b3dbd07de482a24daffa26076a782ca5431",
+      "gitCommit": "78db4c365f929fb5db71665e776bbc3a4fca717a",
+      "sha256": "ef02f7daefbd818ceda2521d8e88403a6b66de19712f0456072434e328864841",
+      "bytes": 4125
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DepopForMixBuffersCommand.cs",
+      "gitBlob": "6986043c74ade74edb08c2a1a073792c9ec01bf7",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "e00fa0560857c0eafbd6c76b1780cd0ff43a9753acf9c985d3fcc042c39b1142",
+      "bytes": 2767
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DepopPrepareCommand.cs",
+      "gitBlob": "24af18ea536fc67bf9126143eb314cda53469f8b",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "d59744cea8babf9105c580219266aee2225ad89e9906242ca2fddd20682d87a8",
+      "bytes": 1837
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DownMixSurroundToStereoCommand.cs",
+      "gitBlob": "751954fc86873dcb4912b9e52e1fc8a172e6157e",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "502a40f954b95ae0add993cf0ee6516e3128b66dfec00be4c3da0c89e466137f",
+      "bytes": 3104
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/FillBufferCommand.cs",
+      "gitBlob": "c14eeac2bd1035e605ad4372e7912a1ce9181846",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "97906bdbc7f1c1f1645ddc036d8fc1fd35357e12b2ec786aaccd16fde3ea48f2",
+      "bytes": 2025
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/LimiterCommandVersion1.cs",
+      "gitBlob": "115f494d281bcc4fd84ed14229e8d7a5bc731464",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "410d8a55df1dcba929e712068988b6cd196479a277a83d066979409b5c0d055d",
+      "bytes": 6032
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/LimiterCommandVersion2.cs",
+      "gitBlob": "f00529925643008ed25ad03f38c57f02134854ef",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "69781edfd3686d15b27785b9f290ef23f4c9fbb8bcec65571a7997061afa65a6",
+      "bytes": 7378
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/MixCommand.cs",
+      "gitBlob": "0dca27bcac5e8a3e23be02d8cbfa52da0ba6b1de",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "c193c36b26a7f2e236c5df012e9afd77ac332b144ca06db85387f0d2aa86866a",
+      "bytes": 4991
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/MixRampCommand.cs",
+      "gitBlob": "be6aec5a66cac976b3db3e3f778327d930effcf3",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "fab23cf4ce2af8d79aca17b8722ee14782dab5d3601da1ae5874851c8eb252d8",
+      "bytes": 2300
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/MixRampGroupedCommand.cs",
+      "gitBlob": "b08a78ee6101701046951d01750ce7a1c31c7322",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "34baed8ed41893bb86acd67854fc36bb7f4b704fa9848afeabd67b95af2f8404",
+      "bytes": 3501
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/MultiTapBiquadFilterAndMixCommand.cs",
+      "gitBlob": "6cc6b489703daa1da258d936ec5f37c9e1ce0f73",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "75806c124f96caf556902c9d75e97765019084fb05a57c99ff9b50ba2bf2f951",
+      "bytes": 5471
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/MultiTapBiquadFilterCommand.cs",
+      "gitBlob": "fad8649821ae0eed5b775d061ec0851a92d208f0",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "df3232eb713209a3b698781c2fb9785335a3f060f280dafac937b3ae8705f758",
+      "bytes": 2653
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/PcmFloatDataSourceCommandVersion1.cs",
+      "gitBlob": "5bf003dfba5b56b2d509bfb9fe450c969bb38e64",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "b79c710bad345baf85dbccb288ebab0a131303f3619f53a3de44cc1da45e7176",
+      "bytes": 2929
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/PcmInt16DataSourceCommandVersion1.cs",
+      "gitBlob": "2bcffa59bc4200ebcf1e988eaed50e55cd33108c",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "62ced7ab8ee9a237e9e693a1d5c6d4fe6d7197ef81f6d487d9b5923148b91dca",
+      "bytes": 2929
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/PerformanceCommand.cs",
+      "gitBlob": "c5d7d8ef1afee155b5f71fe9d56cb20ec837282e",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "7c2861a9e5059ec6aa658455ba4115f064d8108d3089e090bc3b8ff1b5733d63",
+      "bytes": 1755
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/Reverb3dCommand.cs",
+      "gitBlob": "56b5ef313fb5aada9c699d32af9d8adcfccbd200",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "b4158a41d3a1a96cd6fa4f93030ef10de47486668be6681272134acd2ce3ee97",
+      "bytes": 13182
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/ReverbCommand.cs",
+      "gitBlob": "b99cb551ba314953f800c0c4b4748b51b2c38ab4",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "7b95ad6886b9d5a603cad19e2e6ecbc497cd62e6e6b794752085a4eb52802769",
+      "bytes": 13612
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/UpsampleCommand.cs",
+      "gitBlob": "f9c17863f098cf4cde1264ee1efbcd3eb7e4bc2c",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "ae72c155d1463f8cf7efb5d4705fd207ae44222ffe1032ecebb04c710f340439",
+      "bytes": 2633
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/VolumeCommand.cs",
+      "gitBlob": "ef5a28bd2d5a072fe61f4b931063ce8fd3c42038",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "ee8efa4093edee2356b4e5bc8c2656d8921fd516a220eb8fed86e7774859262d",
+      "bytes": 5017
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/VolumeRampCommand.cs",
+      "gitBlob": "47753dc794f9343051f52691012f1c80196111d5",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "88bd07dbb2ce1e8fe5ed067ba0ad99583357dbf81caf4c73c75b13d865fab578",
+      "bytes": 1872
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/DataSourceHelper.cs",
+      "gitBlob": "9e4e0489049b0c8c7a6e2f49475090a68846db28",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "e3f59adfe2a57c423516ce3901253dce5bcebc7e58c282626cfbb864a0664a16",
+      "bytes": 20302
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/FloatingPointHelper.cs",
+      "gitBlob": "415e1c19584b7660cbdd210d3264394056743edc",
+      "gitCommit": "41b104d0fbf1e8cf280ab594f1316d815afdd1d6",
+      "sha256": "8f94cf1fbef53792c1ba5467219a7e7296453f261920e6a331a2cef543bbd412",
+      "bytes": 3032
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/ResamplerHelper.cs",
+      "gitBlob": "0de34101e969561c38735462fa27574ddccf01eb",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "b89b102026b9dfcbb35b0896b8dc2084233bcb6738db870e3349ca8a1d574820",
+      "bytes": 47877
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/State/DelayState.cs",
+      "gitBlob": "1dfc2d28b21c898c40dd0e15b92a5826d304d996",
+      "gitCommit": "48ba1cc9ed6a5a55b43002472b5723b20d24df39",
+      "sha256": "59ce0d2556b6dcc84c08f4b90cde8a4bfa776dcacc01863516b8fea5ed55d807",
+      "bytes": 2507
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/AudioRendererConfiguration.cs",
+      "gitBlob": "c70e1654408cba6dc8ca29ad89091d5bc06feffe",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "2ae0c2cb2d523306eb0801cf3343ad3e0471d8089114f8a30875d079de5ec062",
+      "bytes": 3414
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/BiquadFilterParameter1.cs",
+      "gitBlob": "5a3091f628088e91fee22e95297687b96190641e",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "be74d9af53879777639503c80939bc41e23b964dce2f676ad01565837a7357ad",
+      "bytes": 897
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/BiquadFilterParameter2.cs",
+      "gitBlob": "8e47b22e044476c4c98a3bfeb72bd2522e568806",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "c95717e4dbdfe6f5fac71ea9fda52d9248816a3f0c495b65d311e1b30193fb29",
+      "bytes": 983
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/Effect/BiquadFilterEffectParameter1.cs",
+      "gitBlob": "443b257be2938ac19fd0670bd5f0d2c04ab67006",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "0e18a695bb6d8359c92b0bf5dd20e6637d9b054349c49b9027e780a90af45c28",
+      "bytes": 1358
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/Effect/BiquadFilterEffectParameter2.cs",
+      "gitBlob": "b1e61f6c1064e06c33be5880b8e2a01f3bfcae1b",
+      "gitCommit": "75220096e71f98fa40f9e7ced87c21824fd636cc",
+      "sha256": "2fdb349b8b69cce1aebcea4c8f215a2b8cf81190fcbe0649a49f0e4e692f69ce",
+      "bytes": 1607
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/EffectInParameterVersion1.cs",
+      "gitBlob": "73fea4c36535eb3388429c4adb5bdd1392ae775a",
+      "gitCommit": "48ba1cc9ed6a5a55b43002472b5723b20d24df39",
+      "sha256": "cf1df7e2bab3b2d25845f9854a8ea314c5fad458110697f75d6003be981b8a85",
+      "bytes": 2994
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/EffectInParameterVersion2.cs",
+      "gitBlob": "779bc8fb747c4b9d59743a13aeaea88eae28de4c",
+      "gitCommit": "48ba1cc9ed6a5a55b43002472b5723b20d24df39",
+      "sha256": "f2d75559076b5f2ff0982625eec0d16620ed7d146832b40bb76827854a076271",
+      "bytes": 3012
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/ISplitterDestinationInParameter.cs",
+      "gitBlob": "c3224c57dcc9a4f85e482c4e06e23ef91b3b7770",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "f58c4df03578966067436005467b27654b59cf0775261ca185acd387b9cba153",
+      "bytes": 1321
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/SinkInParameter.cs",
+      "gitBlob": "86ceea30a25d1f9c2eb2b586e92621219bcfcac9",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "f32acefb18c4d4bb5b680122ec7c1d9c4f30b2a23231e7d33ffc2f5b378d23ef",
+      "bytes": 1492
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/SplitterDestinationInParameterVersion1.cs",
+      "gitBlob": "fbc036806932cfddd074b72fa9d1669962075051",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "4ea6755faaa15d387427149ef6d0ceb9c6c708f97fc2a21c7e2f5f81044abea7",
+      "bytes": 2624
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/SplitterDestinationInParameterVersion2a.cs",
+      "gitBlob": "4270b5e202f8e00905fc890c21d72871ed1cb4a3",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "56d5bbb1e07b7a216fbbc5d50647796a029419bd01f7c0fca793c517ba974ecd",
+      "bytes": 3257
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/SplitterDestinationInParameterVersion2b.cs",
+      "gitBlob": "81e9d823bdd307921a12c1355366dabfff4f7f86",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "c936373121c003793d1009591adaa5740b8c5898b87ed6f78b46b5fef3ee6a19",
+      "bytes": 2769
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/VoiceInParameter1.cs",
+      "gitBlob": "a3633edbdb0796415158a8749e2e8b3075eb7764",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "506ecccd3f467bc5274b217865b0094355fa7cf803968b87e7bf2016371785f5",
+      "bytes": 11404
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/VoiceInParameter2.cs",
+      "gitBlob": "bc047759b2919e030a38f4eb3d753f8ed0e69555",
+      "gitCommit": "85e05bc7b2d24cbbbbccfa5eb4596ff5c691b0f7",
+      "sha256": "7da05ea4dcfcb1c9fbc261502a73e9893ad99dee39e9829da13b922b74377eed",
+      "bytes": 5186
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Parameter/VoiceOutStatus.cs",
+      "gitBlob": "0ec864cdc8e5b730d41221a7a5867edfd574d281",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "30ec7a215bb3879399797e665d1d393761f7bb72d93ebdf1a532006f5d607bf2",
+      "bytes": 1311
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/BehaviourInfo.cs",
+      "gitBlob": "04463e8762d284b64c63b70bd4c69f64f5cdf7ac",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "b46e908b4c858f1ac96d345358931ffcc44a523d201e0b71040d3c548c570383",
+      "bytes": 21297
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandGenerator.cs",
+      "gitBlob": "9651d204fc83bde1c534ed4a6cb174c2cc6dc6ce",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "c8feaeee2ac05a2dfde0d75dffcd1ed1a80cd238072fb957c1dbd8e49019b17a",
+      "bytes": 53025
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandProcessingTimeEstimatorVersion1.cs",
+      "gitBlob": "8abe81e1f21fee98d370fcc1158b4d099db06276",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "ac96473781d95d1531b57b42dc6ac0be9b0a534d32a2030d1bb186d8973ab03d",
+      "bytes": 5136
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandProcessingTimeEstimatorVersion2.cs",
+      "gitBlob": "85e340393a7b532b628e09f07ad100fad788d610",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "6f6f9f46080e887a638004e44e933c5be3637d0058b5b3b9a5b31398d80ed9e7",
+      "bytes": 13931
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandProcessingTimeEstimatorVersion4.cs",
+      "gitBlob": "3cb04e38503d9914a54b763c728f7ee96b08a36c",
+      "gitCommit": "48ba1cc9ed6a5a55b43002472b5723b20d24df39",
+      "sha256": "acfb2c31ba2eed8753d1acef327ede46c3ccddb149bee261f163d2132fb5f716",
+      "bytes": 1252
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandProcessingTimeEstimatorVersion5.cs",
+      "gitBlob": "9060657927a21ccb5f19bef96a258dc600381986",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "cb7a0fc33e489cf4027d36eb321140e4289634f7fbc0eb60c8812656074b8ae1",
+      "bytes": 9585
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/ICommandProcessingTimeEstimator.cs",
+      "gitBlob": "3602412786eb5bdb19578998948ee79d5d26cf48",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "c2dd41ed964669ee5a2d1cf5e5cdd91774ef946875d8e1b0803ae8fccc82cec4",
+      "bytes": 1991
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/MemoryPool/AddressInfo.cs",
+      "gitBlob": "0ae6d518d5b31bc7109d01c367f685458ac44071",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "bad9751fd09c5e71e719543a109d22c1a2f5c6452cf39cb8cd3ad34a39691583",
+      "bytes": 4399
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/MemoryPool/MemoryPoolInfo.cs",
+      "gitBlob": "eb0117f50412a553fa437dbaa3def1fe85a1caf8",
+      "gitCommit": "85e05bc7b2d24cbbbbccfa5eb4596ff5c691b0f7",
+      "sha256": "868d1c92d6225610f282111b37db438ec4e6d34e593e91a304b7d073e6df6022",
+      "bytes": 4426
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Mix/MixContext.cs",
+      "gitBlob": "cdb6511cb876caccb5d95b861a303ff4f129d9be",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "72cd627f0dfb6866e7fb776475cf5309c9e58ad86463bce5455aae694a3a0bcb",
+      "bytes": 8415
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Mix/MixInfo.cs",
+      "gitBlob": "eae141a667ac613358a36690529777e9f6893e87",
+      "gitCommit": "c1e24961f94350a9128a6e8f3022c9d1f1a9e04d",
+      "sha256": "795dce2e6269ec1083f7804fee031a15f3c64b968a52b38528e63a7c4afef121",
+      "bytes": 10625
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Performance/PerformanceManager.cs",
+      "gitBlob": "e430d99c38a2c73363ad1414910d7720bfeac790",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "adb60b4d3926eec389c168929c394680b84d8463d9dd5aa6ad598bac1e5868f8",
+      "bytes": 5426
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Performance/PerformanceManagerGeneric.cs",
+      "gitBlob": "8881c7243d5a350d0f15681845429f61e961ff87",
+      "gitCommit": "cdbe5686202912bbe5d3dd1310b97809f650cc4e",
+      "sha256": "ad87dbc69eca31bf51bd99588731b541d6565f9c91ce09a388dfe7d9d472ba88",
+      "bytes": 12344
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/RendererSystemContext.cs",
+      "gitBlob": "fa7a24d09607d4e5276948896522e730ead14ed9",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "ab0de6fd86cb28e438a3adb223ca0fdf1ae83890d410760769494d469b7daaac",
+      "bytes": 1735
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Sink/DeviceSink.cs",
+      "gitBlob": "c590b69d99901767ff6f92f805a0b1aceb538f74",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "260248cba21aa3b52f70b6c1090da0046a711918eb055475af8ec3724ad8e651",
+      "bytes": 2345
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Splitter/SplitterContext.cs",
+      "gitBlob": "7d914e13784b974c7d93f65e57d8175204091e7f",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "4d4f61b6e084f0244129f029228cc797a7f829e196fdf0dc4c2959f0e3ef97e3",
+      "bytes": 18294
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Splitter/SplitterDestination.cs",
+      "gitBlob": "1253e5d2c4da9d8c2f61e6bdfe8492d83ac71b51",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "926087d39d4c9aadba20ec73ac80dee40b8ccf4d9c091695951ab9b8355ab4a1",
+      "bytes": 11698
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Types/PlayState.cs",
+      "gitBlob": "4b72274ce54cd601e1d6b40718025e2b5a04c011",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "4248778d6e5a7627f22c1612afc2190238abf95e46725dd2520f78e0ea05bf66",
+      "bytes": 1169
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Upsampler/UpsamplerInfo.cs",
+      "gitBlob": "d84d8fa708266ede05461b48aad9155a17d112c3",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "8617af1c57e00d72c5a48bbb6c2f74ed67d5d1aa9c23ff2aacf270e5ee338c76",
+      "bytes": 2162
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Upsampler/UpsamplerManager.cs",
+      "gitBlob": "942345f8da24b4b7aa3c24e8fc569747e36337cf",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "cfd480b10c7beea121944c789e301a29d0950e35b50578904b34a51441329db5",
+      "bytes": 2506
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Voice/VoiceContext.cs",
+      "gitBlob": "5cb334ddd0dd3b0cc0531f501eedbe7f50a9265c",
+      "gitCommit": "1ef09717d232cc3a142b10dc1ea977b37d123c9a",
+      "sha256": "f79ebc22bd5b0003c47c6045b85e7bf29f45f4853c8b45eb899542010d2d77ab",
+      "bytes": 5413
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Utils/FileHardwareDevice.cs",
+      "gitBlob": "008a067f154b4e9bc7010c765ae670c825be90df",
+      "gitCommit": "88cef7e853aca5736921b97550a09ded48afd93b",
+      "sha256": "24b9a63bea03e79964b6099a882be12e4188e5078df430a670d7a2480930df23",
+      "bytes": 2738
+    }
+  ],
+  "exactLaterRyujinx": [
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Device/VirtualDevice.cs",
+      "sha256": "6b4b41067001e4c316464d41bc1e307274dd1dcefae01cb0acee486242867a28",
+      "bytes": 3032
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Device/VirtualDeviceSessionRegistry.cs",
+      "sha256": "cabdab7ea7f961840113b321ced3bbec739cbd0f88c1d1b4effe46749a6e088e",
+      "bytes": 2846
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CircularBufferSinkCommand.cs",
+      "sha256": "31fdb5946bf7b94b954a8ffbb3953af46800af548ded86cc4fb134556e0ffad9",
+      "bytes": 2726
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DelayCommand.cs",
+      "sha256": "76260197e51d5d6007cbe9e4738157f1cc7075c024b035d2f8f8bdbf83dd2524",
+      "bytes": 13837
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/DeviceSinkCommand.cs",
+      "sha256": "c08b98b511a21c94731ea46ad9b57693d202ab4672c0d229fdd9643cd84a2026",
+      "bytes": 3883
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/UpsamplerHelper.cs",
+      "sha256": "10e6351d9c3eba39bc5cd14e213ae0dda81282e7bb600bc3f0a80cc99264fd23",
+      "bytes": 7971
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/AudioRenderSystem.cs",
+      "sha256": "7bc731074345242d2540e19dc2a9a5dc1bf0af752d7e7a1bb75fa03e12ca0000",
+      "bytes": 32686
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandProcessingTimeEstimatorVersion3.cs",
+      "sha256": "b2a4606824a629b799cc52b893284cd2a8b1c237f2cc8dab051dc6007087c86d",
+      "bytes": 20686
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/MemoryPool/PoolMapper.cs",
+      "sha256": "457f0a4fbab7181a74ae0fadd0994a39b12cdc937eb1ed5514b1e0bb6de534d8",
+      "bytes": 13916
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Splitter/SplitterDestinationVersion1.cs",
+      "sha256": "49727f586d765accb98d496e1f58481e9d955940f9c0834278d452d65c3247da",
+      "bytes": 6894
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Splitter/SplitterDestinationVersion2.cs",
+      "sha256": "25a6903449878a2f6ca75d8cba00f95bc08e9b99afb3955fdcb7f5c16a89bc24",
+      "bytes": 8526
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/StateUpdater.cs",
+      "sha256": "653e2c68042a88342b2e5a57ea608443ab9f68aadac56aabd514315bad7b5dc7",
+      "bytes": 26976
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Voice/WaveBuffer.cs",
+      "sha256": "0858a5a0761a978b077efc8d44bc3bdd45ee6df555b13d10bed0e34aef6ddf6a",
+      "bytes": 3451
+    }
+  ],
+  "reconstructed": [
+    {
+      "path": "src/ARMeilleure/Translation/Cache/JitCache.cs",
+      "releasedSha256": "5aaa061d5af99c6ce06da258171273190d043e8d52c22671970ba5e920faac2b",
+      "releasedBytes": 9869,
+      "overlaySha256": "2e4efd20357b402008b574579b43abcb17606301f591f34a0b854ed3c69c2c88",
+      "overlayBytes": 7373,
+      "evidenceAssembly": "ARMeilleure.dll",
+      "evidenceAssemblySha256": "fa9da67f55b185d08433acbb82afd0d2a8df975ffdcc51a31b949360b0849ac0"
+    },
+    {
+      "path": "src/ARMeilleure/Translation/Cache/JitUnwindWindows.cs",
+      "releasedSha256": "64a1efb96bc46e6319c3f67029ee3857c72c81edaa47ecfe5b757a747208887d",
+      "releasedBytes": 7814,
+      "overlaySha256": "4aa79475f9689c79f44ebfe108c50bdb696e9e8500318e16276108b22a25b1d6",
+      "overlayBytes": 5377,
+      "evidenceAssembly": "ARMeilleure.dll",
+      "evidenceAssemblySha256": "fa9da67f55b185d08433acbb82afd0d2a8df975ffdcc51a31b949360b0849ac0"
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Dsp/Command/CommandList.cs",
+      "releasedSha256": "8209cb4fe7426e9d3883dca088a516229c9148763e5d41896c0889f0379ff62c",
+      "releasedBytes": 5821,
+      "overlaySha256": "510969bd859f50d522d7e3d0141478a9a920e4a51d788d48d78df24d8b52b0bd",
+      "overlayBytes": 4293,
+      "evidenceAssembly": "Ryujinx.Audio.dll",
+      "evidenceAssemblySha256": "1be25457e4f953a75c2b70fa3746f28748f730d8cca2d80c9bee5d59148713cd"
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/CommandBuffer.cs",
+      "releasedSha256": "331f44a2ace2b532879b091af97e7e198f65c61f4e7a32cb7d0e0ebee96761cb",
+      "releasedBytes": 49626,
+      "overlaySha256": "eb20369e12b5177b8a377a744c96c5323ee7aa45566cc9ffe1bd53f496d18539",
+      "overlayBytes": 27571,
+      "evidenceAssembly": "Ryujinx.Audio.dll",
+      "evidenceAssemblySha256": "1be25457e4f953a75c2b70fa3746f28748f730d8cca2d80c9bee5d59148713cd"
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Effect/BiquadFilterEffect.cs",
+      "releasedSha256": "892623f7e05397ea594b2831a953448648baceecf45edf3762e2d49166dff39d",
+      "releasedBytes": 3466,
+      "overlaySha256": "5b87e2f55346eaf65e3bf0173b907f46ddd3a44f3eab39ba167ad05ea8cd8079",
+      "overlayBytes": 2364,
+      "evidenceAssembly": "Ryujinx.Audio.dll",
+      "evidenceAssemblySha256": "1be25457e4f953a75c2b70fa3746f28748f730d8cca2d80c9bee5d59148713cd"
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Performance/PerformanceEntryAddresses.cs",
+      "releasedSha256": "9a9eacc8855552a37120270e94f46232c47242973fea68d6370a586f0b9c57c2",
+      "releasedBytes": 1963,
+      "overlaySha256": "93a5b59242c90703490c225a2f2e37a648f678eb8d3ca09c71d8a31ef8cb2ee4",
+      "overlayBytes": 873,
+      "evidenceAssembly": "Ryujinx.Audio.dll",
+      "evidenceAssemblySha256": "1be25457e4f953a75c2b70fa3746f28748f730d8cca2d80c9bee5d59148713cd"
+    },
+    {
+      "path": "src/Ryujinx.Audio/Renderer/Server/Voice/VoiceInfo.cs",
+      "releasedSha256": "54d36231e791274664b9588074c0c6e4e78a5d3f5a374ef57e573699358e7791",
+      "releasedBytes": 36853,
+      "overlaySha256": "dc68448f1c9aec7641dd32d1e32cb3329fdb6ed07c369adb1a536dd398e27369",
+      "overlayBytes": 18386,
+      "evidenceAssembly": "Ryujinx.Audio.dll",
+      "evidenceAssemblySha256": "1be25457e4f953a75c2b70fa3746f28748f730d8cca2d80c9bee5d59148713cd"
+    },
+    {
+      "path": "src/Ryujinx.Common/Configuration/AppDataManager.cs",
+      "releasedSha256": "f8b94d5e92d9259486d1cc24d8c06a2312dd75658719f4a3e0f791a2ab4a44fd",
+      "releasedBytes": 14016,
+      "overlaySha256": "c2ac40846997e4bd90780d4fc901abf5b4b560cd8cc3de1e0edda72ca85262e2",
+      "overlayBytes": 8851,
+      "evidenceAssembly": "Ryujinx.Common.dll",
+      "evidenceAssemblySha256": "73788f41aed382d39d89d41570a3e216420f8c8c501f2eae0e4716ecf8f6d429"
+    },
+    {
+      "path": "src/Ryujinx.Common/NXI/RyuStutterTrace.cs",
+      "releasedSha256": "71893343a80794d3331ad654bd5b55dab47e5aec0b160ac714074ad2ca41a9a1",
+      "releasedBytes": 5003,
+      "overlaySha256": "ae1be0e6e538abdbab1c774bfc89e70969c3b0f89f7b9d1f71a038dac6eccbb2",
+      "overlayBytes": 4194,
+      "evidenceAssembly": "Ryujinx.Common.dll",
+      "evidenceAssemblySha256": "73788f41aed382d39d89d41570a3e216420f8c8c501f2eae0e4716ecf8f6d429"
+    },
+    {
+      "path": "src/Ryujinx.Common/Ryujinx.Common.csproj",
+      "releasedSha256": "59b2010ea42c1570392bc1951325fb4af66f44fc1d1669e5e0c5843ee1b4e43e",
+      "releasedBytes": 532,
+      "overlaySha256": "5ed9cc7891793f14bc8b25ed399b30c1137ea0d8eee77e7b83983e8026cf9d54",
+      "overlayBytes": 503,
+      "evidenceAssembly": "Ryujinx.Common.dll",
+      "evidenceAssemblySha256": "73788f41aed382d39d89d41570a3e216420f8c8c501f2eae0e4716ecf8f6d429"
+    },
+    {
+      "path": "src/Ryujinx.Cpu/NXI/RyuGuestClock.cs",
+      "releasedSha256": "f25ad098f2e8869025873941fb18a50fae64cc3de68d3c8f1dad559a03784725",
+      "releasedBytes": 2703,
+      "overlaySha256": "e45d9899c78681538998e253fed12034befa04578f3ba1f91ff44a6b4b8c501d",
+      "overlayBytes": 2009,
+      "evidenceAssembly": "Ryujinx.Cpu.dll",
+      "evidenceAssemblySha256": "63c6ac0eebc4eee93f96bb6b57467e10caf204cf2f2523fa95f8bcebf147636e"
+    },
+    {
+      "path": "src/Ryujinx.Cpu/Ryujinx.Cpu.csproj",
+      "releasedSha256": "9bcc78617f263a07df19680bc9dd640e0d46cf0201386029793c187a53de7028",
+      "releasedBytes": 409,
+      "overlaySha256": "b8147738b58ae0b99938b5fa451d0481d8d67f706cb138f9633035e8015ef0dd",
+      "overlayBytes": 383,
+      "evidenceAssembly": "Ryujinx.Cpu.dll",
+      "evidenceAssemblySha256": "63c6ac0eebc4eee93f96bb6b57467e10caf204cf2f2523fa95f8bcebf147636e"
+    },
+    {
+      "path": "src/Ryujinx.Cpu/TickSource.cs",
+      "releasedSha256": "77f817f83e661401e61e21503e9e81db886b62284e624dcc7604feec1d885d23",
+      "releasedBytes": 646,
+      "overlaySha256": "8e1e689dfebd5d7c004af85464fd1ef670c06aa0d5bf163d32263efff7aedb58",
+      "overlayBytes": 631,
+      "evidenceAssembly": "Ryujinx.Cpu.dll",
+      "evidenceAssemblySha256": "63c6ac0eebc4eee93f96bb6b57467e10caf204cf2f2523fa95f8bcebf147636e"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.GAL/Multithreading/Commands/Program/ProgramCheckLinkCommand.cs",
+      "releasedSha256": "dd513eb2351e22d64c924d735eb11f5623d839c7309d33a49c44b2911dcd72b4",
+      "releasedBytes": 1210,
+      "overlaySha256": "e72307ce724ce1c3ae25a4229e8e9269b72516ce3937810e494f2c81dc7b4a57",
+      "overlayBytes": 1155,
+      "evidenceAssembly": "Ryujinx.Graphics.GAL.dll",
+      "evidenceAssemblySha256": "b4099ec8b0f1419169abd82fb33696f80d1197b78a5e6faa60ebb928bd21d36a"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.GAL/Multithreading/Resources/ProgramQueue.cs",
+      "releasedSha256": "42cb74bc0d6eec0d7cc52c0ee7615676065ec90c80fd91edbae70774703a7cec",
+      "releasedBytes": 3380,
+      "overlaySha256": "24d17a978d69e18d436caaa9c0b2077ad10ae10ff3d4f5401eff8ead79962ffb",
+      "overlayBytes": 1916,
+      "evidenceAssembly": "Ryujinx.Graphics.GAL.dll",
+      "evidenceAssemblySha256": "b4099ec8b0f1419169abd82fb33696f80d1197b78a5e6faa60ebb928bd21d36a"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.GAL/Multithreading/Resources/ThreadedProgram.cs",
+      "releasedSha256": "bf0d20457600005d94229e09f81a75352f48eec2168c4ea62ba844e5882f6352",
+      "releasedBytes": 2269,
+      "overlaySha256": "eea267ba2072aec8d742f7d022bfd4deaacdd5fadb5d04bbb7851c81649373a8",
+      "overlayBytes": 1709,
+      "evidenceAssembly": "Ryujinx.Graphics.GAL.dll",
+      "evidenceAssemblySha256": "b4099ec8b0f1419169abd82fb33696f80d1197b78a5e6faa60ebb928bd21d36a"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.GAL/Multithreading/ThreadedRenderer.cs",
+      "releasedSha256": "f1abe0eebbd02c540c0ed5cf65d4c0adba263650eddd7749356606dec6b6fe59",
+      "releasedBytes": 17346,
+      "overlaySha256": "464f2e4a5e6f00a2c02d393c5b6dca7b17aac1f030f352236f0f8ef70ef3ac49",
+      "overlayBytes": 12463,
+      "evidenceAssembly": "Ryujinx.Graphics.GAL.dll",
+      "evidenceAssemblySha256": "b4099ec8b0f1419169abd82fb33696f80d1197b78a5e6faa60ebb928bd21d36a"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/GpuContext.cs",
+      "releasedSha256": "a1bc54382535071f1c910c4a55a45dd894745ea580bded6d260234f16030eba1",
+      "releasedBytes": 17272,
+      "overlaySha256": "1ef786a7b3a21642e6dd7e47f198d86ba76218466a92a234a096678c15cef83b",
+      "overlayBytes": 6938,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/AutoDeleteCache.cs",
+      "releasedSha256": "a1bec2a399a76f8e76074acad02cc3fa8a7a10463fde092f83bca06e1e1f96a9",
+      "releasedBytes": 12043,
+      "overlaySha256": "04b56dffa871017283b4119fe20f1db5c9f8d54860daf11e93ce0b74357becba",
+      "overlayBytes": 5271,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/Texture.cs",
+      "releasedSha256": "45cd7042190d0858bd628af4506f97c754c7739c41337492095a8d454ca124e6",
+      "releasedBytes": 69261,
+      "overlaySha256": "73f7f2695e173bf1743b394148f69439ec9d3add0fc55a9bafb9ca3fc84ea3df",
+      "overlayBytes": 30274,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TextureCacheBudget.cs",
+      "releasedSha256": "abc68e777d707b6931cba8b97689dea512ab05713e717b75d720d289f92a40c8",
+      "releasedBytes": 845,
+      "overlaySha256": "ace524dc4cc7896cd6bc68687c236ef1fb623c67fe88bfce4f31507ed09822e6",
+      "overlayBytes": 1047,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TextureGroup.cs",
+      "releasedSha256": "88649974a16fbf5f03ae5ffaca40fe2f6f6f0b904128b83db12d319920255bee",
+      "releasedBytes": 69966,
+      "overlaySha256": "cc5e00e4cb2a0e881492f920372312deabd506e0ae1a8f71e1404ebde39ec0dd",
+      "overlayBytes": 34210,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TextureGroupHandle.cs",
+      "releasedSha256": "582adcf42ddbadf9e37fbd40c93f97eca441525d5569d4c983ea1ca8d4ecb725",
+      "releasedBytes": 26816,
+      "overlaySha256": "e1c5fb22ffe933d69c28235347f15533d8e2e3842a1bebd714ab415d0be730c0",
+      "overlayBytes": 10532,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TexturePool.cs",
+      "releasedSha256": "346746764b5f3e5833c6a7b4002db9a54b53da87a94ab54e4e1d50c999fe0758",
+      "releasedBytes": 34655,
+      "overlaySha256": "ab9e554a25546e4cf65639eee67d4eb90d13d232df323a27e7935253c66b842a",
+      "overlayBytes": 14547,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TextureRangeIndex.cs",
+      "releasedSha256": "74771b539d462998e2aa06256db7ad38ccb2f24b7ef4a80ae86725fb5325db80",
+      "releasedBytes": 2750,
+      "overlaySha256": "3e8f887375fcc567ba3abcff666bd55f06f2d10c4962a82f96139b254d5485fb",
+      "overlayBytes": 2189,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Memory/CounterCache.cs",
+      "releasedSha256": "82da65d6190f14a7aa20eeac487d7dd0cbdcc33c42abd33a8c1a3cad31ceb75c",
+      "releasedBytes": 6146,
+      "overlaySha256": "fe83847b750c99614401fbf8615b139846ca0d2c9005866f4791b188cd169bba",
+      "overlayBytes": 2373,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Shader/DiskCache/CacheLoadProgress.cs",
+      "releasedSha256": "0cc8436cdee898e1f341699870578324816cd54b74da3960b0fb799d0c92a815",
+      "releasedBytes": 1086,
+      "overlaySha256": "3417703ebba4371de28bd10929b7c4fdce394c68ba3c306c9f4954d8466dad3f",
+      "overlayBytes": 740,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Shader/DiskCache/ParallelDiskCacheLoader.cs",
+      "releasedSha256": "e89ca4f94acba0be9d776847517ba87b536a418d1b5efea27e26c365c1b3736e",
+      "releasedBytes": 31200,
+      "overlaySha256": "c7dbe28fa6ec1099130c63556a9ffae71315587bfeb58501c1df0ffbfbc57e38",
+      "overlayBytes": 16206,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Shader/ShaderCache.cs",
+      "releasedSha256": "956bcfc098b307e572468d2c7c4a4fef763e4697f4d8d8e739e06b44666b1000",
+      "releasedBytes": 38825,
+      "overlaySha256": "608d4941fd3208f05c85ceb72ba5a7e39f57beda57aa42b39820c15291de9153",
+      "overlayBytes": 20083,
+      "evidenceAssembly": "Ryujinx.Graphics.Gpu.dll",
+      "evidenceAssemblySha256": "31ebee1b31e71a9009a84f945db34c540a16eada33a8acae27bfcc78deeabf9b"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Texture/InvalidTextureSizeException.cs",
+      "releasedSha256": "8e81688010f84594bb92e300fbcd0a292a35fd8c02d50d6e813f3059220d11e6",
+      "releasedBytes": 388,
+      "overlaySha256": "2726b0688bd01cf71222500216a08b911695589b7d2fe07b59b181c94eae5593",
+      "overlayBytes": 256,
+      "evidenceAssembly": "Ryujinx.Graphics.Texture.dll",
+      "evidenceAssemblySha256": "66ce2076c43cf57d5161d9dc277dfba3546e5c05ed61fa32417b38a0158556f0"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Texture/LayoutConverter.cs",
+      "releasedSha256": "212d8fc09d02667428d00048d2021aed455e4a93cd372b0d5f0192a385c55863",
+      "releasedBytes": 26360,
+      "overlaySha256": "449a7e6e671a77ec803f95bcf55dcd87b751ebd90a85c3d396fe676c429dbea4",
+      "overlayBytes": 26480,
+      "evidenceAssembly": "Ryujinx.Graphics.Texture.dll",
+      "evidenceAssemblySha256": "66ce2076c43cf57d5161d9dc277dfba3546e5c05ed61fa32417b38a0158556f0"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Texture/SizeCalculator.cs",
+      "releasedSha256": "53eaaae209b30ac6b671a7cb823b9efa695bfa6afe9e5c7bd5a2b470c44ff3d8",
+      "releasedBytes": 14393,
+      "overlaySha256": "fdc3ff375e1449bc8b8358ddd867ab2ea6413ae85369557dc8a358e5bad54970",
+      "overlayBytes": 8086,
+      "evidenceAssembly": "Ryujinx.Graphics.Texture.dll",
+      "evidenceAssemblySha256": "66ce2076c43cf57d5161d9dc277dfba3546e5c05ed61fa32417b38a0158556f0"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/HashTableSlim.cs",
+      "releasedSha256": "364bffd4ea4b23fe5ba05e473dda0e46e7cdd4a97740eaecf7e7a00ebdde49da",
+      "releasedBytes": 3163,
+      "overlaySha256": "fd9ce5f2ae7ab08cd2cffd3360df32675ab387b198373ac306829518deefa759",
+      "overlayBytes": 3007,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/NXI/RyuDriverPipelineCache.cs",
+      "releasedSha256": "e89b04cb0d659d5f7360391c108b402b88d4da7f0e7cd824402da48116637018",
+      "releasedBytes": 7675,
+      "overlaySha256": "ab463596eea28c3d1bd5d6bcc089c3837947b556dff9be20244df3d2d011eb85",
+      "overlayBytes": 5544,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/NXI/RyuPipelineCompiler.cs",
+      "releasedSha256": "79b0b136f968e65673562c876426206ae3c7cf755bfcdd2440b78ff25ebb42c7",
+      "releasedBytes": 3256,
+      "overlaySha256": "a3006d7e11b8d9ab7886c30f336c58cb73baa9abb04c388f19932ae65fa98806",
+      "overlayBytes": 2543,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/PipelineBase.cs",
+      "releasedSha256": "8fa7296a79018346aaf4c6ea8a19a380999c2cdd6578197a34041718dc0d964d",
+      "releasedBytes": 65398,
+      "overlaySha256": "e70288fa77847eecda2b369bd291844cb391ace57d0d0e26ac8847a0f5ac6a50",
+      "overlayBytes": 47080,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/PipelineFull.cs",
+      "releasedSha256": "486a59097ec420734215057a0f11a6cc17198c9361b2f1eb2679e7da55580407",
+      "releasedBytes": 12310,
+      "overlaySha256": "82cfc2eaaf74146b56daae27794c57430728c325fcf10e8643938a2e2f80fc89",
+      "overlayBytes": 7072,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/PipelineState.cs",
+      "releasedSha256": "637f267e99eccb915dcbd85fa334d495b794a82f0f2042e036e4127b4ef3a342",
+      "releasedBytes": 30307,
+      "overlaySha256": "53e85d62d00e104b3f3e7c92c838f50ca2b10fdbf205a9e44717c8a6c1165595",
+      "overlayBytes": 25079,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/Ryujinx.Graphics.Vulkan.csproj",
+      "releasedSha256": "2adbd290080419b37b21585357ed4901e16265a4b4c4f5e7a0bddfd79cc54345",
+      "releasedBytes": 3475,
+      "overlaySha256": "21839363e461e910bdd417353fbb21e053949f6acd49a3dc6b29baf8f333f2cb",
+      "overlayBytes": 3495,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/ShaderCollection.cs",
+      "releasedSha256": "8f948ae227676a7c8799e0dbaf1cce5d34ce870320455fcb35af9f31f3ce4398",
+      "releasedBytes": 28747,
+      "overlaySha256": "83ca7e95a04248fa04c930f391cd5fae0678872135364553bddc947a511dc90f",
+      "overlayBytes": 19792,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/VulkanRenderer.cs",
+      "releasedSha256": "c15882c8add857b6a6d722576c0a3bd515e14a4a3cbac01e92f3c123d6266bfe",
+      "releasedBytes": 46663,
+      "overlaySha256": "0d8ca386cc74f1bb295958d5ddd727d902d97a96c3e25b1e9602a71f42fda9c2",
+      "overlayBytes": 38392,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/Window.cs",
+      "releasedSha256": "6fe78d141bd74547c6550ac5a171e6d1305e0a69b5d0c763a89f1f4286f0dbd6",
+      "releasedBytes": 24340,
+      "overlaySha256": "f0bbdf11fb09c4f20c27b36817d80d6496aa6700e84ed87d705e0e2db0c32b54",
+      "overlayBytes": 17740,
+      "evidenceAssembly": "Ryujinx.Graphics.Vulkan.dll",
+      "evidenceAssemblySha256": "4a7105e0a7c1401f0940b1387bf8d1b465fb9fed8a32ee7557b4ac5f645ebd83"
+    },
+    {
+      "path": "src/Ryujinx.HLE/FileSystem/ContentManager.cs",
+      "releasedSha256": "e30ad0038dfebd6c49889760db7e6badbb75f7c623c7673ded52389145eb2080",
+      "releasedBytes": 44787,
+      "overlaySha256": "970e7216b135273fcf958fe842fda809fa632bd37937c57af993a92e4c73995f",
+      "overlayBytes": 32247,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Applets/SoftwareKeyboard/SoftwareKeyboardApplet.cs",
+      "releasedSha256": "41ea372b9fda2898389547cf8bd6b45726f2e21d4b13d064463174429a978035",
+      "releasedBytes": 33992,
+      "overlaySha256": "a6c722808e6187fe52fcd0f7188635861b688554f06bd4b06bce55a832b627ba",
+      "overlayBytes": 22055,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Applets/SoftwareKeyboard/SoftwareKeyboardUIArgs.cs",
+      "releasedSha256": "3cb4033166eb50a129870ab43740b9f6e5966441d79133fb2374e2c45548cec8",
+      "releasedBytes": 567,
+      "overlaySha256": "8eb6145ca2b352c85d8ed97fd4397e9162f7b5c8cfcbd1c547c984048ae58084",
+      "overlayBytes": 480,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Horizon.cs",
+      "releasedSha256": "fe9d7bb900c22927e6838cb224fd4e1efd19055ca902de0785ccd3b7bdd2588a",
+      "releasedBytes": 21745,
+      "overlaySha256": "7006eefdbcaa45a1222555fb0de97ab228d26e39418aeba67add160aa8c15759",
+      "overlayBytes": 14775,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Kernel/KernelContext.cs",
+      "releasedSha256": "8ed781bd3c41a3c5ccacc3f2edd391b0a90f2dd60e161f0168ff3116e377b12f",
+      "releasedBytes": 7744,
+      "overlaySha256": "e8b84bb12603266da9272952da2543415d29e603b2a27c95daf94224b5c07ffe",
+      "overlayBytes": 5614,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Kernel/Threading/KThread.cs",
+      "releasedSha256": "3481c495846a9f3d65e2a2cf9398caa3800c7e314febfe9a3b592c4c61829677",
+      "releasedBytes": 45305,
+      "overlaySha256": "7019eee9beac673ebc89bb581bc34a3fa89fb0395f88ab6b0b94860188cc35cb",
+      "overlayBytes": 29219,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/ModLoader.cs",
+      "releasedSha256": "db44b8b18a3e68fc26c88283eb9206e96ed1405e3bc8750e11708fa024f87e60",
+      "releasedBytes": 32445,
+      "overlaySha256": "ed0489dcceecdf997af71a9371e9a666e4ee3ad11149161c8756a06cef3d7bf4",
+      "overlayBytes": 24688,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Services/Nv/NvDrvServices/NvHostAsGpu/NvHostAsGpuDeviceFile.cs",
+      "releasedSha256": "4572eaab8771fb5dee6346fc3ffc5ebabdbb09b58e0fc5419975be4c0d651ae7",
+      "releasedBytes": 14784,
+      "overlaySha256": "cde7e30a354580a7d2793ba59573581a59dcb26ee077ea16e4e1d57aa41ebd14",
+      "overlayBytes": 10064,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/HOS/Services/SurfaceFlinger/SurfaceFlinger.cs",
+      "releasedSha256": "0a35d6ddb2306fe04ad47a0717f543e132d657fd9f80ceca74662dd70e4f42cf",
+      "releasedBytes": 19526,
+      "overlaySha256": "f195fe3e4e03ae601741da282cb8c76bd40c2a73da01897cf5b6b7d5ee28f72e",
+      "overlayBytes": 14124,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Loaders/Processes/Extensions/LocalFileSystemExtensions.cs",
+      "releasedSha256": "c99051023b71a906ea8bc6eaac960eb081bc7bd5ddacb7e0c77d44c3efe30c56",
+      "releasedBytes": 2317,
+      "overlaySha256": "ba328c40b90ae32fdb6f7d22cf00bb290f6ed826d44459a47a84368010fb269a",
+      "overlayBytes": 1950,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Loaders/Processes/Extensions/PartitionFileSystemExtensions.cs",
+      "releasedSha256": "a5bb7f10eca5f5febde369c7993a3b208d3dc08c1c08b5a1fe401233dce2ae7e",
+      "releasedBytes": 7398,
+      "overlaySha256": "5e895cb25e86ff8ee30d78d8215ea01334b372daedcaf97e2f67361aaf455ad2",
+      "overlayBytes": 5385,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Loaders/Processes/ProcessLoader.cs",
+      "releasedSha256": "503e7cefd035847be6e120158dbbbd4df11bcb92b00fcfde8eacaefa0cd5b60d",
+      "releasedBytes": 14810,
+      "overlaySha256": "e9b1c22e88a24e75ef880382ba3156112e1da3625f41db26e7510e5236a3891b",
+      "overlayBytes": 9453,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Loaders/Processes/ProcessLoaderHelper.cs",
+      "releasedSha256": "f52ee7ea80f3364be4b9e66b704648270c9ba218becccb510d75266b6e8aa4ea",
+      "releasedBytes": 23444,
+      "overlaySha256": "6c4f98d0a2b89af575afadbdc5f6f347d2eaacf06bced70a5b0aca5b4f383b89",
+      "overlayBytes": 16734,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Loaders/Processes/ProcessResult.cs",
+      "releasedSha256": "80f971b627e9c68242d58e5e2df8fb0414322e7f255bc01bf3faf495bfd52c19",
+      "releasedBytes": 4829,
+      "overlaySha256": "932cf12b2c4679191b4520d6d6e5f59f0f9921387f0abf539bdbb5c301b51b28",
+      "overlayBytes": 3705,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/NXI/NxiFramePolicy.cs",
+      "releasedSha256": "68149c56a398916d8fd99942bc15318c1def0d4695dcff168a63fdf9c2328ae0",
+      "releasedBytes": 27683,
+      "overlaySha256": "1ba40d5bc00d03d2596e28106eb42bc187391c9cd8578888184d17d938fd8a18",
+      "overlayBytes": 23809,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Ryujinx.HLE.csproj",
+      "releasedSha256": "843c948d5c444df1460dfafff5c98223d6c9f61fab186fed1853facb4521e644",
+      "releasedBytes": 3184,
+      "overlaySha256": "785393d95b5f7068e898061d4950d8e7765592dc8cdb9410c4ad6cabcfca72e3",
+      "overlayBytes": 3331,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Switch.cs",
+      "releasedSha256": "6bba72bd4dacafa3c5689a28cb71c873937610bc163d2b626c5e4b2d80ae9de3",
+      "releasedBytes": 7308,
+      "overlaySha256": "dbabeadcbeb40738a99ad02e24f6165829b9cedf28964ddba9dd28fb13e2354e",
+      "overlayBytes": 5680,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.HLE/Utilities/PartitionFileSystemUtils.cs",
+      "releasedSha256": "1f15d2fa1e10edd51f19c4c7c0a36dce1ab25fe3d60c44f65b7fbd6cc92f80d5",
+      "releasedBytes": 1580,
+      "overlaySha256": "32622afa5119e03095a69a34477d70d5f3040ee3433cd2825d6c3fa4e4cf6481",
+      "overlayBytes": 1220,
+      "evidenceAssembly": "Ryujinx.HLE.dll",
+      "evidenceAssemblySha256": "eea4e025ce07043799c44b53ccae9c7c2b2a4fee9d13198991436db5f71db2ef"
+    },
+    {
+      "path": "src/Ryujinx.Horizon/Sdk/Audio/Detail/AudioDevice.cs",
+      "releasedSha256": "64f1141c2f99825eaa2219d79b72720f260533141468da133f223e40f4346042",
+      "releasedBytes": 9501,
+      "overlaySha256": "99677cf9368adff7db9644be1ffcce3f03fc2a8a450daaf5802732c4ece143de",
+      "overlayBytes": 33792,
+      "evidenceAssembly": "Ryujinx.Horizon.dll",
+      "evidenceAssemblySha256": "75b6043b8ef77eb3b0ca6e511cb846076b265c2f6f57b244826431687a249a62"
+    },
+    {
+      "path": "src/Ryujinx.Horizon/Sdk/Audio/Detail/AudioRendererManager.cs",
+      "releasedSha256": "2ef3337f4de64d4be7ca3bcf0f48c6b927cdd38d0f101b64f08cef204fbb2315",
+      "releasedBytes": 4758,
+      "overlaySha256": "bca0eda74b3f42aad339daa957d181f7dcea671a5f9182b2391ae78e4fbac921",
+      "overlayBytes": 12940,
+      "evidenceAssembly": "Ryujinx.Horizon.dll",
+      "evidenceAssemblySha256": "75b6043b8ef77eb3b0ca6e511cb846076b265c2f6f57b244826431687a249a62"
+    }
+  ],
+  "auxiliary": [
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/ShortTextureCacheEntry.cs",
+      "sha256": "90313c01187bd24112b46e7902b30ad3278ac287a0e952cdce0ac9b904104ba5",
+      "bytes": 572,
+      "reason": "Decompiler-split type required to compile a reconstructed manifest source."
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/Image/TextureIncompatibleOverlap.cs",
+      "sha256": "3cfed6a96d0d5569f3d3f2bf132bf44b2207d0c96f7226d32f49110425e4248c",
+      "bytes": 274,
+      "reason": "Decompiler-split type required to compile a reconstructed manifest source."
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/IRefEquatable.cs",
+      "sha256": "e229a2b7ab6293744be31798aa68245caec64eeef638b6647231e04e572b6d13",
+      "bytes": 103,
+      "reason": "Decompiler-split type required to compile a reconstructed manifest source."
+    },
+    {
+      "path": "src/Ryujinx.Graphics.Vulkan/NXI/RyuPipelineCacheSettings.cs",
+      "sha256": "17679b5d7190af59db8417caf398f99c865b9e7dbbf39e85dcffd8ade02a6814",
+      "bytes": 626,
+      "reason": "Decompiler-split type required to compile a reconstructed manifest source."
+    },
+    {
+      "path": "src/Ryujinx.HLE/NXI/RyuFramePolicyException.cs",
+      "sha256": "6417245f28023f706f01e2d1c4184016197989294e2f1d496878ad2534c8ec18",
+      "bytes": 174,
+      "reason": "Decompiler-split type required to compile a reconstructed manifest source."
+    }
+  ],
+  "unavailable": [
+    {
+      "path": "src/Ryujinx.Graphics.Gpu/NXI/TestAccess.cs",
+      "releasedSha256": "1b32dc3c2fae54f9f7b2798b01fea630a03abb25b0c1bf96c4955c20cd00ceaa",
+      "releasedBytes": 107,
+      "reason": "Not represented in the shipped managed assemblies and not required by the production build."
+    }
+  ],
+  "linkedRuntimeSources": [
+    {
+      "path": "src/runtime/NxInfinity.Runtime/GamePatchContracts.cs",
+      "sha256": "7ac47b6dac80cb1c85d562c64745b682e77ad7f6b0982e4a271cb119e1f72981",
+      "bytes": 4360
+    },
+    {
+      "path": "src/runtime/NxInfinity.Runtime/GamePatchValidation.cs",
+      "sha256": "d2f98c7a017d01d133de3eab7920ff43d1229fd9b5e5d0a077ba67c39b1dd453",
+      "bytes": 5759
+    },
+    {
+      "path": "src/runtime/NxInfinity.Runtime/NetworkPolicy.cs",
+      "sha256": "7f6b1aa869f5882a8790f350d795eb546f058e4773e1391f42231c2031f4b1d2",
+      "bytes": 2225
+    },
+    {
+      "path": "src/runtime/NxInfinity.Runtime/NxException.cs",
+      "sha256": "a6f033fe227a4a3ec6e02dbec9b44bb20058f771419bfb354298be2076ba2e60",
+      "bytes": 311
+    }
+  ]
+}
