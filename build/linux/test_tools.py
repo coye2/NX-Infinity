@@ -5,13 +5,16 @@ from __future__ import annotations
 
 import importlib.util
 import base64
+import contextlib
 import dataclasses
+import errno
 import gzip
 import hashlib
 import io
 import json
 import os
 import pathlib
+import re
 import shlex
 import shutil
 import signal
@@ -25,6 +28,7 @@ import unittest
 import unittest.mock
 import zipfile
 from types import ModuleType, SimpleNamespace
+from typing import Iterator
 
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -317,9 +321,7 @@ class PackageTests(ScratchTestCase):
                     rid,
                     {"LICENSE.TXT": f"license {rid}\n".encode(), "THIRD-PARTY-NOTICES.TXT": f"notices {rid}\n".encode()},
                 )
-                extracted = (
-                    scratch / "nuget" / f"microsoft.netcore.app.runtime.{rid}" / distribution.RUNTIME_PACK_VERSION
-                )
+                extracted = runtime_pack_path(scratch / "nuget", rid).parent
                 write(extracted / "THIRD-PARTY-NOTICES.TXT", b"tampered extracted notice\n")
             with unittest.mock.patch.object(distribution, "RUNTIME_PACK_HASHES", packages):
                 for rid in packages:
@@ -383,7 +385,7 @@ class PackageTests(ScratchTestCase):
             with self.assertRaisesRegex(ValueError, "identity mismatch"):
                 distribution.verified_package(scratch / "nuget", "fixture", "1", "0" * 64)
 
-    def test_verified_package_never_rereads_a_file_replaced_after_hashing(self) -> None:
+    def test_verified_package_hashes_and_returns_the_bytes_of_its_one_read(self) -> None:
         with self.temporary_directory() as directory:
             scratch = pathlib.Path(directory)
             package_path = scratch / "nuget/fixture/1/fixture.1.nupkg"
@@ -392,13 +394,27 @@ class PackageTests(ScratchTestCase):
             replacement = scratch / "replacement.nupkg"
             write_package(replacement, {"NOTICE.txt": b"replaced\n"})
             replaced = replacement.read_bytes()
-            real_sha256 = hashlib.sha256
+            real_fdopen = os.fdopen
 
-            def replace_then_hash(data: bytes) -> object:
-                package_path.write_bytes(replaced)
-                return real_sha256(data)
+            class ReplacedAfterRead:
+                def __init__(self, stream: io.BufferedReader) -> None:
+                    self.stream = stream
 
-            with unittest.mock.patch.object(distribution.hashlib, "sha256", side_effect=replace_then_hash):
+                def __enter__(self) -> ReplacedAfterRead:
+                    return self
+
+                def __exit__(self, *details: object) -> None:
+                    self.stream.close()
+
+                def read(self, size: int = -1) -> bytes:
+                    data = self.stream.read(size)
+                    os.replace(replacement, package_path)
+                    return data
+
+            def open_then_replace(descriptor: int, mode: str) -> ReplacedAfterRead:
+                return ReplacedAfterRead(real_fdopen(descriptor, mode))
+
+            with unittest.mock.patch.object(distribution.os, "fdopen", side_effect=open_then_replace):
                 data = distribution.verified_package(scratch / "nuget", "fixture", "1", expected)
             self.assertEqual(replaced, package_path.read_bytes())
             self.assertEqual(original, data)
@@ -416,26 +432,64 @@ class PackageTests(ScratchTestCase):
             fifo.parent.mkdir(parents=True)
             os.mkfifo(fifo)
             write(scratch / "nuget/file", b"not a folder\n")
-            unopenable = "cannot be opened without following a symbolic link"
             cases = (
-                ("linked", f"{unopenable}: linked/1: Too many levels of symbolic links"),
-                ("absent", f"{unopenable}: absent/1: No such file or directory"),
-                ("file", f"{unopenable}: file/1: Not a directory"),
+                ("linked", re.escape(f"cannot be opened: linked/1: {os.strerror(errno.ELOOP)}")),
+                ("absent", re.escape(f"cannot be opened: absent/1: {os.strerror(errno.ENOENT)}")),
+                ("file", re.escape(f"cannot be opened: file/1: {os.strerror(errno.ENOTDIR)}")),
                 ("folder", "not a regular file"),
                 ("fifo", "not a regular file"),
             )
-            previous = signal.signal(signal.SIGALRM, raise_timeout)
-            try:
-                for package_id, message in cases:
-                    with self.subTest(package=package_id):
-                        signal.alarm(5)
-                        try:
-                            with self.assertRaisesRegex(ValueError, message):
-                                distribution.verified_package(scratch / "nuget", package_id, "1", expected)
-                        finally:
-                            signal.alarm(0)
-            finally:
-                signal.signal(signal.SIGALRM, previous)
+            for package_id, message in cases:
+                with (
+                    self.subTest(package=package_id),
+                    fails_instead_of_blocking(),
+                    self.assertRaisesRegex(ValueError, message),
+                ):
+                    distribution.verified_package(scratch / "nuget", package_id, "1", expected)
+
+    def test_verified_package_closes_its_descriptor_when_it_refuses(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            expected = write_package(scratch / "nuget/fixture/1/fixture.1.nupkg", {"NOTICE.txt": b"notice\n"})
+            (scratch / "nuget/folder/1/folder.1.nupkg").mkdir(parents=True)
+            fifo = scratch / "nuget/fifo/1/fifo.1.nupkg"
+            fifo.parent.mkdir(parents=True)
+            os.mkfifo(fifo)
+            cases = (
+                ("folder", expected, "not a regular file"),
+                ("fifo", expected, "not a regular file"),
+                ("fixture", "0" * 64, "identity mismatch"),
+            )
+            before = open_descriptor_count()
+            for package_id, identity, message in cases:
+                with (
+                    self.subTest(package=package_id),
+                    fails_instead_of_blocking(),
+                    self.assertRaisesRegex(ValueError, message),
+                ):
+                    distribution.verified_package(scratch / "nuget", package_id, "1", identity)
+            with (
+                unittest.mock.patch.object(distribution, "MAX_PACKAGE_BYTES", 1),
+                self.assertRaisesRegex(ValueError, "package exceeds the size bound"),
+            ):
+                distribution.verified_package(scratch / "nuget", "fixture", "1", expected)
+            self.assertEqual(before, open_descriptor_count())
+
+    def test_distribution_files_never_replace_one_another(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            notice = next(
+                path for path in common.regular_files(distribution.HERE / "notices")
+                if path.name not in distribution.PACKAGE_ONLY_NOTICES
+            )
+            external = scratch / "external"
+            write(external / notice.name, b"external notice with a clashing name\n")
+            root = scratch / "package"
+            with self.assertRaisesRegex(ValueError, "would replace an existing file"):
+                package.add_distribution_files(root, external_notices=external)
+            self.assertEqual(notice.read_bytes(), (root / "licenses/native" / notice.name).read_bytes())
+            with self.assertRaisesRegex(ValueError, "would replace an existing file"):
+                package.add_distribution_files(root)
 
     def test_package_notice_reads_are_bounded_at_the_notice_limit(self) -> None:
         with self.temporary_directory() as directory:
@@ -541,6 +595,7 @@ class PackageTests(ScratchTestCase):
                 ("no-version", b'{"sdk": {"rollForward": "disable"}}', "does not name a version"),
                 ("empty-version", b'{"sdk": {"version": ""}}', "does not name a version"),
                 ("no-sdk", b'{"msbuild-sdks": {}}', "does not name a version"),
+                ("numeric-version", b'{"sdk": {"version": 9}}', "does not name a version"),
                 (
                     "duplicate",
                     b'{"sdk": {"version": "9.0.100"}, "sdk": {"version": "9.0.100"}}',
@@ -575,6 +630,22 @@ class PackageTests(ScratchTestCase):
             ):
                 package.require_pinned_sdk(dotnet, scratch / "project")
 
+    def test_refused_sdk_keeps_the_end_of_a_long_explanation(self) -> None:
+        with self.temporary_directory() as directory:
+            scratch = pathlib.Path(directory)
+            dotnet = scratch / "dotnet"
+            write(
+                dotnet,
+                b'#!/bin/sh\nprintf "%s\\n" "HEAD-MARKER $(printf "x%.0s" $(seq 5000)) TAIL-MARKER" >&2\nexit 145\n',
+                executable=True,
+            )
+            write(scratch / "project/global.json", b'{"sdk": {"version": "9.0.100"}}')
+            with self.assertRaises(ValueError) as refusal:
+                package.require_pinned_sdk(dotnet, scratch / "project")
+            message = str(refusal.exception)
+            self.assertIn("TAIL-MARKER", message)
+            self.assertNotIn("HEAD-MARKER", message)
+
     def test_sdk_query_times_out_instead_of_hanging(self) -> None:
         with self.temporary_directory() as directory:
             scratch = pathlib.Path(directory)
@@ -583,7 +654,7 @@ class PackageTests(ScratchTestCase):
             write(scratch / "project/global.json", b'{"sdk": {"version": "9.0.100"}}')
             with (
                 unittest.mock.patch.object(package, "SDK_QUERY_TIMEOUT_SECONDS", 0.5),
-                self.assertRaises(subprocess.TimeoutExpired),
+                self.assertRaisesRegex(ValueError, r"did not report the SDK pinned by .* within 0\.5 s"),
             ):
                 package.require_pinned_sdk(dotnet, scratch / "project")
 
@@ -1914,15 +1985,34 @@ def write_package(path: pathlib.Path, members: dict[str, bytes]) -> str:
     return common.sha256_file(path)
 
 
-def write_runtime_pack(nuget: pathlib.Path, rid: str, members: dict[str, bytes]) -> str:
+def runtime_pack_path(nuget: pathlib.Path, rid: str) -> pathlib.Path:
     package_id = f"microsoft.netcore.app.runtime.{rid}"
     version = distribution.RUNTIME_PACK_VERSION
-    return write_package(nuget / package_id / version / f"{package_id}.{version}.nupkg", members)
+    return nuget / package_id / version / f"{package_id}.{version}.nupkg"
+
+
+def write_runtime_pack(nuget: pathlib.Path, rid: str, members: dict[str, bytes]) -> str:
+    return write_package(runtime_pack_path(nuget, rid), members)
+
+
+def open_descriptor_count() -> int:
+    return len(os.listdir("/proc/self/fd"))
 
 
 def raise_timeout(signum: int, frame: object) -> None:
     # Not an OSError, so the reader under test cannot turn it into an expected refusal.
     raise AssertionError("The operation blocked instead of failing.")
+
+
+@contextlib.contextmanager
+def fails_instead_of_blocking(seconds: int = 5) -> Iterator[None]:
+    previous = signal.signal(signal.SIGALRM, raise_timeout)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, previous)
 
 
 REPOSITORY_ARCHIVE_SETTINGS = (

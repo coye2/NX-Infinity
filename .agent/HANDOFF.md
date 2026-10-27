@@ -883,12 +883,10 @@ Earlier evidence, superseded for the archive identities by round 7:
     derives from the content.
   - `NX-LINUX-BUILD.json` differs in `sourceDateEpoch` (CI commit time
     1793132123 against 1793068160) and in the hashes of those three DLLs.
-- Round 21 (uncommitted, not yet reviewed) answers the round-20 considers;
-  no packaged file changes:
+- Round 21 answers the round-20 considers; no packaged file changes:
   - `verified_package` adds the system's error text when the open fails
     (tested for a missing file, a symbolic link and a path through a file),
-    and closes
-    the descriptor on every failure path before wrapping it.
+    and closes the descriptor on every failure path before wrapping it.
   - `copy_native_notices` refuses duplicate notice destinations instead of
     letting one silently replace another; both notice copies share one
     `write_native_notices`.
@@ -920,6 +918,55 @@ Earlier evidence, superseded for the archive identities by round 7:
     diff check; all 255 regenerated distribution files per archive still
     match the round-18 x64, classic-zlib x64 and ARM64 archives byte for
     byte, and all three pass the verifier.
-- Next action: freeze round 21 for dual independent review; after a dual
-  `PASS`, commit on top of `1dfd372`, push and require fork CI to pass with
+- Review round 21: snapshot
+  `e9ac5a62d36fe4d8ba7c8c73df65e76acc6c67134e56cd5745359564e41e381c`
+  (packet `pr2-round21-review-20261027-162327`). Reviewer A
+  (`ses_e80f786b8ffe1DneYrOd4Ky16l`) `PASS` 95 with one should-fix: the
+  "never re-read" test swapped the file only after both reads, so hashing a
+  second read while returning the first survived. Reviewer B
+  (`ses_e80f76816ffevCJFfi5JNO2pXM`) `PASS` 100 with the same gap as a
+  consider. Both also noted: no test that the descriptor is closed on
+  refusal; an open-failure message that blamed symbolic links for every
+  error; glibc-specific error text in the tests; a duplicate check narrower
+  than the AUDIT claimed (runtime, repository and external notices could
+  still overwrite one another); one 122-character README line; a duplicated
+  runtime-pack path in a test.
+- Commit `b8191eafeb1191f80924dabcb92a938587e1a965` (index matched all 41
+  reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
+  to `fork/feat/native-linux-builds`. Fork CI run `40578928738` passed both
+  jobs; artifact `nx-infinity-native-linux` downloads, its sidecars check,
+  the local verifier passes both archives (813/40 and 811/39), and against
+  round 18 the same four commit-dependent members differ per RID and no
+  others.
+- Round 22 (uncommitted, not yet reviewed) answers the round-21 should-fix
+  and considers; no packaged file changes:
+  - Tests: the file is replaced (`os.replace`) between the bounded read and
+    the hash, so hashing a re-read, hashing the path with `sha256_file`, or
+    returning a re-read all fail; descriptor counts in `/proc/self/fd` must
+    match before and after the folder, FIFO, mismatch and oversize refusals;
+    expected error text comes from `os.strerror(errno.…)`; a shared
+    `fails_instead_of_blocking` alarm guards every FIFO open (without it the
+    `O_NONBLOCK` mutation hung the suite instead of failing it); a
+    `runtime_pack_path` helper replaces the duplicated path; a numeric
+    `global.json` version, the tail of a long dotnet explanation and the
+    timeout message are asserted.
+  - `verified_package` reports "cannot be opened: <package>: <reason>".
+  - Every distribution write (`write_bytes`, `write_text`, `copy_file`) now
+    creates its file exclusively, so no distribution file can replace
+    another or a published file: a collision fails the build. The real
+    inputs have none (255 files per archive, none sharing a path with the
+    521/520 publish-tree files).
+  - `require_pinned_sdk` turns a timed-out `dotnet --version` into a
+    `ValueError` naming the pin, like its other refusals.
+  - README line 15 rewrapped.
+  - Mutation sweep (`round22-mutation/mutate.py`): all 30 mutations are
+    caught, the 23 of round 21 plus hashing a re-read, hashing the path, no
+    close on failure, head-not-tail truncation, overwriting writes, an
+    unwrapped timeout and an unchecked version type.
+  - Checks: 71 Linux and 15 source-baseline tests, AST parse, actionlint,
+    diff check; all 255 regenerated distribution files per archive match the
+    round-18 x64, classic-zlib x64 and ARM64 archives byte for byte, and all
+    three pass the verifier.
+- Next action: freeze round 22 for dual independent review; after a dual
+  `PASS`, commit on top of `b8191ea`, push and require fork CI to pass with
   x64/ARM64 artifacts.

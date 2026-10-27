@@ -5,7 +5,7 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the round-21 changes. Commit and push stay
+Verdict: self-audit PASS for the round-22 changes. Commit and push stay
 blocked until both independent reviewers pass the new frozen snapshot.
 
 ## Supply chain and security
@@ -587,8 +587,9 @@ file:
 
 - A failed package open reports the system's error text, and the descriptor
   is closed on every failure path.
-- Duplicate notice destinations are refused; both notice copies share one
-  writer.
+- Duplicate destinations among the package notice sources are refused; both
+  package-notice copies share one writer. (Round 22 widens this to every
+  distribution write.)
 - The SDK query times out after 120 seconds and, on refusal, keeps dotnet's
   list of installed SDKs.
 - Tests close the reviewers' mutation gaps: the FIFO timeout cannot be
@@ -598,3 +599,31 @@ file:
 
 68 Linux and 15 source-baseline tests pass, and the 255 regenerated
 distribution files still match the round-18 archives.
+
+## Round-21 review, fork CI and round 22
+
+Snapshot
+`e9ac5a62d36fe4d8ba7c8c73df65e76acc6c67134e56cd5745359564e41e381c`
+received `PASS` 95 from Reviewer A and `PASS` 100 from Reviewer B and was
+committed as `b8191ea`. Its fork CI run passed both jobs; against round 18,
+only the four commit-dependent members differ. Reviewer A's should-fix was a
+test gap: the round-21 "never re-read" test replaced the package only after
+both reads, so hashing a second read while returning the first went unnoticed.
+
+Round 22 answers it and every consider without changing a packaged file:
+
+- The test now replaces the package between the read and the hash, which
+  catches hashing a re-read, hashing the path and returning a re-read.
+- A test requires the open-descriptor count to be unchanged after every
+  refusal that opened the package.
+- Every distribution write creates its file exclusively, so no notice or
+  other distribution file can silently replace another; a collision fails
+  the build. The real inputs have none.
+- The open-failure message no longer blames symbolic links for every error,
+  and the tests derive expected error text from `errno` rather than glibc's
+  wording.
+- A timed-out SDK query is reported as a refusal naming the pin.
+
+A 30-mutation sweep catches every mutation. 71 Linux and 15 source-baseline
+tests pass, and the 255 regenerated distribution files still match the
+round-18 archives.

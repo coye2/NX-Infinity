@@ -317,14 +317,19 @@ def require_pinned_sdk(dotnet: pathlib.Path, project_root: pathlib.Path) -> str:
     expected = sdk.get("version") if isinstance(sdk, dict) else None
     if not isinstance(expected, str) or not expected:
         raise ValueError(f"SDK pin does not name a version: {pin}")
-    result = subprocess.run(
-        [str(dotnet), "--version"],
-        cwd=project_root,
-        check=False,
-        capture_output=True,
-        text=True,
-        timeout=SDK_QUERY_TIMEOUT_SECONDS,
-    )
+    try:
+        result = subprocess.run(
+            [str(dotnet), "--version"],
+            cwd=project_root,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=SDK_QUERY_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise ValueError(
+            f"{dotnet} did not report the SDK pinned by {pin} within {SDK_QUERY_TIMEOUT_SECONDS} s."
+        ) from error
     if result.returncode != 0:
         detail = "\n".join(part for part in (result.stderr.strip(), result.stdout.strip()) if part)[-4000:]
         raise ValueError(

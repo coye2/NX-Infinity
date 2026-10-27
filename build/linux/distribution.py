@@ -265,9 +265,7 @@ def verified_package(nuget_root: pathlib.Path, package_id: str, version: str, ex
         # O_NONBLOCK keeps a FIFO at the package path from blocking the open.
         descriptor = os.open(package, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
     except OSError as error:
-        raise ValueError(
-            f"NuGet package cannot be opened without following a symbolic link: {label}: {error.strerror}"
-        ) from error
+        raise ValueError(f"NuGet package cannot be opened: {label}: {error.strerror}") from error
     try:
         if not stat.S_ISREG(os.fstat(descriptor).st_mode):
             raise ValueError(f"NuGet package is not a regular file: {label}")
@@ -331,18 +329,20 @@ def copy_tracked(prefix: str, destination: pathlib.Path) -> None:
 def copy_file(source: pathlib.Path, destination: pathlib.Path) -> None:
     if source.is_symlink() or not source.is_file():
         raise ValueError(f"Required distribution source is unavailable: {source}")
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(source, destination)
+    write_bytes(destination, source.read_bytes())
 
 
 def write_bytes(path: pathlib.Path, value: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(value)
+    try:
+        with path.open("xb") as stream:
+            stream.write(value)
+    except FileExistsError as error:
+        raise ValueError(f"Distribution file would replace an existing file: {path}") from error
 
 
 def write_text(path: pathlib.Path, value: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(value, encoding="utf-8", newline="\n")
+    write_bytes(path, value.encode("utf-8"))
 
 
 def normalize_modes(root: pathlib.Path) -> None:
