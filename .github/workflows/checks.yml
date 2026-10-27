@@ -25,10 +25,14 @@ jobs:
         with:
           persist-credentials: false
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        env:
+          DOTNET_INSTALL_DIR: ${{ runner.temp }}/dotnet
         with:
           dotnet-version: |
             9.0.100
             10.0.402
+      - name: Show installed .NET SDKs
+        run: dotnet --list-sdks
       - name: Test build tools
         shell: bash
         run: |
@@ -82,7 +86,7 @@ jobs:
         run: |
           set -euo pipefail
           epoch=$(git show -s --format=%ct HEAD)
-          dotnet9="$DOTNET_ROOT/dotnet"
+          pinned_dotnet="$DOTNET_ROOT/dotnet"
           export NUGET_PACKAGES="$RUNNER_TEMP/nuget-packages"
           git init --quiet "$RUNNER_TEMP/ffmpeg-source"
           git -C "$RUNNER_TEMP/ffmpeg-source" remote add origin https://github.com/FFmpeg/FFmpeg.git
@@ -99,8 +103,8 @@ jobs:
             python3 -B build/linux/package.py \
               --rid "$rid" \
               --core-source "$RUNNER_TEMP/nx-v1-source" \
-              --core-dotnet "$dotnet9" \
-              --dotnet "$dotnet9" \
+              --core-dotnet "$pinned_dotnet" \
+              --dotnet "$pinned_dotnet" \
               --work "$RUNNER_TEMP/$rid-work" \
               --output "$RUNNER_TEMP/linux-archives" \
               --notice-sources "$RUNNER_TEMP/linux-notices" \

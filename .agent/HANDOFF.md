@@ -704,7 +704,7 @@ Earlier evidence, superseded for the archive identities by round 7:
   the runner is shared by .NET 9.0.100, 10.0.402 and the image's own SDKs, so
   its bytes depend on install history. Locally the root was the standalone
   10.0.402 SDK (`2dc8f8c5…`); the 9.0.100 root's file is `e7035d73…`.
-- Post-commit fix (uncommitted, not yet reviewed):
+- Post-commit fix (committed as `ae1f590` after the round-18 dual `PASS`):
   - `distribution.copy_runtime_notices` reads both .NET notices from the
     RID's `microsoft.netcore.app.runtime.<rid>` 10.0.13 `.nupkg` (x64
     `28c62a37…`, ARM64 `7edf8c54…`), the runtime the self-contained publish
@@ -716,9 +716,11 @@ Earlier evidence, superseded for the archive identities by round 7:
   - New test: notices come from each RID's pinned pack, not a tampered
     extracted copy; a wrong pack hash or unsupported RID is refused. 52 Linux
     and 15 source-baseline tests pass; the real packs give the pinned bytes.
-  - Two packaged files change, so the round-10 archives are superseded; a
-    round-18 Python-only reassembly window has been requested from the
-    coordinator.
+  - Three archive members change in each archive: the notice,
+    `licenses/NATIVE-DEPENDENCIES.json`, and the two `NX-LINUX-BUILD.json`
+    entries that bind them (hashes and the notice size). The round-10 archives
+    are therefore superseded; a round-18 Python-only reassembly window was
+    requested from the coordinator.
 - Round-18 window (coordinator GO; 15:40:11–15:41:04 EDT; Python only, no
   .NET, GPU, device, adb or network). The unchanged round-10 driver
   (`33e33929…`, helper `round7_window.py` `2ff012b2…`) ran with
@@ -741,6 +743,121 @@ Earlier evidence, superseded for the archive identities by round 7:
   - Three priority exposures, each one launcher thread found at nice 19
     (self-set) about 3.2 s into a launch and re-pinned to 10 by the watcher:
     explicit probe, default-before, default-after.
-- Next action: freeze round 18 for dual independent review, then commit the
-  reviewed fix on top of `7229e5e`, push and require fork CI to pass with
-  x64/ARM64 artifacts.
+- Review round 18: snapshot
+  `fec13fa7c3cb1f20ac7a142cab492ad64bb360ad55d329c8f0d59aefb73e9877`
+  (41 paths; packet `pr2-round18-review-20261027-154313`). Reviewer A
+  (`ses_e811bfba1ffeOGKY2aGpTEaNrq`) and Reviewer B
+  (`ses_e811bf9e2ffe66zbyFyAkwcr3H`) both `PASS` 100/100, considers only.
+- Commit `ae1f5903b3109ad32b1a5b70a236bcae0c96cf76` (index matched all 41
+  reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
+  to `fork/feat/native-linux-builds`. Fork CI run `40572444067` passed both
+  jobs (`checks`, `source-baseline`: archives, dependency audit, Xvfb and
+  default-data smoke). Artifact `nx-infinity-native-linux` downloads with
+  both archives (x64 114,386,650 bytes, ARM64 108,918,356 bytes), sidecars
+  that check, and the smoke reports; both archives pass the local verifier
+  (813/40 and 811/39).
+- CI versus round-18 archives: 15 members differ per RID, none present in
+  only one archive (corrected in round 20 after the round-19 reviews):
+  - The three `NxInfinity.Runtime*` DLLs: their informational version
+    embeds the built commit (`+ae1f590…` vs `+b26ba273…`).
+  - Ten restored-core assemblies (`ARMeilleure`, `Ryujinx.*`), same sizes,
+    differing from byte 136 onward through their code. Seven name
+    source-generator version `9.0.14.41315` on CI and `9.0.11.2809` locally;
+    `Ryujinx.Graphics.Gpu`, `.Shader` and `.Texture` carry no generator
+    version in either archive, and the cause of their difference is not
+    identified.
+  - The two manifests, mainly because they record those changed hashes:
+    `cores/nxi/backend.json` has no time field and differs only in the ten
+    core-DLL hashes; `NX-LINUX-BUILD.json` differs in `sourceDateEpoch` (CI
+    stamps its own commit time) and the 14 member hashes.
+  - Hypothesis: CI's core build rolled forward from 9.0.100 to a newer 9.0
+    SDK in the shared dotnet root, as Reviewer B suspected. Support:
+    `9.0.11.2809` is the version stamped by the generators bundled with SDK
+    9.0.100 (`packs/Microsoft.NETCore.App.Ref/9.0.0/analyzers`), and a
+    different compiler would also explain the three DLLs without a generator
+    string. Not yet confirmed; the next CI run (private SDK directory plus
+    the exact-SDK check) is the test, and if it holds, the ten core DLLs and
+    `backend.json` should then match the round-18 archives.
+- Round 19 answered the round-18 considers; no packaged file changes, so the
+  round-18 archives remain the product:
+  - Wiring: `add_distribution_files` refuses a package cache without a RID
+    before writing anything, and a test proves it writes both .NET notices
+    for the RID it is given. (Removing the `rid=` argument in `package.py`
+    was then caught only by that run-time refusal, not by a unit test; round
+    20 adds the unit test.)
+  - `verified_package` opens the `.nupkg` once without following symlinks,
+    refuses non-regular files, and returns the bytes it hashed; notices are
+    read from those bytes, which closes the hash-then-reopen gap. Native
+    notices are collected from every pinned package before any is written,
+    and a notice source whose package is not pinned is refused. Tests cover
+    the symlink, directory, missing, size-bound and unpinned cases.
+  - SDK selection (Reviewer B): the product publishes already run in `src/`,
+    whose `global.json` pins 10.0.402 with roll-forward disabled. The
+    restored core's upstream `global.json` pins 9.0.100 with
+    `rollForward: latestFeature`, so a shared dotnet root holding a newer 9.0
+    feature band would be picked silently. `package.require_pinned_sdk` now
+    requires each dotnet to resolve exactly the version its `global.json`
+    names (the real 10.0.402 and 9.0.100 SDKs pass; swapped SDKs are
+    refused), and CI installs both SDKs into a private
+    `$RUNNER_TEMP/dotnet` and lists them. Which SDK the earlier CI core
+    builds used is unknown: no log line names it.
+  - Kept as is, with reasons: the duplicated `10.0.13` literal (the verifier
+    deliberately pins independently of the packager; drift fails closed),
+    and per-RID runtime-pack hashes in the policy file (changing a packaged
+    file would need another window; the pack is already bound by its pinned
+    `.nupkg` hash, every runtime ELF hash and the `.deps.json` runtime-pack
+    entry).
+  - Checks: 55 Linux and 15 source-baseline tests, py_compile, actionlint,
+    diff check. The real package caches give all 18 native notices per RID
+    byte-identical to the round-18 archives.
+- Review round 19: snapshot
+  `cd76332188874e0d99650e092a788c2e37f234f80cfd1f9962012a0cf614546d`
+  (packet `pr2-round19-review-20261027-155552`). Reviewer A
+  (`ses_e8110c796ffep9I4pmGVQdkntP`) `NEEDS CHANGES` 93.75: a FIFO at a
+  package path hung `verified_package` (round 18 refused it), and the
+  CI-versus-round-18 record misattributed the manifests and three core DLLs.
+  Reviewer B (`ses_e8110a9a4ffeXIXAOVQvifvWkt`) `PASS` 100, considers only.
+- Round 20 (uncommitted, not yet reviewed) fixes both should-fix findings
+  and every consider; no packaged file changes, so the round-18 archives
+  remain the product:
+  - `verified_package` opens with `O_NONBLOCK`, so a FIFO is refused instead
+    of blocking; it reads at most `MAX_PACKAGE_BYTES` (256 MiB) + 1 bytes and
+    refuses anything larger; missing or linked, non-regular and mismatched
+    packages get distinct messages instead of one "identity mismatch".
+  - `copy_native_notices` groups the notice sources by package once instead
+    of rescanning them for every package.
+  - `require_pinned_sdk` reports dotnet's own explanation and exit code when
+    dotnet cannot resolve the pinned SDK.
+  - New and split tests: `build_inputs` checks each SDK against its own pin
+    (wrong product SDK, swapped SDKs and a rolled-forward core SDK are
+    refused before the work directory exists); `assemble_archive` passes the
+    RID, package cache and external notices to `add_distribution_files`;
+    `add_distribution_files` writes the native notices as well as the
+    runtime notices; nothing is written when a later package fails to verify
+    or a runtime notice is missing; FIFO, size bound and dotnet-explanation
+    cases. The former six-behaviour package test is split into four.
+  - CI's variable for the private dotnet is renamed `pinned_dotnet` (it
+    serves both SDKs); the README says the core pin can pick any newer 9.0
+    SDK, patch or feature band.
+  - The pinned setup-dotnet (`67a3573…`, `dist/setup/index.js`
+    `3ca7ace9…`, lines 99471–99485) installs into `DOTNET_INSTALL_DIR` and
+    exports it as `DOTNET_ROOT` and on `PATH`, so the private SDK folder is
+    what later steps use.
+  - Kept as is, with reasons: the `(package_id, version)` tuple keys (they
+    mirror the literal rows of `PACKAGE_HASHES` and `NOTICE_SOURCES`; a named
+    type would change no behaviour).
+  - Mutation sweep (`round20-mutation/mutate.py`, scratch copy of
+    `build/linux`): all 14 mutations are caught, including removing
+    `O_NONBLOCK`, either SDK check, swapping their roots, dropping `rid=`,
+    `nuget_root=` or the native-notice call, writing notices before every
+    package verifies, the size bound, the regular-file check, the unpinned
+    check and the dotnet explanation.
+  - Checks: 62 Linux and 15 source-baseline tests, AST parse, actionlint,
+    diff check. Regenerated with the real package caches and external
+    notices, all 255 distribution files per archive match the round-18 x64,
+    classic-zlib x64 and ARM64 archives byte for byte (the earlier 231
+    excluded the package-cache and external notices), and all three pass the
+    verifier.
+- Next action: freeze round 20 for dual independent review; after a dual
+  `PASS`, commit on top of `ae1f590`, push and require fork CI to pass with
+  x64/ARM64 artifacts, then compare the CI core DLLs with round 18.

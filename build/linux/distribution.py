@@ -3,10 +3,14 @@
 
 from __future__ import annotations
 
+import hashlib
+import io
+import os
 import pathlib
 import posixpath
 import re
 import shutil
+import stat
 import subprocess
 import zipfile
 
@@ -102,6 +106,8 @@ RUNTIME_NOTICES = (
     ("LICENSE.TXT", "dotnet-LICENSE.txt"),
     ("THIRD-PARTY-NOTICES.TXT", "dotnet-THIRD-PARTY-NOTICES.txt"),
 )
+MAX_PACKAGE_BYTES = 256 * 1024 * 1024
+MAX_NOTICE_BYTES = 2 * 1024 * 1024
 
 
 def copy_tree(source: pathlib.Path, destination: pathlib.Path) -> None:
@@ -118,6 +124,8 @@ def add_distribution_files(
     nuget_root: pathlib.Path | None = None,
     external_notices: pathlib.Path | None = None,
 ) -> None:
+    if nuget_root is not None and rid is None:
+        raise ValueError("A runtime identifier is required to copy the .NET runtime notices.")
     write_text(
         root / "nx-infinity",
         "#!/bin/sh\nset -eu\nroot=$(CDPATH='' cd -- \"$(dirname -- \"$0\")\" && pwd -P)\n"
@@ -140,9 +148,8 @@ def add_distribution_files(
         write_text(root / destination, packaged_markdown(source, destination))
     copy_file(HERE / "NATIVE-DEPENDENCIES.json", root / "licenses/NATIVE-DEPENDENCIES.json")
     copy_file(HERE / "NOTICE-SOURCES.json", root / "licenses/native/NOTICE-SOURCES.json")
-    if nuget_root is not None:
-        copy_native_notices(root, nuget_root)
     if nuget_root is not None and rid is not None:
+        copy_native_notices(root, nuget_root)
         copy_runtime_notices(root, nuget_root, rid)
     copy_notice_directory(root)
     if external_notices is not None:
@@ -215,11 +222,18 @@ def packaged_location(repository_path: str) -> str | None:
 
 
 def copy_native_notices(root: pathlib.Path, nuget_root: pathlib.Path) -> None:
-    packages = {
-        key: verified_package(nuget_root, *key, expected) for key, expected in PACKAGE_HASHES.items()
-    }
+    members: dict[tuple[str, str], list[tuple[str, str]]] = {}
     for package_id, version, source, destination in NOTICE_SOURCES:
-        data = read_package_member(packages[(package_id, version)], source)
+        members.setdefault((package_id, version), []).append((source, destination))
+    unpinned = members.keys() - PACKAGE_HASHES.keys()
+    if unpinned:
+        raise ValueError(f"Notice source package is not pinned: {sorted(unpinned)}")
+    notices: dict[str, bytes] = {}
+    for (package_id, version), expected in PACKAGE_HASHES.items():
+        package = verified_package(nuget_root, package_id, version, expected)
+        for source, destination in members.get((package_id, version), ()):
+            notices[destination] = read_package_member(package, source)
+    for destination, data in notices.items():
         write_bytes(root / "licenses/native" / destination, data)
 
 
@@ -230,23 +244,38 @@ def copy_runtime_notices(root: pathlib.Path, nuget_root: pathlib.Path, rid: str)
     package = verified_package(
         nuget_root, f"microsoft.netcore.app.runtime.{rid}", RUNTIME_PACK_VERSION, RUNTIME_PACK_HASHES[rid]
     )
-    for source, destination in RUNTIME_NOTICES:
-        write_bytes(root / "licenses/native" / destination, read_package_member(package, source))
+    notices = [(destination, read_package_member(package, source)) for source, destination in RUNTIME_NOTICES]
+    for destination, data in notices:
+        write_bytes(root / "licenses/native" / destination, data)
 
 
-def verified_package(nuget_root: pathlib.Path, package_id: str, version: str, expected: str) -> pathlib.Path:
+def verified_package(nuget_root: pathlib.Path, package_id: str, version: str, expected: str) -> bytes:
+    """Return the package bytes that were hashed, so later reads cannot see a replaced file."""
     package = nuget_root / package_id / version / f"{package_id}.{version}.nupkg"
-    if package.is_symlink() or not package.is_file() or common.sha256_file(package) != expected:
-        raise ValueError(f"NuGet package identity mismatch: {package_id}/{version}")
-    return package
+    label = f"{package_id}/{version}"
+    try:
+        # O_NONBLOCK keeps a FIFO at the package path from blocking the open.
+        descriptor = os.open(package, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    except OSError as error:
+        raise ValueError(f"NuGet package is missing or a symbolic link: {label}") from error
+    if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+        os.close(descriptor)
+        raise ValueError(f"NuGet package is not a regular file: {label}")
+    with os.fdopen(descriptor, "rb") as stream:
+        data = stream.read(MAX_PACKAGE_BYTES + 1)
+    if len(data) > MAX_PACKAGE_BYTES:
+        raise ValueError(f"NuGet package exceeds the size bound: {label}")
+    if hashlib.sha256(data).hexdigest() != expected:
+        raise ValueError(f"NuGet package identity mismatch: {label}")
+    return data
 
 
-def read_package_member(package: pathlib.Path, name: str) -> bytes:
-    with zipfile.ZipFile(package) as archive:
+def read_package_member(package: bytes, name: str) -> bytes:
+    with zipfile.ZipFile(io.BytesIO(package)) as archive:
         matches = [item for item in archive.infolist() if item.filename == name]
         if len(matches) != 1 or matches[0].is_dir():
             raise ValueError(f"NuGet package notice is missing or ambiguous: {name}")
-        if matches[0].file_size > 2 * 1024 * 1024:
+        if matches[0].file_size > MAX_NOTICE_BYTES:
             raise ValueError(f"NuGet package notice exceeds the size bound: {name}")
         return archive.read(matches[0])
 

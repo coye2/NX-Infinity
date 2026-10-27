@@ -204,6 +204,8 @@ def build_inputs(args: argparse.Namespace) -> BuildInputs:
     require_file(inputs.core_dotnet, "Core dotnet executable")
     if not inputs.core_source.is_dir() or inputs.core_source.is_symlink():
         raise ValueError(f"Restored core source is unavailable: {inputs.core_source}")
+    require_pinned_sdk(inputs.dotnet, REPOSITORY / "src")
+    require_pinned_sdk(inputs.core_dotnet, inputs.core_source)
     if not inputs.notice_sources.is_dir() or inputs.notice_sources.is_symlink():
         raise ValueError(f"External notice sources are unavailable: {inputs.notice_sources}")
     if not inputs.ffmpeg_source.is_dir() or inputs.ffmpeg_source.is_symlink():
@@ -299,6 +301,33 @@ def checksum_destination(archive: pathlib.Path) -> pathlib.Path:
 def require_file(path: pathlib.Path, label: str) -> None:
     if not path.is_file() or path.is_symlink():
         raise ValueError(f"{label} is unavailable: {path}")
+
+
+def require_pinned_sdk(dotnet: pathlib.Path, project_root: pathlib.Path) -> str:
+    """Refuse any SDK other than the exact version that the project's global.json names.
+
+    The restored core's global.json allows rolling forward to a newer feature band, and a
+    shared dotnet root (as on CI runners) can hold one.
+    """
+    pin = project_root / "global.json"
+    if pin.is_symlink() or not pin.is_file():
+        raise ValueError(f"SDK pin is unavailable: {pin}")
+    sdk = common.strict_json(pin.read_bytes(), str(pin)).get("sdk")
+    expected = sdk.get("version") if isinstance(sdk, dict) else None
+    if not isinstance(expected, str) or not expected:
+        raise ValueError(f"SDK pin does not name a version: {pin}")
+    result = subprocess.run(
+        [str(dotnet), "--version"], cwd=project_root, check=False, capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        detail = (result.stderr.strip() or result.stdout.strip())[-2000:]
+        raise ValueError(
+            f"{dotnet} cannot resolve the SDK pinned by {pin} (exit {result.returncode}): {detail}"
+        )
+    resolved = result.stdout.strip()
+    if resolved != expected:
+        raise ValueError(f"{dotnet} resolves SDK {resolved!r} in {project_root}; {pin} pins {expected!r}.")
+    return resolved
 
 
 def enforce_required_nice(pid: int, label: str) -> None:

@@ -5,9 +5,8 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the post-commit runtime-notice fix. Commit and
-push stay blocked until both independent reviewers pass the new frozen
-snapshot.
+Verdict: self-audit PASS for the round-20 changes. Commit and push stay
+blocked until both independent reviewers pass the new frozen snapshot.
 
 ## Supply chain and security
 
@@ -479,8 +478,9 @@ same hash-checked reader as the other package notices. The license bytes are
 unchanged; the notice is now the runtime pack's (`66f1d4e4…`), and the policy
 pin moves to `9ec24efe…`. A new test requires the notices to come from each
 RID's pinned pack rather than a tampered extracted copy, and refuses a wrong
-pack hash or an unsupported RID. Because two packaged files change, the
-round-10 archives are superseded.
+pack hash or an unsupported RID. Three members of each archive change: the
+notice, the packaged dependency policy, and the build-manifest entries that
+bind them. The round-10 archives are therefore superseded.
 
 The round-18 window reassembled them with the unchanged round-10 driver from
 the same publish trees. The two x64 builds are byte-identical
@@ -489,3 +489,81 @@ the ARM64 archive is `2588a630…`. All four pass the verifier and carry the
 runtime pack's notice and their RID's pinned FFmpeg source. The Xvfb probe
 and both default-data starts around an install replacement pass, with the
 user-data marker unchanged.
+
+## Round-18 review and round 19
+
+Snapshot
+`fec13fa7c3cb1f20ac7a142cab492ad64bb360ad55d329c8f0d59aefb73e9877`
+received `PASS` from both reviewers at 100/100 and was committed as `ae1f590`.
+Its fork CI run passed both jobs and published both archives, which pass the
+local verifier. They differ from the round-18 archives in 15 members per
+RID:
+
+- the three runtime DLLs, which embed the built commit;
+- ten restored-core assemblies of the same size that differ through their
+  code. Seven name source-generator version `9.0.14.41315` on CI and
+  `9.0.11.2809` (the generators bundled with SDK 9.0.100) locally;
+  `Ryujinx.Graphics.Gpu`, `.Shader` and `.Texture` carry no generator version,
+  and the cause of their difference is not identified;
+- the two manifests, mainly because they record those hashes.
+  `backend.json` has no time field; `NX-LINUX-BUILD.json` also records CI's
+  own `sourceDateEpoch`.
+
+The hypothesis is that CI's core build rolled forward to a newer 9.0 SDK; a
+different compiler would also explain the three DLLs without a generator
+string. The next CI run tests it. (This paragraph was corrected in round 20;
+round 19 had attributed the difference to all ten DLLs' generator strings and
+to the manifests' timestamps.)
+
+Round 19 answers the reviewers' considerations without changing any packaged
+file:
+
+- The packager refuses a package cache without a RID before writing, and a
+  test proves the RID's .NET notices are written. Removing the `rid=`
+  argument in `package.py` was then caught by that run-time refusal, not by a
+  unit test; round 20 adds the unit test.
+- The NuGet reader opens each package once without following symlinks and
+  reads notices from the bytes it hashed. Native notices are written only
+  after every pinned package verifies, and an unpinned notice source fails.
+- Each dotnet must resolve exactly the SDK its `global.json` names. The
+  restored core's upstream pin allows rolling forward to a newer 9.0 feature
+  band, which a shared dotnet root could supply. CI now installs its SDKs
+  into a private directory and lists them.
+- The verifier's independent `10.0.13` literal and the policy's null
+  runtime-pack hash stay as they are: drift fails closed, and the pack is
+  already bound by its `.nupkg` hash, its ELF hashes and the `.deps.json`
+  graph.
+
+55 Linux and 15 source-baseline tests pass. The real package caches give all
+18 native notices per RID byte-identical to the round-18 archives.
+
+## Round-19 review and round 20
+
+Snapshot
+`cd76332188874e0d99650e092a788c2e37f234f80cfd1f9962012a0cf614546d`
+received `PASS` 100 from Reviewer B and `NEEDS CHANGES` 93.75 from
+Reviewer A, with two should-fix findings: a FIFO at a package path made
+`verified_package` block where round 18 had refused it, and the CI comparison
+above misattributed the manifest and three core-DLL differences (now
+corrected).
+
+Round 20 fixes both and every consider, again without changing a packaged
+file:
+
+- The package is opened with `O_NONBLOCK`, so a FIFO is refused; reads are
+  bounded at 256 MiB; missing or linked, non-regular and mismatched packages
+  get distinct messages.
+- The SDK check reports dotnet's own explanation when it refuses.
+- Tests now drive `build_inputs` with fake SDKs (wrong product SDK, swapped
+  SDKs and a rolled-forward core SDK are refused before any work directory
+  exists), check that `assemble_archive` passes the RID, package cache and
+  notices on, check that native notices are written too, and check that
+  nothing is written when a later package fails. A 14-mutation sweep over a
+  scratch copy catches every mutation.
+- The pinned setup-dotnet installs into `DOTNET_INSTALL_DIR` and exports it
+  as `DOTNET_ROOT` and on `PATH` (its `dist/setup/index.js`, lines
+  99471–99485), so CI's later steps use the private SDK folder.
+
+62 Linux and 15 source-baseline tests pass. Regenerated with the real package
+caches and external notices, all 255 distribution files per archive match the
+round-18 archives byte for byte.
