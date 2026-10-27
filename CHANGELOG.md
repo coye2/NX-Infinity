@@ -1,5 +1,10 @@
 # changelog
 
+## Unreleased
+
+- Restored the public launcher and core-host source and added a hash-checked process for reconstructing the v1 core from pinned Ryujinx and Kenji-NX inputs.
+- Added CI coverage for core reconstruction, core builds, host publishing and the protocol hello handshake. This does not add native Linux or Android release artifacts yet.
+
 ## Stable Release v1 — 1.0.0 — 26 October 2026
 
 - Backgrounds now use separate HD landscape metadata from Nintendo. Covers stay on game tiles. Missing artwork uses the theme, and downloaded backgrounds work offline.

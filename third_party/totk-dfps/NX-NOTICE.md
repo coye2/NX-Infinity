@@ -35,7 +35,7 @@ make -C third_party/totk-dfps -j2
 
 `DEVKITPRO` must point to the toolchain root and its `tools/bin` must be on PATH.
 Output is `deploy/DFPS++/exefs/{subsdk9,main.npdm}`. The launcher embeds base64
-copies under `launcher/NxInfinity/TimingModules/totk-100`, with SHA-256 values in its
-manifest. Both base64 files and manifest must be regenerated together after any
-module change. The complete source accompanies test distributions; original
+copies under `src/app/NxInfinity/TimingModules/totk-100`, with SHA-256 values in
+its manifest. Both base64 files and manifest must be regenerated together after
+any module change. The complete source accompanies test distributions; original
 upstream remains at <https://github.com/MaxLastBreath/TOTK-DFPS>.
