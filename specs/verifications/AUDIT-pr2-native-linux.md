@@ -5,7 +5,7 @@ context: native-linux-pr2
 
 # PR 2 code audit
 
-Verdict: self-audit PASS for the round-22 changes. Commit and push stay
+Verdict: self-audit PASS for the round-23 changes. Commit and push stay
 blocked until both independent reviewers pass the new frozen snapshot.
 
 ## Supply chain and security
@@ -625,5 +625,33 @@ Round 22 answers it and every consider without changing a packaged file:
 - A timed-out SDK query is reported as a refusal naming the pin.
 
 A 30-mutation sweep catches every mutation. 71 Linux and 15 source-baseline
+tests pass, and the 255 regenerated distribution files still match the
+round-18 archives.
+
+## Round-22 review, fork CI and round 23
+
+Snapshot
+`a408d4a3ff59f2198f63cdd5b967a4e5e2a18fafaa0a3c0d3f3af26b996e5f82`
+received `PASS` 95.7 from Reviewer A and `PASS` 100 from Reviewer B and was
+committed as `80bcb34`. Its fork CI run, the first with exclusive
+distribution writes, passed both jobs; against round 18, only the four
+commit-dependent members differ. Reviewer A's should-fix was a test gap: the
+collision test accepted any collision, and its second call collided on the
+icon first, so `write_text` could have gone back to overwriting unnoticed.
+
+Round 23 answers it and every consider without changing a packaged file:
+
+- Each collision refusal must name the exact file, starting with the
+  launcher written by `write_text`; a second test makes a package notice
+  clash with a runtime notice.
+- The reader must request exactly `MAX_PACKAGE_BYTES + 1` bytes, must close
+  every stream it opens, and must close its descriptor even when wrapping it
+  raises a non-`ValueError` or a `BaseException`.
+- A `dotnet` that cannot be executed is refused with a message naming the
+  pin.
+- The test alarm guard restores an outer pending timer as well as the
+  handler.
+
+A 37-mutation sweep catches every mutation. 75 Linux and 15 source-baseline
 tests pass, and the 255 regenerated distribution files still match the
 round-18 archives.

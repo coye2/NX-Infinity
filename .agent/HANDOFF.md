@@ -930,7 +930,12 @@ Earlier evidence, superseded for the archive identities by round 7:
   error; glibc-specific error text in the tests; a duplicate check narrower
   than the AUDIT claimed (runtime, repository and external notices could
   still overwrite one another); one 122-character README line; a duplicated
-  runtime-pack path in a test.
+  runtime-pack path in a test. Reviewer A further noted that the `[-4000:]`
+  tail truncation of the dotnet explanation was untested, that a timed-out
+  SDK query escaped as a raw `TimeoutExpired` rather than a refusal naming
+  the pin, and that a non-string `global.json` version was refused only by
+  accident (with a different message). (This sentence was added in round 23,
+  after the round-22 reviewers found it missing.)
 - Commit `b8191eafeb1191f80924dabcb92a938587e1a965` (index matched all 41
   reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
   to `fork/feat/native-linux-builds`. Fork CI run `40578928738` passed both
@@ -938,7 +943,7 @@ Earlier evidence, superseded for the archive identities by round 7:
   the local verifier passes both archives (813/40 and 811/39), and against
   round 18 the same four commit-dependent members differ per RID and no
   others.
-- Round 22 (uncommitted, not yet reviewed) answers the round-21 should-fix
+- Round 22 answers the round-21 should-fix
   and considers; no packaged file changes:
   - Tests: the file is replaced (`os.replace`) between the bounded read and
     the hash, so hashing a re-read, hashing the path with `sha256_file`, or
@@ -967,6 +972,64 @@ Earlier evidence, superseded for the archive identities by round 7:
     diff check; all 255 regenerated distribution files per archive match the
     round-18 x64, classic-zlib x64 and ARM64 archives byte for byte, and all
     three pass the verifier.
-- Next action: freeze round 22 for dual independent review; after a dual
-  `PASS`, commit on top of `b8191ea`, push and require fork CI to pass with
+- Review round 22: snapshot
+  `a408d4a3ff59f2198f63cdd5b967a4e5e2a18fafaa0a3c0d3f3af26b996e5f82`
+  (packet `pr2-round22-review-20261027-164443`). Reviewer A
+  (`ses_e80e41773ffeZebCZm2oxy5piU`) `PASS` 95.7 with one should-fix: the
+  collision test's second call collided first on the icon (`copy_file`) and
+  accepted any collision message, so `write_text` reverting to an
+  overwriting write survived. Reviewer B (`ses_e80e3f8ceffeUA3x4MsNAlX40T`)
+  `PASS` 100 with the same gap as a consider. Other considers: an unbounded
+  package read (`stream.read()`) survived; dropping `with stream:` survived
+  because the mismatch and oversize cases could not see the leak; the
+  collision test never passed a package cache, so a notice writer bypassing
+  `write_bytes` survived; narrowing `except BaseException` survived; a
+  `dotnet` that cannot be executed escaped as a raw `OSError`; the alarm
+  helper did not restore an outer pending timer; the round-21 review bullet
+  above omitted three considers; the one-read test depends on a single
+  `os.fdopen` and `read` (accepted by both as the only way to place the swap).
+- Commit `80bcb343d27c730249e5194523fe1af02b9ab2d4` (index matched all 41
+  reviewed hashes; staged diff byte-identical to the reviewed delta), pushed
+  to `fork/feat/native-linux-builds`. Fork CI run `40581833290`, the first
+  with exclusive distribution writes, passed both jobs; artifact
+  `nx-infinity-native-linux` downloads (x64 114,384,320 bytes, ARM64
+  108,916,902 bytes), its sidecars check, the local verifier passes both
+  archives (813/40 and 811/39), and against round 18 only the same four
+  commit-dependent members differ per RID.
+- Round 23 (uncommitted, not yet reviewed) answers the round-22 should-fix
+  and every consider; no packaged file changes (`distribution.py` is
+  untouched):
+  - `require_pinned_sdk` turns an `OSError` from running `dotnet` (for
+    example a file without execute permission) into a `ValueError` naming
+    the pin, like its other refusals.
+  - The collision test now requires each refusal to name the exact file:
+    the clashing external notice first, then the launcher `nx-infinity`
+    (written by `write_text`), whose bytes must be unchanged. A new test
+    passes a package cache whose native notice clashes with
+    `dotnet-LICENSE.txt` and requires the runtime notice to be refused.
+  - The package-limit test records the size the reader asks for and
+    requires exactly `MAX_PACKAGE_BYTES + 1`.
+  - The descriptor test records every stream `os.fdopen` returns and
+    requires both (identity mismatch and oversize) to be closed. A new test
+    makes `os.fdopen` raise `OSError` and `KeyboardInterrupt` and requires
+    the descriptor count to be unchanged, which pins `except BaseException`.
+  - `fails_instead_of_blocking` uses `setitimer` and restores an outer
+    pending timer (less the time spent) as well as the handler; a new test
+    covers both the restore and the guard firing.
+  - The round-21 review bullet now lists the three omitted considers.
+  - Kept as is, with a reason: the one-read test's dependence on one
+    `os.fdopen` and one `read` call. It is the only way to replace the file
+    between the read and the hash, and its `assertEqual(replaced, …)` check
+    makes it fail loudly, never pass falsely, if a refactor reads otherwise.
+  - Mutation sweep (`round23-mutation/mutate.py`): all 37 mutations are
+    caught, the 30 of round 22 plus `write_text` overwriting, native notices
+    bypassing `write_bytes`, an unbounded read, no `with stream:`, `except
+    ValueError` and `except Exception` for the descriptor close, and an
+    unwrapped `OSError` from `dotnet`.
+  - Checks: 75 Linux and 15 source-baseline tests, AST parse, actionlint,
+    diff check; all 255 regenerated distribution files per archive match the
+    round-18 x64, classic-zlib x64 and ARM64 archives byte for byte, and all
+    three pass the verifier.
+- Next action: freeze round 23 for dual independent review; after a dual
+  `PASS`, commit on top of `80bcb34`, push and require fork CI to pass with
   x64/ARM64 artifacts.

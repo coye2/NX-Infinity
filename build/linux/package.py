@@ -330,6 +330,8 @@ def require_pinned_sdk(dotnet: pathlib.Path, project_root: pathlib.Path) -> str:
         raise ValueError(
             f"{dotnet} did not report the SDK pinned by {pin} within {SDK_QUERY_TIMEOUT_SECONDS} s."
         ) from error
+    except OSError as error:
+        raise ValueError(f"{dotnet} cannot be run to check the SDK pinned by {pin}: {error.strerror}") from error
     if result.returncode != 0:
         detail = "\n".join(part for part in (result.stderr.strip(), result.stdout.strip()) if part)[-4000:]
         raise ValueError(
