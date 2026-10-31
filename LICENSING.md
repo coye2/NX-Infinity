@@ -1,6 +1,6 @@
 # licenses
 
-Original NX Infinity code uses the [MIT license](LICENSE), unless a file says otherwise. Ryujinx and Kenji-NX retain their [MIT copyright and license](licenses/Ryujinx-MIT.txt), and Dune retains its [original notice](licenses/Dune-MIT.txt).
+Original NX Infinity code uses the [MIT license](LICENSE), unless a file says otherwise. Ryujinx retains its [MIT copyright and license](licenses/Ryujinx-Team-MIT.txt), Kenji-NX retains its [MIT copyright and license](licenses/Ryujinx-MIT.txt), and Dune retains its [original notice](licenses/Dune-MIT.txt).
 
 Dependencies have their own licenses. The download includes their notices alongside the application. The separate TOTK Dynamic FPS module uses GPL-2.0; its corresponding source and build files are in [third_party/totk-dfps](third_party/totk-dfps/).
 

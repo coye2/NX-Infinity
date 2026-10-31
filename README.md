@@ -30,6 +30,10 @@ The release includes SHA-256 checksums, an audit receipt and Defender scan resul
 
 MP4 still stutters. Proton installation, reinstall and save-prefix preservation were checked under Ubuntu WSL; Linux desktop gameplay, controller input and audio still need testing. Physical 3D All-Stars touch controls also need more testing. [Test notes](docs/testing.md) have the details.
 
+## build from source
+
+The launcher and core host source are included. The emulator core is restored from pinned public Ryujinx and Kenji-NX inputs, with every exact file checked against the v1 release source manifest. [Source baseline instructions](build/source-baseline/README.md) document the inputs, reconstruction boundary and build commands.
+
 ## the people behind it
 
 **COYE / coye2** — development.

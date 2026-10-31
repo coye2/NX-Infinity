@@ -2,7 +2,7 @@
 
 | Component | Credit and license |
 | --- | --- |
-| Ryujinx / Kenji-NX | [Original MIT notice](licenses/Ryujinx-MIT.txt) and [component notices](licenses/Ryujinx-third-party.md) |
+| Ryujinx / Kenji-NX | [Ryujinx MIT notice](licenses/Ryujinx-Team-MIT.txt), [Kenji-NX MIT notice](licenses/Ryujinx-MIT.txt), and [component notices](licenses/Ryujinx-third-party.md) |
 | Dune by sakasakiking | [MIT notice](licenses/Dune-MIT.txt) |
 | Avalonia, SkiaSharp, HarfBuzzSharp, Inter and .NET | Original notices in the download's licenses folder |
 | SDL, OpenAL Soft, FFmpeg and Shaderc | Original component notices included in the download; OpenAL and FFmpeg retain their LGPL terms |
